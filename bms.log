@@ -1,0 +1,124 @@
+2018-10-12-main-INFO -com.cg.bms.presentation.BMSMain:log4j conffigred..
+2018-10-12-main-INFO -com.cg.bms.presentation.BMSMain:log4j conffigred..
+2018-10-12-main-INFO -com.cg.bms.presentation.BMSMain:invalid option  selected..
+2018-10-12-main-INFO -com.cg.bms.presentation.BMSMain:log4j conffigred..
+2018-10-12-main-INFO -com.cg.bms.presentation.BMSMain:log4j conffigred..
+2018-10-12-main-INFO -com.cg.bms.presentation.BMSMain:log4j conffigred..
+2018-10-12-main-INFO -com.cg.bms.presentation.BMSMain:invalid option  selected..
+2018-10-12-main-INFO -com.cg.bms.presentation.BMSMain:log4j conffigred..
+2018-10-12-main-INFO -com.cg.bms.presentation.BMSMain:invalid option  selected..
+2018-10-12-main-INFO -com.cg.bms.presentation.BMSMain:log4j conffigred..
+2018-10-12-main-INFO -com.cg.bms.presentation.BMSMain:invalid option  selected..
+2018-10-12-main-INFO -com.cg.bms.presentation.BMSMain:log4j conffigred..
+2018-10-12-main-INFO -com.cg.bms.presentation.BMSMain:invalid option  selected..
+2018-10-12-main-INFO -com.cg.bms.presentation.BMSMain:log4j conffigred..
+2018-10-12-main-INFO -com.cg.bms.presentation.BMSMain:log4j conffigred..
+2018-10-12-main-INFO -com.cg.bms.presentation.BMSMain:log4j conffigred..
+2018-10-12-main-INFO -com.cg.bms.presentation.BMSMain:log4j conffigred..
+2018-10-12-main-INFO -com.cg.bms.presentation.BMSMain:log4j conffigred..
+2018-10-12-main-INFO -com.cg.bms.presentation.BMSMain:selected option is: 1
+2018-10-12-main-INFO -com.cg.bms.presentation.BMSMain:account object created..com.cg.bms.model.Account@4f3f5b24
+2018-10-12-main-INFO -com.cg.bms.presentation.BMSMain:log4j conffigred..
+2018-10-12-main-INFO -com.cg.bms.presentation.BMSMain:selected option is: 7
+2018-10-12-main-INFO -com.cg.bms.presentation.BMSMain:invalid option  selected..
+2018-10-12-main-INFO -com.cg.bms.presentation.BMSMain:log4j conffigred..
+2018-10-12-main-ERROR-com.cg.bms.presentation.BMSMain:User entered invalid option 
+2018-10-12-main-INFO -com.cg.bms.presentation.BMSMain:log4j conffigred..
+2018-10-12-main-INFO -com.cg.bms.presentation.BMSMain:selected option is: 1
+2018-10-12-main-INFO -com.cg.bms.presentation.BMSMain:account object created..com.cg.bms.model.Account@4f3f5b24
+2018-10-12-main-INFO -com.cg.bms.service.AccountServiceImpl:in validation account method.
+2018-10-12-main-INFO -com.cg.bms.service.AccountServiceImpl:in name validation method
+2018-10-12-main-INFO -com.cg.bms.service.AccountServiceImpl:in balance validation method
+2018-10-12-main-INFO -com.cg.bms.service.AccountServiceImpl:in date validation method..
+2018-10-12-main-INFO -com.cg.bms.presentation.BMSMain:log4j conffigred..
+2018-10-12-main-INFO -com.cg.bms.presentation.BMSMain:selected option is: 1
+2018-10-12-main-INFO -com.cg.bms.presentation.BMSMain:account object created..com.cg.bms.model.Account@15aeb7ab
+2018-10-12-main-INFO -com.cg.bms.service.AccountServiceImpl:in validation account method.
+2018-10-12-main-INFO -com.cg.bms.service.AccountServiceImpl:in name validation method
+2018-10-12-main-INFO -com.cg.bms.service.AccountServiceImpl:in balance validation method
+2018-10-12-main-INFO -com.cg.bms.service.AccountServiceImpl:in date validation method..
+2018-10-12-main-INFO -com.cg.bms.presentation.BMSMain:log4j conffigred..
+2018-10-12-main-INFO -com.cg.bms.presentation.BMSMain:selected option is: 1
+2018-10-12-main-INFO -com.cg.bms.presentation.BMSMain:account object created..com.cg.bms.model.Account@15aeb7ab
+2018-10-12-main-INFO -com.cg.bms.service.AccountServiceImpl:in validation account method.
+2018-10-12-main-INFO -com.cg.bms.service.AccountServiceImpl:in name validation method
+2018-10-12-main-INFO -com.cg.bms.service.AccountServiceImpl:in balance validation method
+2018-10-12-main-INFO -com.cg.bms.service.AccountServiceImpl:in date validation method..
+2018-10-12-main-INFO -com.cg.bms.presentation.BMSMain:log4j conffigred..
+2018-10-12-main-INFO -com.cg.bms.presentation.BMSMain:selected option is: 1
+2018-10-12-main-INFO -com.cg.bms.presentation.BMSMain:account object created..com.cg.bms.model.Account@15aeb7ab
+2018-10-12-main-INFO -com.cg.bms.service.AccountServiceImpl:in validation account method.
+2018-10-12-main-INFO -com.cg.bms.service.AccountServiceImpl:in name validation method
+2018-10-12-main-INFO -com.cg.bms.service.AccountServiceImpl:in balance validation method
+2018-10-12-main-INFO -com.cg.bms.service.AccountServiceImpl:in date validation method..
+2018-10-12-main-INFO -com.cg.bms.presentation.BMSMain:log4j conffigred..
+2018-10-12-main-INFO -com.cg.bms.presentation.BMSMain:selected option is: 1
+2018-10-12-main-INFO -com.cg.bms.presentation.BMSMain:account object created..com.cg.bms.model.Account@4f3f5b24
+2018-10-12-main-INFO -com.cg.bms.service.AccountServiceImpl:in validation account method.
+2018-10-12-main-INFO -com.cg.bms.service.AccountServiceImpl:in name validation method
+2018-10-12-main-INFO -com.cg.bms.service.AccountServiceImpl:in balance validation method
+2018-10-12-main-INFO -com.cg.bms.service.AccountServiceImpl:in date validation method..
+2018-10-12-main-INFO -com.cg.bms.service.AccountServiceImpl:in account service class.
+2018-10-12-main-INFO -com.cg.bms.dao.AccountDAoImpl:connection established..
+2018-10-12-main-INFO -com.cg.bms.dao.AccountDAoImpl:connection established..
+2018-10-12-main-INFO -com.cg.bms.dao.AccountDAoImpl:connection established..
+2018-10-12-main-INFO -com.cg.bms.dao.AccountDAoImpl:connection established..
+2018-10-12-main-INFO -com.cg.bms.dao.AccountDAoImpl:connection established..
+2018-10-12-main-INFO -com.cg.bms.dao.AccountDAoImpl:connection established..
+2018-10-12-main-INFO -com.cg.bms.dao.AccountDAoImpl:connection established..
+2018-10-12-main-INFO -com.cg.bms.dao.AccountDAoImpl:connection established..
+2018-10-13-main-INFO -com.cg.bms.presentation.BMSMain:log4j conffigred..
+2018-10-13-main-INFO -com.cg.bms.presentation.BMSMain:selected option is: 1
+2018-10-13-main-INFO -com.cg.bms.presentation.BMSMain:account object created..com.cg.bms.model.Account@4f3f5b24
+2018-10-13-main-INFO -com.cg.bms.service.AccountServiceImpl:in validation account method.
+2018-10-13-main-INFO -com.cg.bms.service.AccountServiceImpl:in name validation method
+2018-10-13-main-INFO -com.cg.bms.service.AccountServiceImpl:in balance validation method
+2018-10-13-main-INFO -com.cg.bms.service.AccountServiceImpl:in date validation method..
+2018-10-13-main-INFO -com.cg.bms.service.AccountServiceImpl:in account service class.
+2018-10-13-main-INFO -com.cg.bms.dao.AccountDAoImpl:connection established..
+2018-11-02-main-INFO -com.cg.bms.presentation.BMSMain:log4j conffigred..
+2018-11-02-main-INFO -com.cg.bms.presentation.BMSMain:selected option is: 1
+2018-11-02-main-INFO -com.cg.bms.presentation.BMSMain:account object created..com.cg.bms.model.Account@2d98a335
+2018-11-02-main-INFO -com.cg.bms.service.AccountServiceImpl:in validation account method.
+2018-11-02-main-INFO -com.cg.bms.service.AccountServiceImpl:in name validation method
+2018-11-02-main-INFO -com.cg.bms.service.AccountServiceImpl:in balance validation method
+2018-11-02-main-INFO -com.cg.bms.service.AccountServiceImpl:in date validation method..
+2018-11-02-main-INFO -com.cg.bms.presentation.BMSMain:log4j conffigred..
+2018-11-02-main-INFO -com.cg.bms.presentation.BMSMain:selected option is: 1
+2018-11-02-main-INFO -com.cg.bms.presentation.BMSMain:account object created..com.cg.bms.model.Account@2d98a335
+2018-11-02-main-INFO -com.cg.bms.service.AccountServiceImpl:in validation account method.
+2018-11-02-main-INFO -com.cg.bms.service.AccountServiceImpl:in name validation method
+2018-11-02-main-INFO -com.cg.bms.service.AccountServiceImpl:in balance validation method
+2018-11-02-main-INFO -com.cg.bms.service.AccountServiceImpl:in date validation method..
+2018-11-02-main-INFO -com.cg.bms.service.AccountServiceImpl:in account service class.
+2018-11-04-main-INFO -com.cg.bms.presentation.BMSMain:log4j conffigred..
+2018-11-04-main-INFO -com.cg.bms.presentation.BMSMain:selected option is: 1
+2018-11-04-main-INFO -com.cg.bms.presentation.BMSMain:account object created..com.cg.bms.model.Account@2d98a335
+2018-11-04-main-INFO -com.cg.bms.service.AccountServiceImpl:in validation account method.
+2018-11-04-main-INFO -com.cg.bms.service.AccountServiceImpl:in name validation method
+2018-11-04-main-INFO -com.cg.bms.service.AccountServiceImpl:in balance validation method
+2018-11-04-main-INFO -com.cg.bms.service.AccountServiceImpl:in date validation method..
+2018-11-04-main-INFO -com.cg.bms.presentation.BMSMain:log4j conffigred..
+2018-11-04-main-INFO -com.cg.bms.presentation.BMSMain:log4j conffigred..
+2018-11-04-main-INFO -com.cg.bms.presentation.BMSMain:selected option is: 1
+2018-11-04-main-INFO -com.cg.bms.presentation.BMSMain:log4j conffigred..
+2018-11-04-main-INFO -com.cg.bms.presentation.BMSMain:selected option is: 1
+2018-11-04-main-INFO -com.cg.bms.presentation.BMSMain:account object created..com.cg.bms.model.Account@2d98a335
+2018-11-04-main-INFO -com.cg.bms.service.AccountServiceImpl:in validation account method.
+2018-11-04-main-INFO -com.cg.bms.service.AccountServiceImpl:in name validation method
+2018-11-04-main-INFO -com.cg.bms.service.AccountServiceImpl:in balance validation method
+2018-11-04-main-INFO -com.cg.bms.service.AccountServiceImpl:in date validation method..
+2018-11-04-main-INFO -com.cg.bms.presentation.BMSMain:log4j conffigred..
+2018-11-04-main-INFO -com.cg.bms.presentation.BMSMain:selected option is: 1
+2018-11-04-main-INFO -com.cg.bms.presentation.BMSMain:account object created..com.cg.bms.model.Account@23faf8f2
+2018-11-04-main-INFO -com.cg.bms.service.AccountServiceImpl:in validation account method.
+2018-11-04-main-INFO -com.cg.bms.service.AccountServiceImpl:in name validation method
+2018-11-04-main-INFO -com.cg.bms.service.AccountServiceImpl:in balance validation method
+2018-11-04-main-INFO -com.cg.bms.service.AccountServiceImpl:in date validation method..
+2018-11-04-main-INFO -com.cg.bms.service.AccountServiceImpl:in account service class.
+2018-11-04-main-INFO -com.cg.bms.presentation.BMSMain:log4j conffigred..
+2018-11-04-main-INFO -com.cg.bms.presentation.BMSMain:selected option is: 1
+2018-11-04-main-ERROR-com.cg.bms.presentation.BMSMain:entered amount is not correct..
+2018-11-04-main-INFO -com.cg.bms.presentation.BMSMain:log4j conffigred..
+2018-11-04-main-INFO -com.cg.bms.presentation.BMSMain:selected option is: 1
+2018-11-04-main-INFO -com.cg.bms.presentation.BMSMain:log4j conffigred..
