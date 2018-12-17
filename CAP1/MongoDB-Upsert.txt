@@ -1,0 +1,22 @@
+Upsert option set for update
+> db.car.update(
+    { name: "Qualis" },
+    {
+       name: "Qualis",
+       speed: 50
+    },
+    { upsert: true }
+ )
+
+Exists operator set to true
+>db.car.find({ regno:{ $exists:true}})
+
+Exists operator set to true and selection criteria specified
+>db.car.find({ speed:{ $exists:true , $gt:80 }})
+
+Exists operator set to false
+>db.car.find( { mfdcountry: { $exists:false}})
+
+Retrieve documents having null values
+>db.car.find( { speed: { $exists:true } })
+

@@ -1,0 +1,213 @@
+MongoDB comparison key words 	Description
+$gt 				Greater than
+$lt 				Less than
+$gte 				Greater than or equal to
+$lte 				Less than or equal to
+$ne 				Not equal
+
+Or using JavaScript Notation
+db.persons.find("this.age > 18");
+
+MongoDB Contains
+
+Contain all (Match all)
+
+db.persons.find( { hobbies: { $all: [ "music", "sports" ] } } )
+
+Contain any (Match any)
+
+db.persons.find( { hobbies: { $in: [ "music", "biking" ] } } )
+
+db.persons.find( { name: { $in: [ "Dave Jones", "Paul Roberts" ] } } )
+
+Not in (opposite of $in)
+
+db.persons.find( { hobbies: { $nin: [ "music", "biking" ] } } )
+
+Logical operator
+
+MongoDB Or condition
+
+db.persons.find( { $or : [ { name : "Dave Jones" } , { age : 32 } ] } )
+
+MongoDB Nor condition
+db.persons.find( { $nor : [ { name : "Dave Jones" } , { age : 32 } ] } )
+
+MongoDB Not condition
+db.persons.find( { $not: {$or : [ { name : "Dave Jones" } , { age : 32 } ] }} )
+
+MongoDB Find by Regular Expression
+Find by using regular expression
+db.persons.find( { name : /dav.*jones/i } );
+
+Find any name started with dav
+db.persons.find( { name : /^dav/ } );
+
+Use $regex if mixed with other conditional clause
+
+db.customers.find( { name : { $regex : //dav.*jones/i, $nin : ['Davids Jones'] } } );
+
+Check Presence of a MongoDB Field
+Return document if age is present or not
+db.persons.find( { age : { $exists : false } } )
+db.persons.find( { age : { $exists : true } } )
+
+The above query will not use index since index does not contain documents having null in the specific field
+Misc Query
+
+The array contains exact nth elements
+db.persons.find( {notes  : { $size: 2 } } );
+
+Find the type of a field
+db.persons.find( { f1 : { $type : 16 } } )   // matches if it is an int
+
+Use MongoDB Cursors to Loop Through MongoDB documents
+
+Looping the returned documents
+
+> db.stores.find({age:3}).forEach(printjson)
+{ "_id" : ObjectId("4db79dd667adf63d36d0c20d"), "age" : 3 }
+
+Iterate through a cursor
+for( var cursor = db.persons.find(); cursor.hasNext(); ) {
+   print( cursor.next());
+}
+
+var cursor = db.stores.find();
+cursor.forEach( function(x) { print(tojson(x))})
+
+Count the documents returned taking effect of skip and limit clause
+
+db.persons.find().skip(5).limit(10).count(true);
+
+Select Specific Field to Return
+
+Only return specific fields in a MongoDB document
+
+    Display only the hobbies, name & notes.title field
+
+    > db.persons.find({"name": "Dave Jones"}, {"hobbies" : 1, "name" : 1, "notes.title" : 1})
+    { "_id" : ObjectId("4db8b0524f0b495c3a7dbba4"), "name" : "Dave Jones",
+    "hobbies" : [ "music", "sports" ], "notes" : [ { "title" : "reminder" }, { "title" : "to do" } ] }
+
+Do NOT Display some specific MongoDB fields hobbies
+
+> db.persons.find({"name": "Dave Jones"}, {"hobbies" : 0})
+{ "_id" : ObjectId("4db8b0524f0b495c3a7dbba4"), "name" : "Dave Jones", "created" : ISODate("2010-01-01T00:00:00Z"),
+"notes" : [
+        {
+                "title" : "reminder",
+                "content" : "Do grocery"
+        },
+        {
+                "title" : "to do",
+                "content" : "Laundary"
+        }
+] }
+
+Select the first nth documents in a MongoDB array
+
+> db.persons.find({}, {notes:{$slice: 2}})
+{ "_id" : ObjectId("4db8b0524f0b495c3a7dbba4"), "name" : "Dave Jones", "created" : ISODate("2010-01-01T00:00:00Z"),
+"hobbies" : [ "music", "sports" ], "notes" : [
+        {
+                "title" : "reminder",
+                "content" : "Do grocery"
+        },
+        {
+                "title" : "to do",
+                "content" : "Laundary"
+        }
+] }
+
+Select the last nth documents in a MongoDB array
+
+> db.persons.find({}, {notes:{$slice: -1}})
+{ "_id" : ObjectId("4db8b0524f0b495c3a7dbba4"), "name" : "Dave Jones", "created" : ISODate("2010-01-01T00:00:00Z"),
+"hobbies" : [ "music", "sports" ], "notes" : [ { "title" : "to do", "content" : "Laundary" } ] }
+>
+
+MongoDB Skip & Limit Return Result
+
+Return a max of 2 documents
+db.stores.find().limit(2)
+
+Get 10 documents but skip the first 20
+db.stores.find().skip(20).limit(10);
+
+Skip first 5 and limit 10 MongoDB documents
+db.persons.find({}, {notes:{$slice: [5, 10]}})
+
+Skip last 5 and limit 10
+db.persons.find({}, {notes:{$slice: [-5, 10]}})
+
+MongoDB Sorting
+
+Sort in ascending order
+db.persons.find().sort({name: 1});
+
+Sort in descending order
+db.persons.find().sort({name: -1});
+
+Sort with multiple keys
+db.persons.sort({name : 1, age : -1})
+
+Sort in reverse natural order. For capped association, the latest insert documents will show up first
+db.persons.find().sort({$natural:-1})
+
+find Query
+
+db.persons.find( { name : "Dave Jones"} ).sort({name:1})
+
+can also re-written as
+db.persons.find( { $query : { name : "Dave Jones" }, $orderby : { name : 1 } } )
+
+Parameters
+
+    $query - the query string
+    $orderby - sort by
+    $hint - query hint
+    $explain - If true, return execution plan instead of the query
+    $snapshot - if true, snapshot mode
+
+Special Operations
+Only return the keys contained in the index
+db.persons.find()._addSpecial("$returnKey" , true )
+
+Limit the max number of documents to scan:
+db.foo.find()._addSpecial( "$maxScan" , 10 )
+
+MongoDB Range Query
+db.persons.find().min({name:"john"}}.max({name:"mary"})
+
+An index for name must exist
+MongoDB Aggregate Functions
+
+Count the documents returned
+db.stores.find({age:21}).count
+
+    To speed up the count, add an index on age
+
+Return distinct documents only
+db.stores.distinct("name")
+
+Use distinct with other conditions
+db.stores.distinct("name", {age : 21})
+
+MongoDB Group
+Group by
+
+db.test.group(
+   { cond: {"name": "Dave Jones"}}
+   , key: {age: true}
+   , initial: {count: 0}
+   , reduce: function(doc, out){ ... }
+   , finalize: function(out){ .... }
+   } );
+
+key 	Group by the key field
+reduce 	Reduce function
+initial 	Initial value
+cond 	Query condition
+finalize 	Aggregate function
+

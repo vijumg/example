@@ -1,0 +1,17 @@
+
+
+Natural Ordering of MongoDB sort
+
+The $natural parameter returns all the documents in the order they exist in the database. This ordering basically depicts the order in which the records are inserted except in the conditions where the documents relocate due to update or remove operations.
+
+>db.car.find().sort( { $natural: 1 })
+
+>db.car.find().sort({speed:-1,name:1})
+
+>db.car.find().sort({name:1})
+
+Limit the results of MongoDB sort operation
+>db.car.find().sort( {speed:-1,name:1 }).limit(10)
+
+Specifying Projection fields
+>db.car.find({speed: { $gt:14}},{name:1,speed:1}).sort({"speed":-1})

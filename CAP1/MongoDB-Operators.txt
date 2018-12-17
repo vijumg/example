@@ -1,0 +1,36 @@
+Query Operators
+Name		Description
+$eq		Matches value that are equal to a specified value
+$gt, $gte		Matchesvalues that are greater than (or equal to a specified value
+$lt,$lte		Matches values lessthanor ( equal to ) a specified value
+$ne		Matchesvalues that are not equal to a specified value
+$in		Matches anyof the values specified in an array
+$nin		Matchesnone of the values specified in an array
+$or		Joins query clauses with a logical OR returns all
+$and		Join query clauses with a loginalAND
+$not		Inverts the effect of a query expression
+$nor		Joinquery clauses with a logical NOR
+$exists		Matches documents that have a specified field 33
+
+Operator	Description					Sample-Query
+$gt	greater than					db.ships.find({class:{$gt:’P’}})
+$gte	greater than or equal				db.ships.find({class:{$gte:’P’}})
+$lt	less than						db.ships.find({class:{$lt:’P’}})
+$lte	less than or equal					db.ships.find({class:{$lte:’P’}})
+$exists	does an attribute exists or not				db.ships.find({type:{$exists:true}})
+$regex	Perl-style pattern matching				db.ships.find({name : {$regex:’^USS\\sE’}})
+$type	search by the type of a certain element in the document	db.ships.find({name : {$type:2}})
+
+
+The following table gives an overview on how operations are mapped from SQL to MongoDB.
+SQL		MongoDB
+WHERE		$match
+GROUP BY	$group
+HAVING		$match
+SELECT		$project
+ORDER BY	$sort
+LIMIT		$limit
+SUM		$sum
+COUNT()		$sum
+JOIN		This cannot be directly matched as the whole concpet of joining does not exist as such in MongoDB.
+		The “$unwind” operator is maybe the closest match here, because in MongoDB the data is usually pre-joined and this will 		create individual documents again (from an array).

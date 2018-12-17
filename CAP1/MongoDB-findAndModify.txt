@@ -1,0 +1,220 @@
+file:///H:/MongoDB/MongoDB%20findAndModify()%20example%20-%20JournalDev.html
+
+MongoDB findAndModify() method modifies and returns a single document based upon the selection criteria entered. The returned document does not show the updated content by default. If the records matching the criteria does not exist in the database, a new record will be inserted if the upsert is set to true.
+
+MongoDB findAndModify()
+
+db.collection.findAndModify({
+    query: <document>,
+    sort: <document>,
+    new: <boolean>,
+    fields: <document>,
+    upsert: <boolean>
+})
+
+The description of the parameters are as follows.
+
+query: Defines the selection criteria as to which record needs modification.
+
+sort: Determines which document should be modified when the selection criteria retrieves multiple documents.
+
+new: indicates that the modified document will be displayed.
+
+fields: specifies the set of fields to be returned.
+
+upsert: creates a new document if the selection criteria fails to retrieve a document
+
+MongoDB findAndModify important points
+
+Some of the things to keep in mind while using the findAndModify MongoDB calls are:
+
+    If the entered selection criteria does not fetch any document and if upsert is set to true, then the specified values are inserted and a new document is created.
+    If the entered selection criteria does not fetch any document while performing update or remove operations, the output returned is null.
+    If the new option is set to false and sort operation is not mentioned, the output returned is null.
+    If the new option is set to false and sort operation is specified, the output is empty.
+
+> db.car.insert(
+[
+{ _id: 1, name: "Alto", color: "Red",cno: "H410",speed:40,mfdcountry: "India"},
+{ _id: 2, name: "Polo", color: "White",cno: "H411",speed:45,mfdcountry: "Japan" },
+{ _id: 3, name: "Audi", color: "Black",cno: "H412",speed:50,mfdcountry: "Germany" }
+]
+)
+
+> db.car.find()
+
+Case 1: The document exists in the database
+db.car.findAndModify({
+query: { name: "Alto" },
+sort: { cno: 1 },
+update: { $inc: { speed: 10 } },
+})
+
+The query finds a document in the car collection where the name field has the value Alto.
+The sort orders the results of the query in ascending order. If multiple documents meet the query condition, the method will select for modification the first document as ordered by this sort.
+The update increments the value of the speed field by 10.
+The method returns the original document selected for this update
+
+Case 2: The new option set to true (returns the updated data set)
+
+> db.car.findAndModify({
+query: { name: "HondaCity", color: "Silver", cno:"H415" ,speed: 25 },
+sort: { cno: 1 },
+update: { $inc: { speed: 20 } },
+upsert: true,
+new: true
+})
+
+Case 3: The upsert is set to true
+
+> db.car.findAndModify({
+query: { name: "WagonR" },
+sort: { cno: 1 },
+update: { $inc: { speed: 5 } },
+upsert: true
+})
+
+If the remove field is set to true, the car name with the specified criteria will be removed from the database.
+
+> db.car.findAndModify(
+{
+query: { name: "Alto" },
+sort: { cno: 1 },
+remove: true
+}
+)
+
+*****************
+
+MongoDB findOne() method returns only one document that satisfies the criteria entered. If the criteria entered matches for more than one document, the method returns only one document according to natural ordering, which reflects the order in which the documents are stored in the database.
+
+db.collection.findOne(<criteria>, <projection>)
+
+criteria – specifies the selection criteria entered.
+
+projection – specifies the list of fields to be displayed in the returned document.
+
+Few important points about MongoDB findOne:
+
+    The projection parameter accepts the boolean values of 1 or true , 0 or false. If the projection fields are not specified, all the fields will be retrieved.
+    MongoDB findOne() always includes the _id field even if not specified explicitly in the projection parameter unless it is excluded.
+    MongoDB findOne() returns only a document but not a cursor.
+
+db.car.findOne()
+
+MongoDB findOne – Query specification
+This MongoDB findOne operation returns the first matching document from the specified collection along with the selection criteria entered.
+
+>db.car.findOne(
+ {
+ $or:[
+ {name:"Zen"},
+ {speed: {$gt:60}}  ]
+ }
+ )
+
+Projection in MongoDB findOne()
+The projection parameter is also applicable for MongoDB findOne method. Let’s look at some scenarios where we can use projection in findOne.
+
+>db.car.findOne( { }, {name:1,color:1} )
+
+MongoDB findOne – return all the fields except the excluded one
+
+This operation retrieves the first document excluding the fields specified in the selection criteria.
+
+>db.car.findOne( { name:"Volkswagen" }, {_id:0, mfdcountry:0,cno:0 } )
+
+MongoDB findOne result document
+
+Cursor methods will not work in this operation as the method returns only a single document. In order to print the individual field values from the document, we can use the below code.
+
+>var car = db.car.findOne(); 
+> if (car) {var carName = car.name; print (tojson(carName));}
+
+**************
+MongoDB find()
+There are two ways to find an item from the MongoDB database. One is through MongoDB find method and the other is through findOne method. Let’s go through find() method first from the shell and later through a Java program
+
+MongoDB find()
+
+MongoDB find method fetches the document in a collection and returns the cursor for the documents matching the criteria requested by the user.
+
+The syntax for mongodb find() method is as follows db.collection.find(<criteria>,<projection>).
+criteria: field specifies the selection criteria entered by the user.
+projection: specifies the fields returned using projection operators.
+
+    $: first element that matches the condition.
+    $elemMatch: first element that matches the criteria specified in elem condition.
+    $slice: limits the number of elements in an array.
+    $meta: document score assigned during text operation. If the projection argument is specified then the cursor returns only projection field and _id field. The _id field can be excluded. By default the first 20 documents will be displayed. The syntax for projection parameter is { field1: <boolean>, field2: <boolean> … }The boolean values can be 0 or false to exclude the field and 1 or true to include the field. Let us now look at the various ways of putting this into use.
+
+MongoDB find – finding all the documents in the collection
+> db.car.find()
+
+MongoDB find – fetching the documents that match the given query criteria
+> db.car.find( { speed: { $gt:50 } })
+
+MongoDB find – fetching based on equality of documents
+> db.car.find( { _id: 3} )
+
+MongoDB find – fetching document using multiple matching criteria as Query operators
+> db.car.find({_id:{ $in: [3,2]} }).
+
+MongoDB find – fetching the document using range operators
+> db.car.find( { speed: {$gt:40, $lt:65}})
+
+MongoDB find projection
+
+MongoDB projections are nothing but the fields that we wish to display as a part of the output. There are multiple usages here too.
+mongoDB find projection – specifying the fields
+
+This operation displays the fields that are chosen using projection parameter.
+>  db.car.find( {speed: {$gt:60} },{name:1,speed:1})
+
+
+MongoDB find projection   exclude the fields explicitly
+This operation displays all the fields except the field specified in the projection parameter.
+> db.car.find({speed:62}, {'mfdcountry':0,cno:0})
+
+MongoDB find projection – explicitly exclude the _id field
+This operation excludes the id field from the returned document.
+> db.car.find( {speed: {$gt:65}},{_id:0})
+
+Iterating on the Cursors returned by MongoDB find
+
+As in other databases, a cursor is returned when there are multiple documents being returned. The returned cursor can be assigned to a variable using var keyword.
+> var carcursor = db.car.find();
+> var carcursor = db.car.find();
+> var myCar = carcursor.hasNext() ? carcursor.next():null;
+> if (myCar) {var carName = myCar.name; print (tojson(carName));}
+
+forEach method usage in cursor of MongoDB find query
+> var carCursor = db.car.find();
+> carCursor.forEach(printjson);
+
+mongoDB find sort
+The sort() method is used to order the documents.
+> db.car.find().sort({name:1})
+
+MongoDB find – limiting the output
+The limit() method is used to restrict the number of documents displayed to the user.
+> db.car.find().limit(2);
+
+MongoDB find skip method
+The skip() method specifies the starting point of the result set.
+> db.car.find().skip(6)
+
+MongoDB find – chaining multiple methods
+One or more methods can be combined as shown below.
+> db.car.find().limit(2).sort({name:1})
+
+
+mongoDB find in array
+> db.car.insert( [ {_id:15, "regno":[5,10]}, {_id:16, "regno":[11,20]}, {_id:17, "regno":[21,30]}])
+
+Now on performing db.car.find() operation, we can see the newly added regno array fields too.
+Execute the following query for fetching arrays:
+> db.car.find( {regno: {$gt:5, $lt:20}})
+
+> db.car.find({regno:21})
+

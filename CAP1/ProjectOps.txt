@@ -1,0 +1,10 @@
+$project Expressions 
+
+    mathematical: $add, $subtract, $multiply, $divide, $mod
+    date: $year, $month, $week, $dayOfMonth, $dayOfWeek, $dayOfYear, $hour, $minute, $second
+    string: $substr, $concat, $toLower, $toUpper
+    comparison: $cmp, $strcasecmd, $eq, $ne, $gt, $gte, $lt, $lte
+    logical: $and, $or, $not, $cond, $ifNull
+
+> db.people.aggregate([{"$match" : {"BirthDate" : {"$gte" : new Date("1970-01-01")}}}, {"$project" : {"BirthDate" : {"$year" : "$BirthDate"}}}])
+> db.people.aggregate([{"$project" : {"Nationality" : {"$ifNull" : ["$Nationality", "unknown"]}}}])

@@ -1,0 +1,2598 @@
+
+
+
+Introduction
+
+MongoDB is an open-source document database and the leading NoSQL database. MongoDB was developed by the company 10gen (now called MongoDB Inc) in October 2007. MongoDB has been used by many high-trafficked highly-scalable websites such as Craigslist, eBay, Foursquare and SourceForge.
+
+MongoDB is written in C++. Here is a list of some of the MongoDB features: 
+
+    Document-Oriented Storage
+    Full Index Support
+    Replication and High Availability
+    Auto-Sharding (Scales horizontally without compromising functionality)
+    Rich, document-based queries
+    Fast In-Place Updates
+    Flexible aggregation and data processing
+    GridFS - Store files of any size without complicating your stack
+    MongoDB Management Service 
+
+MongoDB Vs RDBMs
+
+We can choose MongoDB over relational databases for the following factors:
+
+    Horizontal Scalability: Relational databases have limited horizontal scalability, whereas MongoDB supports horizontal scalability where we can add as many machines as needed. Horizontal scalability is very important to deal with Big Data.
+
+    High Performance: This is because MongoDB stores as much data in RAM as possible and so it becomes as fast as using something like memcached for the cached data. Some analysis proves that it has better performance over relational databases for read and write operations.
+
+    Flexibility: MongoDB uses a flexible schema document structure that provides flexibility for future structural changes. Whereas in relational databases, we use a schema first approach.
+
+Platform and language supported
+
+It is supported by the following platforms: UNIX, Mac and Windows. It supports both 32 bit and 64 bit architectures. It is recommended to use 64 bit builds in production environments. MongoDB supports many popular languages like C, C++, C#, Java, JavaScript, PHP, Python, Ruby, Scala and so on. They have drivers for communication with MongoDB databases using these languages.
+
+Features of MongoDB
+
+    Querying Support: Usually there is the misconception that NoSQL databases lack querying support. MongoDB does provide query language support. The following example retrieves data from the people collection documents where the name field has the value john: - db.people.find( { name: "john" } )
+
+    Indexing: MongoDB does support indexing that provides high performance in read operations. Indexes are particularly useful where the total size of the documents exceeds the amount of available RAM. These indexes use a B-tree data structure. Here is a sample MongoDB document:
+
+Replication: Replication causes data redundancy across multiple servers but is helpful for high availability. Here the primary server is responsible for all write operations. The primary replicates all the data to secondary servers. In the case of a primary server failure, one of secondary servers are elected as the primary server.
+
+Sharding: Sharding is a method for storing data across multiple machines. Sharding divides the huge data and distributes the data over multiple servers (called shards). Each shard is an independent database and collectively all shards make up a single logical database.
+
+Recommend/Use MongoDB
+
+When you need high performance, horizontal scalability or flexible schema, MongoDB is a good choice. Here are some applications where it can be used:
+    Archiving and Event Logging
+    Document/Content Management
+    Gaming
+    Agile Development
+    Real time stats and analysis
+
+Do not recommend/use MongoDB
+
+MongoDB doesn't support transactions and SQL Joins; that's why it is not recommended to be used in applications like:
+
+    Complex Transaction applications, for example Banking or Accounting
+    Applications that require complex joins
+
+Big Data
+
+Big Data is a term indicating a voluminous amount of structured , semi-structured and unstructured data for getting information. It also does not refer to any specific quantity. Big Data has a key feature to make NoSQL popular. Suppose when we have a limitless array of data, in that scenario we remember Big Data. There are some more scenarios where the definition gets completed.
+
+Velocity: When a huge amount of data is coming from a different location and the data is obtained very quickly.
+Variety: Data variety means, data should be in structured, semi structured, or might be unstructured.
+Volume: Data volume means that sometimes data comes from the user into the database in a huge volume; it might be terabyte or petabytes in size.
+Data Complexity: Data complexity tells us that we can replicate our data or database into different locations or different databases.
+
+The need for a Document Oriented Database
+
+Some of the reasons for choosing MongoDB over the any RDBMS are the following:
+
+    Document-Oriented Storage
+    Continuous Data Availability
+    Real Location Independence
+    Flexible Data Models
+    Full Index Support
+    Replication and High Availability
+    Auto-Sharding 
+*******************************
+file:///H:/MongoDB/MongoDB%20-%20Day%201%20(Introduction%20To%20MongoDB).html
+MongoDB - Day 1 (Introduction To MongoDB)
+
+MongoDB is a document-based open-source database. MongoDB is a leading NoSQL database. It provides high performance, high availability, auto sharding and automatic scaling. MongoDB database is written mainly in C++ . It's drivers and client libraries are typically written in their respective languages, although some drivers use C extensions for better performance. MongoDB differs from relational databases because it is a schema-less database. Such databases usually have lower transaction safety but are faster in accessing data and scale better than relational databases.
+
+MongoDB stores data as documents. So it is a document-based database. A document is a data structure that stores the data in field and value pairs. The format of MongoDB documents are similar to JavaScript Object Notation (JSON). The values of a field may include a simple value, array and other documents. MongoDB uses BSON format to store the data into a document.
+
+The following are the advantages of a document type database:
+
+    Documents are written in JSON format that readable by humans, so it is easy to understand.
+    We can generate embedded documents and arrays that reduce the need for Joins.
+    Dynamic schema supports fluent polymorphism. 
+
+BSON
+MongoDB represents JSON documents in a binary-encoded format called BSON behind the scenes. BSON extends the JSON model to provide additional data types and to be efficient for the encoding and decoding within various languages. It adds support for data types like date and binary that aren't supported in JSON.
+
+The implementation of BSON in MongoDB has some benefits, like:
+
+    Very fast in execution
+    Lightweight
+    Easy to traverse
+    Supports embedding objects and arrays within other objects and arrays
+    Provides support for Index and Object matching against query expressions
+
+Transaction Management in MongoDB
+MongoDB doesn't support multiple document transactions. It only provides atomic operations on a single document. These atomic operations are sufficient to handle the problem that requires transaction management.
+
+
+Key Features of MongoDB
+
+MongoDB is a document type of database that uses JSON format for the data store.
+
+The following are some key features of MongoDB.
+
+    Dynamic Schema: MonogDB supports dynamic schemas. In other words, we need not define the schema before the insertion of data. We can change the schema of the database dynamically. A dynamic schema supports fluent polymorphism.
+
+    Embedded Data Model: MondoDb uses an embedded data model . In other words, we can define a document as a key/value pair in another document.
+
+    Use of Index: We can define an index on any attributes of a MongoDB records that increase the speed of data fetching.
+
+    Rich Query: MongoDb supports rich query to fetch data from the database.
+
+    Automatic Scaling: MongoDB uses a Scaling Out approach. This is also known as Horizontal scaling. In the Scaling Out approach data is distributed across clustors.
+
+    Data Sharding: MongoDB spreads data across servers without effecting the performance of the application. It removes the dependency on a single server. The database never becomes offline. In other words it provides 24 x 365 services.
+
+    Mirroring: We can set mirrors across a Local Area Network (LAN) and a Wide Area Network (WAN). That makes it easily scalable.
+
+    Supports Many Language: MongoDB supports many languages including C, C++, Ruby, C#, Perl, PHP, Python, Java, JavaScript, Erlang and Haskell.
+
+    Replication: MongoDB supports data replication that has the data within a system geo-distributed, preferably using a non-interactive, reliable process.
+
+    Dynamic Query: MongoDB supports dynamic query for documents as a document-based query language that is nearly as powerful as, or more powerful than, SQL.
+
+    Mapping Not Required: Conversion or mapping of application objects to database objects isn't required.
+
+    MongoDB supports Java-Script for server-side execution. MongoDB uses JSON format for the data storage and retrieval at the client side, in other words allows a developer to use a single programming language for both client-side and server-side code.
+
+    MongoDB supports un-structured or semi-structured data.
+
+    Uses internal memory for storing the (windowed) working set, enabling faster access of data.
+
+    MongoDB is very easy in installation and use. 
+
+*************************
+MongoDB - Day 2 (Install MongoDB in Windows)
+
+*********************
+
+MongoDB - Day 3 (Database Basics)
+
+    Use
+    db
+    show dbs
+    db.dropDatabase() 
+
+******************
+
+MongoDB - Day 4 (Basics of Collection)
+createCollection() Method
+
+The MongoDB createCollection() method is used to create a new collection.
+
+Syntax: createCollection(Collection_Name,Option)
+
+Parameters
+Name 		Type 		Description
+Collection_Name 	String 		Name of Collection
+Option 		Document 	Provide Option about Collection size and Auto index
+
+The Collection_Name parameter is essential but the Option parameter is not essential. It is an optional parameter.
+
+Create collection without option parameters
+We can create a collection that contains only a Collection_Name parameter.
+use Demo1
+show dbs
+
+db.createCollection("Employee")
+show collections
+
+db.building.insert({name : "syed" } )
+show collections
+
+Create collection with option parameters
+
+When we create a collection with option parameters, then it is known as a Capped Collection. Capped Collections are collections that can store data in the same order it is inserted. Capped Collections are fixed in size and contains a fixed number of documents and uses “auto-FIFO age-Out” terminology. In other words, when the allotted space is fully utilized, the new objects (documents) will replace the older ones in the same order it is inserted. Capped Collections work in a way similar to circular buffers. Once a collection fills its allocated space, it makes room for new documents by overwriting the oldest documents in the collection. Capped Collections support high-throughput operations that insert and retrieve documents based on insertion order.
+
+The following are the benefits of Capped Collections:
+
+    MongoDB automatically keeps the objects in the collection in their insertion order. This is great for logging-types of problems where the order should be preserved. It is very helpful when we want to retrieve items in their insertion order.
+
+    Data automatically ages out when the collection is full on a least recently inserted basis.
+
+    Prohibits the updates that increase document size that ensures a document does not change its location on disk. 
+
+The following are the restriction for Capped Collections:
+
+    We can't delete a specific document from a Capped Collection. To remove all documents from a collection, use the drop() method to drop the collection.
+
+    drop the collection
+
+    We cannot shard a Capped Collection.
+
+    If we are performing an update operation on a collection and due to the update operation the collection size increases from it's original size then the update operation will fail.
+
+    If we updated a collection and the size of that collection is reduced from it's original size and then a secondary resyncs from the primary, this secondary will replicate and the allocated space is based on the current smaller document size. If in the future the primary receives an update that increases the document back to its original size, then the primary will accept the update but the secondary will fail. 
+
+The following is the list of options in a Capped Collection:
+Field Name 	Data Type 	Description
+Capped 		Boolean 		If the value of a Capped field is true then that means the collection is a 				capped type. The default value is false
+autoIndexID 	Boolean 		If the value is true then an index on the _id field is created automatically. 					The default value is false.
+Size 		Number 		The maximum size of the collection is specified in bytes. If we set the 						Capped field to true then we need to specify this field also.
+Max 		Number 		The maximum number of documents allowed in the collection
+
+
+db.createCollection("capped_col", {capped:true,autoIndexId:true,size:654321,max:100 })
+we created a simple Capped Collection whose size is 654321 bytes and contains a maximum of 100 documents
+
+db.createCollection("capped_coll", {capped:true,autoIndexId:true,size:654321,max:3 })
+we created a Capped Collection and have set the value of the max field to 3 and inserted 3 records. 
+
+db.capped_coll.insert({Name : "Syed"})
+db.capped_coll.insert({Name : "Ayaz"})
+db.capped_coll.insert({Name : "Ahmed"})
+db.capped_coll.find().pretty()
+db.capped_coll.insert({Name : "Munshi"})
+We can see that the record of “Syed” has been replaced with the record for “Munshi”. This is the property of the Capped Collection 
+
+show collections
+
+drop () Method: the drop () method removes a specific collection and will return true if the selected collection is dropped successfully,
+Syntax: db.Collection_Name.drop()
+db.capped_coll.drop()
+
+***************************
+MongoDB - Day 5 (Data Types in MongoDB)
+
+Internally, MongoDB stores JSON documents in a binary-encoded format called BSON. BSON extends the JSON model to provide additional data types and to be efficient for the encoding and decoding within various languages. It adds support for data types like date and binary that aren't supported in JSON. BSON is a binary serialization format for storing documents and to make Remote Procedure Calls in MongoDB. 
+
+MongoDB supports the following data types. Each data type has a corresponding number. The $type method identifies a data type using it's corresponding number.
+Data Type 	Number
+Double 		1
+String 		2
+Object 		3
+Array 		4
+Binary Data 	5
+Undefined 	6
+Object Id 		7
+Boolean 		9
+Date 		10
+Null 		11
+Regular Expression 12
+JavaScript 	13
+Symbol 		14
+JavaScript with scope 	15
+Integer 		16 and 18
+Timestamp 	10
+Min Key 		255
+Max Key 		127
+
+ObjectId
+
+The ObjectId data type stores the document's ID. ObjectId is: small, likely unique, fast to generate and ordered. The size of ObjectId is 12 bytes. These 12 bytes are divided into the following 4 parts.
+Part Name 	Size(Bytes)
+Time Stamp 	4
+Machine Id 	3
+Process Id 	2
+Counter 		3
+
+
+Min/Max keys
+
+Min/Max keys compare a value against the lowest and highest BSON elements. Min and Max keys both are Internal data types. When comparing values of different BSON types, MongoDB uses the following comparison order from lowest to highest:
+
+    MinKey
+    Null
+    Numbers (ints, longs, doubles)
+    Symbol, String
+    Object
+    Array
+    BinData
+    ObjectId
+    Boolean
+    Date
+    Timestamp
+    Regular Expression
+    MaxKey 
+
+Object
+This data type stores embedded documents. When a document contains another document in the form of key-value pair then such type of document is known as an embedded document.
+
+var local={CommentBy : "Nik", Rating : 4.5, Comment : "Nice Practice" }
+db.Test.insert({Product_Name: "Pendrive", Price:500, size: "16GB",Comments:local})
+
+Array
+The Array data type stores arrays. An Array type can store multiple values of multiple data types (Integer, Double, Date, String and so on).
+var local1=["Rajasthan", "Haryana","Punjab"]
+var local2=["Rajasthan", "Haryana","Punjab",123,45.65]
+var local3=["Rajasthan", "Haryana","Punjab",13,new Date() ]
+db.Test.insert({value1: local1,value2:local2,value3:local3})
+db.Test.find().pretty()
+
+Binary Data
+The Binary data type stores binary data.
+
+ObjectId
+
+The ObjectId data type stores the document's ID. ObjectId is: small, likely unique, fast to generate and ordered. The size of ObjectId is 12 bytes. These 12 bytes are divided into the following 4 parts.
+Part Name 	Size(Bytes)
+Time Stamp 	4
+Machine Id 	3
+Process Id 	2
+Counter 		3
+
+MongoDB uses an _id field for each document to uniquely identiy them. This _id field s a primary something. It can't be a duplicate. Data is stored in hexadecimal format in the _id field.
+
+var id=ObjectId()
+db.Test.insert( { _id: id, Name : "Master", Job : "Trainer"})
+
+Boolean
+This type stores a boolean value. This data type can be set to either true or false.
+
+db.Test.insert({_id:ObjectId(), married: true, Unmarried: false} )
+db.Test.find().pretty()
+
+Date
+This data type stores the current date or time in UNIX time format. MongoDB provides various methods to return the date, either as a string or as a Date object.
+Date Method 	Description
+Date() 	returns the current date as a string.
+new Date() 	returns a Date object using the ISODate() wrapper.
+ISODate() 	returns a Date object using the ISODate() wrapper.
+
+We can specify your own date time by creating an object of Date and passing a day, month and year into it. Date objects are stored as a 64 bit integer representing the number of milliseconds.
+
+var date1=Date()
+var date2=new Date()
+var date3 = new ISODate()
+var date4=ISODate("2010-05-16T06:01:17.171Z")
+
+db.demo.insert({_id:ObjectId(),Date1:date1,Date2:date2,Date3:date3,Date4:date4})
+db.demo.find.pretty()
+
+Null
+The Null data type stores a Null value.
+
+var ab=null
+db.Test.insert( { class:ab, address:ab})
+
+Integer
+The Integer data type stores an integer (Numeric) value. Integer data types are available in two forms 32 bits and 64 bits. An Integer can be 32 bits or 64 bits depending upon the server.
+
+var int1=21
+var int2=450000
+db.Test.insert({Age: int1, Salary:int2})
+db.Test.find().pretty()
+
+Timestamp
+The Timestamp data type stores a timestamp. This can be useful for recording when a document has been modified or added. Timestamp values are a 64 bit value.
+
+    The first 32 bits are a time_t value (seconds since the Unix epoch)
+    The second 32 bits are an incrementing ordinal for operations within a given second. 
+
+var c = new Timestamp()
+c
+db.Time_Stamp.insert({Id:123, Stamp:c})
+The first value of the timestamp is the current timestamp and the second value is the order of operation
+db.Time_Stamp.find().pretty()
+
+MongoDB store the current timestamp in ObjectId but we can retrieve this timestamp using the getTimestamp() method.
+
+
+var ab=ObjectId("5ac9da4c5ccd6ebd5008bd65").getTimestamp()
+ab
+
+  MinKey & MaxKey 
+db.demo.insert([ {a:14},{a:17.03},{a:"parika"},{a:true},{a:null},{a:MinKey},{a:MaxKey} ] )
+db.demo.find().sort({a:1})
+db.demo.insert([ {a:13},{a:27.03},{a:"Rahu"},{a:false},{a:null},{a:MinKey},{a:MaxKey} ] )
+db.demo.find().sort({a:1})
+
+Undefined
+The Undefined data type stores an undefined value.
+db.Temp.insert( [ {Name:"Syed Ayaz Ahmed", Age: 21, Salary : undefined}, {Name: "Rahul", Age:21, ContactNumber:undefined} ] )
+db.Temp.find()
+
+Symbol
+The Symbol data type is similar to the string data type. Symbol is mainly reserved for languages that use specific symbols.
+var symbol1="df#12"
+var symbol2="\f#12"
+
+db.Temp.insert( [ { _id : ObjectId(), Number: 14, value1: symbol1, value2:symbol2} ])
+
+
+JavaScript
+The JavaScript data type stores JavaScript data without Scope.
+db.Temp.insert(  {Data_Number:13, Code: "function() { var ab; ab=10}", scope: {}})
+db.Temp.find()
+
+JavaScript with Scope
+This data type stores JavaScript data with a scope option.
+db.Temp.insert(  {Data_Number:13, Code: "function() { var ab; ab=10}", scope: ["Object"] } )
+db.Temp.find()
+
+*****************
+MongoDB - Day 6 (Insert Method)
+A write operation is any operation that creates and modifies data. A relational database contains 3 types of write operations. They are Insert, Update and Delete. MongoDB has a number of write operations (in other words Insert, Update, save, Delete, upsert ) that are insert, update and remove data. Each write operation targets a single collection. Each write operation is atomic at the document level.
+
+To remove, save, update and insert operations, we can specify the criteria, or conditions, that identify the documents to update or remove.
+
+Insert
+
+The Insert method in MongoDB is similar to the “Insert Into” command of Relational Databases. The Insert method inserts a new document into a collection. We can insert single, multiple and embedded documents into collections depending on our preverences or requirements.
+
+Syntax: db.Collection_Name.insert()
+
+Insert Single Document
+db.users.insert({Name : "Syed"})
+
+Insert Multiple Documents
+db.users.insert( [ {Name : "Syed"}, {Name : "Ayaz"}, {Name : "Ahmed"} ] )
+
+Insert Embedded Document
+A document that contains another document as it's key-value pair is known as an Embedded Document. A MongoDB database has a flexible schema so there is no need to have the same set of fields or structures and common fields in a collection document. The following image provide a basic idea of an embedded document structure.
+
+db.users.insert( {Name : "Syed", Project: [ { Pname:"AWS", Client:"Mickey", Duration:"6 Months" } ] } )
+
+Insert_Behaviour
+When we add a new document in any collection without specifying the _id field, then MongoDB adds an _id field implicitly. This _Id field uniquely identifies each document. If we provide the _id field explicitly then MongoDB first checks the value of the _Id field . If this _id already exists then MongoDB will throw an exception.
+
+Embedded Document as Alternate of Joins
+
+In a relational database we use Join to retrieve data from two or more tables. But in MongoDB we don't need a Join, we can use the concept of an embedded document.
+
+Let us see an example of Social Networking Sites that have the following requirements:
+
+    A user can publish any number of posts.
+    Every post contains a total number of likes.
+    Every post has comments given by other users along with their userId, message, DateTime and like option.
+    Each post can have zero or more comments.
+    A user can comment zero or more times for a post 
+
+For such type of scenario in a Relational Database we require two tables and some relationship between the tables.
+
+But in MongoDB we can do that using an Embedded Document. We are not required to maintain a relationship and do any Join operations as in the following
+
+db.blog.insert( { 
+Post_Id : 1,
+Post_Titile: "MongoDB",
+Post_Time : new Date(), 
+Post_By: "Syed", 
+Likes : 4, 
+Comment : [ { Comment_By : "Ayaz", Message : "Excellent", DateTime: new Date(), Like:3}, 
+                   { Comment_By : "Ahmed", Message : "Good", DateTime: new Date(), Like:1} ] })
+
+db.blog.find( {"Post_Id" : 1} );
+
+********************
+MongoDB - Day 7 (Find Method Part 1)
+ db.Collection_Name.find( query , projection ).
+
+The find method does it's work in the following 3 steps:
+
+    The first select documents the match query criteria.
+    Select specific fields from the documents according to a projection parameter
+    Returns a cursor to the selected and filtered documents 
+
+Actually the find method returns a cursor to selected documents. This cursor automatically displays 20 records on the screen. We can use it command to continue the iteration.
+
+
+use Temp
+db.createCollection("Employee_Details", {capped:true, autoIndexId: true, size: 5042000, max:100} )
+
+db.Employee_Details.insert({Emp_Name: "A",Age:21,Salary:32000,City:"Alwar" })
+db.Employee_Details.insert({Emp_Name: "B",Age:20,Salary:52000,City:"Alwar" })
+db.Employee_Details.insert({Emp_Name: "C",Age:22,Salary:42000,City:"Delhi" })
+db.Employee_Details.insert({Emp_Name: "D",Age:23,Salary:37000,City:"Jaipur" })
+db.Employee_Details.insert({Emp_Name: "E",Age:24,Salary:39000,City:"Jaipur" })
+db.Employee_Details.insert({Emp_Name: "F",Age:24,Salary:27000,City:"Delhi" })
+db.Employee_Details.insert({Emp_Name: "G",Age:27,Salary:67000,City:"Delhi" })
+db.Employee_Details.insert({Emp_Name: "G",Age:28,Salary:57000,City:"Alwar" })
+
+db.Employee_Details.find()
+db.Employee_Details.find().pretty()
+
+Query 1: Retrieve the record of all employees where City is equal to Delhi.
+db.Employee_Details.find({City:"Delhi"})
+
+Query 2: Retrieve the record of all Employees where the age of the employee is less than 23.
+db.Employee_Details.find({Age:{$lt:23}})
+
+Query 3: Retrieve the record of all Employees where the Salary of the employee is greater than 40000.
+db.Employee_Details.find({Salary: {$gt: 40000}})
+
+Query 4: Retrieve the record of all Employees where the age of the employee is greater than or equal to 24.
+db.Employee_Details.find({Age:{$gte:24}})
+
+Query 5: Retrieve the record of all Employees where the Salary of the employee is less than or equal to 39000
+db.Employee_Details.find({Salary: {$lte: 39000}})
+
+Query 6: Retrieve the record of all employees where the City of the Employee is not equal to Delhi.
+db.Employee_Details.find({City: { $ne: "Delhi"}})
+
+Find Method with Multiple Conditional operators
+Query: Retrieve the record of all employees where the City of the Employee is not equal to Delhi and the salary is greater than 45000.
+db.Employee_Details.find({City: { $ne: "Delhi"}, Salary: {$gt: 40000} })
+
+Query: Retrieve the record of all employees where the age of the Employee is greater than 25 or the salary is greater than 45000.
+db.Employee_Details.find({ $or: [ {Age:{$gt:25}}, {Salary: {$gt: 60000}}]})
+
+Query: Retrieve the record of all employees where the age of the Employee is equal to 23 or 27.
+db.Employee_Details.find({  $or: [ {Age : 23},  {Age: 27 } ] } )
+
+we retrieve the same result using an IN operator.
+db.Employee_Details.find({Age :{$in:[ 23,27 ] } })
+
+Use AND and OR operator together
+Query: Retrieve the record of all employees where the Salary of the employee is greater than 50000 and the age of the Employee is equal to 23 or 27.
+db.Employee_Details.find( { $or: [ {Age : 23},  {Age: 27 } ], Salary: {$gt: 50000}})
+
+Use AND and IN operator together
+Query: Retrieve the record of all employees where the city of the employee is not equal to Delhi and the age of the Employee is equal to 23 or 27.
+db.Employee_Details.find({City: { $ne: "Delhi"},Age :{$in:[ 23,27 ] } })
+
+
+MongoDB - Day 8 (Find Method Part 2)
+
+db.createCollection("Post",{capped:true, autoIndexId: true, size: 5042000, max:100} )
+db.Post.insert( {PostBY:"A",Time:new Date(), Title:"Intro of MongoDB",Tags:["NoSQL","MongoDB","Database" ], Likes:4, Comment: [ {CommentBy: "sandeept", Text : "Nice Show" } ] } )
+
+db.Post.insert( {PostBY:"A",Time:new Date(), Title:"MongoDB Diet",Tags:["NoSQL","MongoDB","Database" ], Likes:5, Comment: [ {CommentBy: "sandeep", Text : "Nice Show" },  {CommentBy: "Rahul", Text : "Nice Mongo Diet" }, ] } )
+
+db.Post.insert( {PostBY:"A",Time:new Date(), Title:"MongoDB Bar",Tags:["NoSQL","MongoDB","Database" ], Likes:3, Comment: [ {CommentBy: "sanjeev", Text : "Nice Show" },  {CommentBy: "Rahul", Text : "Mongo Chaco Bar" }, ] } )
+
+db.Post.insert( {PostBY:"A",Time:new Date(), Title:"MongoDB Thunder",Tags:["NoSQL","MongoDB","Database" ], Likes:6, Comment: [ {CommentBy: "Neeraj", Text : "Nice Show" },  {CommentBy: "Rahul", Text : "Mongo Shawar" }, ] } )
+
+db.Post.find().pretty()
+
+Projection
+Projection means selecting only the necessary data rather than selecting all the data of a document. 
+
+Syntax: { Field1:<Boolean>,Field2:<Boolean>……….. Fieldn:<Boolean> }
+The selection criteria depends upon the <Boolean> value as in the following:
+    1 or true means the field will be included in the document.
+    0 or false means the field will be excluded from the document. 
+
+Note:
+    The _id field of any document is implicitly included even if 1 or true is not specified for this. If you want to remove the _id field from the selected document field then specify 0 or false for the _id field.
+
+A projection cannot contain both include and exclude specifications, except for the exclusion of the _id field. In other words either a projection contains 0 for all fields or 1. It can't happen that some fields in the projection contains 0 and the other fields contain 1 at the same time. 
+
+db.Post.find({},{PostBY:1, Title:1}).pretty()
+
+db.Post.find({},{PostBY:1, Title:1, _id:0}).pretty()
+
+Retrieve the same result by excluding all the fields that are not required.
+db.Post.find({},{Time:0, Tags:0, Comment:0, Likes: 0} ).pretty()
+
+projection cannot contain both include and exclude specifications except for the exclusion of the _id field. If we try to do so then MongoDB will throw an error that “projection can't have a mix of inclusion and exclusion”
+db.Post.find({},{PostBY:0, Title:1}).pretty()
+
+Create Range for Query
+
+Syntax: db.Collection_Name.find( { Field_Name: { $gt:value, $lt:value}})
+Query: Select Title, Tags and Likes of all the posts that have Likes more than 4 and less than 7.
+db.Post.find( { Likes : { $gt : 4, $lt : 7} }, {Title : 1, Tags : 1, Likes : 1,  _id : 0} ).pretty()
+
+Use Variable Name
+We know that the find method returns a cursor to the selected documents. So we can save this cursor into a variable and print the documents.
+
+var cursor = db.Post.find( {}, {Title : 1, Tags : 1, Likes : 1,  _id : 0} ).pretty()
+cursor
+Use DBQuery.shellBatchSize
+The find method returns a cursor to the selected result. If we don't assign this cursor to a variable then MongoDB prints the top 20 results automatically. We can use an “it” command to continue to iterate the cursor. We can use the DBQuery.shellBatchSize to change the number of iterations.
+
+
+DBQuery.shellBatchSize =2
+db.Post.find( {}, {Title : 1, Tags : 1, Likes : 1,  _id : 0} ).pretty()
+
+Use forEach Loop with Cursor
+We can use a forEach loop with a cursor variable to iterate the cursor and access the documents. 
+
+var cursor = db.Post.find( {}, {Title : 1, Tags : 1, Likes : 1,  _id : 0} ).pretty()
+cursor.forEach(printjson)
+Here the “printjson” option is used to print the data of a cursor in JSON format.
+
+Use next() method with Cursor
+
+Next is a cursor method. We can use the next method to retrieve the result from the cursor one by one. The next method returns the next document from a cursor (or cursor variable). 
+var cur1 = db.Post.find( {}, {Title : 1, Tags : 1, Likes : 1} ).pretty()
+var cur2=cur1.hasNext()?cur1.next():null
+if(cur2) { print(tojson(cur2)) }
+
+first step we store the cursor value into a variable. hasNext is also a cursor method to check the next value of the cursor. The Next() method retrieves the next value from the cursor. The Print(tojson()) method prints the data in JSON format.
+
+print the specific field of a document from the selected cursor using the ”.” operator. 
+var cur1 = db.Post.find( {}, {Title : 1, Tags : 1, Likes : 1} ).pretty()
+var cur2=cur1.hasNext()?cur1.next():null
+if(cur2) { print(tojson(cur2.Title)) }
+
+We can use the printjson() method instead of print(tojson()). The Printjson() method prints the data in JSON format.
+var cur1 = db.Post.find( {}, {Title : 1, Tags : 1, Likes : 1} ).pretty()
+var cur2=cur1.hasNext()?cur1.next():null
+if(cur2) { printjson(cur2) }
+
+Query for Array Element
+Query: Select the name of all the posts containing a “SQL” element in their Tags array.
+db.Post.find( { Tags: "Database"}, {Title : 1, Tags : 1,  _id : 0 } ).pretty()
+
+Query for Embedded Document
+Method 1: Using $elemMatch 
+db.Post.find({Comment: {$elemMatch:{CommentBy: "sanjeev"}}}).pretty()
+
+Method 2: Using “.” Dot notation
+Syntax: db.Collection_Name.find({“Field_Name.ED_FiledName” : Value } )
+db.Post.find({"Comment.CommentBy" : "sanjeev" } ).pretty()
+
+Method 3: Exact Match
+db.Post.find({Comment: {CommentBy : "sanjeev", Text : "Nice Show" } } ).pretty()
+
+If we neglect any single field or any value of the embedded document field doesn't match the value of the query then MongoDB will not display any result. Let us try to remove the “Text” field from the previous query and examine the result.
+db.Post.find({Comment: {CommentBy : "sanjeev" } } ).pretty()
+
+Conditional Operator for Field That contain Array
+If a field contains an array and the select query contains multiple conditional operators then if a single element of an array meets the condition of all the conditional operators then MongoDB will return the entire array.
+db.Test.find( { Value: { $gt:15 , $lt:20 } } ).pretty()
+
+*******************
+MongoDB - Day 9 (Update Method)
+
+The update method modifies the document(s) in a collection. Using the update method we can modify an entire document or a specific field of a document. The update method is similar to the update command in relational databases. The update method generally updates a single document at a time but we can update multiple documents using the “Multi” parameter. The update() method returns an object that contains the status of the operation.
+
+Syntax: db.collection_Name.updat( { query , update , { upsert: <Boolean>, multi: <Boolean> } } ) 
+Parameters
+Parameter 	Type 		Description
+Query 		Document 	Query is selection criteria for the update command.
+Update 		Document 	Update criteria
+Upsert 		Boolean 		Optional. By default set to False. If set to true, creates a new document when no 				document matches the query criteria otherwise doesn't insert a new document.
+Multi 		Boolean 		Optional. By default set to False. If set to true, updates multiple documents that 				meet the query criteria otherwise updates a single document.
+
+Behavior of Update Method
+
+When we use an update command then there are the following two possibilities:
+
+    Update method modifies the specific fields.
+    Update method replaces an existing document entirely. 
+
+Case 1: Update Specific Fields
+
+If the <Update> parameter contains only an update operator such as: $set, $inc, $mul then the update() method updates only the corresponding fields in the document. If we want to modify an embedded document or an array as a whole then specify the replacement value for the field. To update a specific field of an embedded document or array use the dot (.) notation for the specific field.
+
+Case 2: Replace Entire Document
+
+To replace an entire document the <Update> parameter contains only a field:value expression. In other words <Update> parameters should not contain any update operator. We can't replace the _id field and the update method can't replace multiple documents.
+
+When we execute a update method, MongoDB returns the following three values in the form of acknowledgement.
+Name 		Type 	Description
+nMatched 	Integer 	Returns the numbers of document that match the query
+nUpserted 	Integer 	Returns the number of Upserted documents
+nUpdated 	Integer 	Returns the number of Updated documents
+
+db.createCollection("Demo",{autoIndexId:true,size:5040321,max:100})
+
+db.Demo.insert( [ {  
+        "_id": ObjectId("55c89859626ebe75ff8e8814"),  
+        "Title": "MongoDB-Day1",  
+        "Likes": 3,  
+        "Author": {   "PostBy": "Pankaj",  "Views": 2500  },  
+        "Tags": ["MogoDB", "SQL", "Database"],  
+        "Rating": [ {  "By": "Rahul",          "Rate": 4  } ]   } , 
+    {  
+        "_id": ObjectId("55c898a2626ebe75ff8e8815"),  
+        "Title": "MongoDB-Day2",  
+        "Likes": 5,  
+        "Author": {   "PostBy": "Pankaj",   "Views": 3500    },  
+        "Tags": ["MogoDB", "SQL", "Database", "Introducti on"],  
+        "Rating": [{  "By": "Sandeep",   "Rate": 4  }, {  "By": "Rahul",  "Rate": 5  }]   } , 
+      {  
+        "_id": ObjectId("55c898d1626ebe75ff8e8816"),  
+        "Title": "MongoDB-Day3",  
+        "Likes": 4,  
+        "Author": {  "PostBy": "Pankaj",   "Views": 4500 },  
+        "Tags": ["MogoDB", "Database", "Introduction"],  
+        "Rating": [{  "By": "Sanjeev",  "Rate": 3  }, {  "By": "Div",  "Rate": 5    }]   }, 
+       {  
+        "_id": ObjectId("55c898f1626ebe75ff8e8817"),  
+        "Title": "MongoDB-Day4",  
+        "Likes": 9,  
+        "Author": {   "PostBy": "Pankaj",  "Views": 6500  },  
+        "Tags": ["MogoDB", "Database"],  
+        "Rating": [{  "By": "Sanjeev",  "Rate": 5  }]  } ] )
+
+db.Demo.find()
+db.Demo.update( { Title :  "MongoDB-Day1"}, {$set: {Likes:10}} )
+db.Demo.find()
+db.Demo.update({Title:"MongoDB-Day1"},{$inc:{Likes:5}})
+db.Demo.find()
+
+Update Embedded Document
+To update a field of an embedded document we can use dot (.) notation.
+db.Demo.update({Title:"MongoDB-Day1"},{$set:{"Author.PostBy":"Pankaj Choudhary","Author.Views ":6000}})
+db.Demo.find()
+
+A Capped collection prohibits the updates that increase the document size that ensures that a document does not change its location on disk.
+db.createCollection("nam",{capped:true,size:5040321,max:100})
+db.nam.insert({Name : "MongoDB", Roll : 10})
+
+db.nam.update({ Roll : 10}, {$set: {Name : "MongoDB NoSQL"} } )
+MongoDB throws an error because we are trying to increase the size of the document
+
+db.nam.update({ Roll : 10}, {$set: {Name : "NoSQLaa"} } )
+
+Update Multiple Document
+db.Demo.update({"Author.PostBy":"Pankaj"},{$set:{Likes:13}},{multi:true})
+db.Demo.find()
+
+Replace all Fields
+If we pass an <update> document that contains only field and value pairs, in other words we passed an <update> document without update operator, then the <update> document completely replaces the original document except for the _id field.
+
+db.Demo.update( { Title : "MongoDB-Day1" }, {Title : "Introduction to NoSQL", Author : "Nitin Yadav", Tags : ["NoSQL","MongoDB","SQL"] } )
+
+Use Upsert Method
+If the Upsert option is set to true then it creates a new document when no document matches the query criteria otherwise it won't insert a new document.
+db.Demo.update({Title:"MongoDB-Day5" },{Title:"MongoBD-Day6",Author:"Narendra Sharma",Tags:[" NoSQL","MongoDB","SQL"]},{upsert:true})
+
+Combine use of Upsert and Multi Options
+In a combined use of the upsert and multi option there are two possibilities:
+    If any document doesn't match the query pattern then a new document will be insert.
+    If any document(s) match the query pattern then it will update all those document(s). 
+
+Case 1: Document(s) match the query Pattern
+db.Demo.update({Title:"ASP.Net MVC5"},{$set:{"Likes" : 5, Author:{PostBy:"Sanjeev",Views:3200},Tags:["ASP.Net","MVC"]}},{Multi:1,upsert:1})
+db.Demo.find()
+
+Case 2: When the document matches the query pattern
+db.Demo.update({"Author.PostBy":"Pankaj"},{$set:{"Likes" : 5, Author:{PostBy:"Sanjeev",Views:3200},Tags:["ASP.Net","MVC"]}},{Multi:1,upsert:1})
+
+Update Embedded Document Array: To update a document of an embedded document array, use the index number of that document and the dot (.) notation.
+db.Demo.update({Title:"MongoDB-Day2"},{$set:{"Rating.1":{By:"Nivin",Rate:3}}})
+
+******************
+MongoDB - Day 10 (Remove Method)
+
+Remove() Method
+
+The Remove method deletes (removes) document(s) from a collection. The Remove method searches documents based on the deleting-criteria (<query>) and removes all documents matching the criteria. We can remove a single item at a time using the <justOne> parameter and can't use the remove() method with a capped collection.
+
+Syntax
+    db.Collection_Name.remove( query,{ justOne:<Boolean>} ) 
+Parameters
+
+Parameter 	Type 		Description
+Query 		Document 	Specify the deletion criteria
+justone 		Boolean 		Optional, the default value is false. Remove a single document if set to true otherwise delete all the 				documents matching the deletion criteria. 
+Return Type
+
+The remove() returns an object containinig the status of the operation.
+db.Demo.drop()
+db.createCollection("Demo",{autoIndexId:false,max:100,size:5040320})  
+
+db.Demo.insert( [ {    
+             "_id" : ObjectId("55ca1d327ad050ed6214a4e3"),  
+             "Product_Name" : "Pendrive",  
+             "Price" : 250,  
+             "Amount" : 2       }  ,
+     {  
+             "_id" : ObjectId("55ca1d547ad050ed6214a4e4"),  
+             "Product_Name" : "Book",  
+             "Price" : 350,  
+             "Amount" : 4     }  ,
+     {  
+             "_id" : ObjectId("55ca1d6a7ad050ed6214a4e5"),  
+             "Product_Name" : "Photo Frame",  
+             "Price" : 150,  
+             "Amount" : 3     }  ,
+     {  
+             "_id" : ObjectId("55ca1d947ad050ed6214a4e6"),  
+             "Product_Name" : "Pencil",  
+             "Price" : 15,  
+             "Amount" : 20   }  ,
+     {  
+             "_id" : ObjectId("55ca1dc47ad050ed6214a4e7"),  
+             "Product_Name" : "Keyboard",  
+             "Price" : 1500,  
+             "Amount" : 4    }  ,
+     {  
+             "_id" : ObjectId("55ca1dd57ad050ed6214a4e8"),  
+             "Product_Name" : "Mouse",  
+             "Price" : 125,  
+             "Amount" : 5   }   ] )
+
+db.Demo.find().pretty()
+
+Remove all document from collection
+db.Demo.remove({}) 
+
+Remove all Documents that Match the Deletion Criteria
+db.Demo.remove({Price:{$gt:235,$lt:2001}}) 
+
+Remove Single Document
+db.Demo.remove({Price:{$gt:235,$lt:2001}},{justOne:1})  
+
+Remove method with Capped Collection
+We can't delete a specific document from a capped collection. To remove all documents from a collection, use the drop() method to drop the collection.
+
+Use Isolated option with remove operation
+
+During removal of multiple documents, the remove operation may interleave with other read and write operations of the collection. To override this behavior use the “$isolated” option. Isolated option ensures that no client can see the affected documents until they are all processed or an error stops the remove operation. To use the isolate behavior in the remove method set the “$isolated” parameter to 1 or true.
+
+db.Demo.remove({Price:{$gt:235,$lt:2001}},{$isolated:1})  
+
+**************************
+MongoDB - Day 11 (Collection Methods)
+MongoDB provide various methods for query and data manipulation. MongoDB supports the following collection methods for query and data manipulation.
+Method_Name 	Description
+Insert 	Create a new document
+Remove 	Delete documents from collection
+Update 	Modify documents in collection
+Find 	Select document from collection and return a cursor object
+Count 	Return a count of numbers of documents in a collection
+Distinct 	Return array of document that have distinct values
+Findone 	Execute query and return a single document
+Save 	Replace existing document with new document
+
+db.createCollection("Post",{capped:false,autoIndexId:false,size:5040320,max:50}) 
+
+db.Post.insert( [ {    "_id" : ObjectId("55c547eaacae58b1a7d7dff7"),  
+            "PostBY" : "Pankaj choudhary",  
+            "Time" : ISODate("2015-08-08T00:06:02.191Z"),  
+            "Title" : "Introduction of MongoDB",  
+            "Tags" : [
+                    "NoSQL",  
+                    "MongoDB",  
+                    "Database"           ],  
+            "Likes" : 4,             } , 
+      
+              {    "_id" : ObjectId("55c547feacae58b1a7d7dff8"),  
+            "PostBY" : "Pankaj choudhary",  
+            "Time" : ISODate("2015-08-08T00:06:22.805Z"),  
+            "Title" : "MongoDB Day1",  
+            "Tags" : [  
+                    "NoSQL",  
+                    "MongoDB",  
+                    "Database"       ],  
+            "Likes" : 5,         } , 
+    {  
+             "_id" : ObjectId("55c5480cacae58b1a7d7dff9"),  
+             "PostBY" : "Pankaj choudhary",  
+             "Time" : ISODate("2015-08-08T00:06:36.452Z"),  
+             "Title" : "MongoDB Day2",  
+             "Tags" : [  
+                     "NoSQL",  
+                     "MongoDB",  
+                     "Database",  
+                     "SQL"      ],  
+             "Likes" : 3,   }  ,
+     {  
+             "_id" : ObjectId("55c5481bacae58b1a7d7dffa"),  
+             "PostBY" : "Pankaj choudhary",  
+             "Time" : ISODate("2015-08-08T00:06:51.436Z"),  
+             "Title" : "MongoDB Day3",  
+             "Tags" : [  
+                     "NoSQL",  
+                     "MongoDB",  
+                     "Database"    ],  
+             "Likes" : 6,      }  ] )
+
+db.Post.find().pretty()
+
+db.Post.count() 
+
+Count all Documents that match the selection criteria
+To count the documents that match a specific selection criteria use the <query> option in the count() method.
+db.Post.count({Likes:{$gt:4}}) 
+
+db.Post.count({Likes:{$gt:5},Tags:"NoSQL"})  
+
+Distinct() Method
+The Distinct() method finds the distinct values for a specified field and returns the results in an array for a single collection. The returned result must not be larger than the maximum BSON size.
+
+Syntax
+    db.Collection_Name.distinct(<field>,<query>)  
+Parameters
+
+Parameter 	Type 		Description
+Field 		String 		The field for which to return distinct values.
+Query 		Document 	Specify the document selection criteria 
+
+db.Post.distinct("Tags")
+
+db.Post.distinct("Tags",{Likes:{$gt:5}})  
+
+db.Post.distinct("Tags",{Likes:9})  
+
+findOne() Method
+The findOne() method is used to return a document that satisfies the specified selection criteria. If more than one document matches the selection criteria then the first document will return a value that reflects the order of documents on the disk.
+
+Syntax
+
+    db.Collection_Name.findOne(<query>,<projection>)  
+
+Parameters
+Parameter 	Type 		Description
+Query 		Document 	Specify selection criteria
+Projection 	Document 	Specify the field that the findOne method will return. I or true for include and 0 or false to exclude the field 
+
+db.Post.findOne()
+
+db.Post.findOne({"Likes":{$gt:5}})  
+
+db.Post.findOne({"Likes":{$gt:5}},{_id:0,Title:1,Tags:1}) 
+
+We cannot apply cursor methods (hasNext, Next) to the result of findOne() because the findOne() method returns only a single document. If we try to use the cursor method then MongoDB will throw an error.
+var ab=db.Post.findOne({"Likes":{$gt:5}},{_id:0,Title:1,Tags:1}) 
+var mc=ab.hasNext()?ab.next():null
+
+Save method
+The Save method either replaces the existing document or inserts a new document. It depends upon the _id field of the document. If we don't provide the _id field, then the save() method calls the insert() method and inserts a new document.
+
+Syntax
+    db.Collection_Name.save(<document>)  
+
+Parameters
+
+Parameters 	Type 		Description
+Document 	Document 	Specify document to save to the collection
+
+Document without _id field
+If we use a document without defining a _id field then the save() method calls the insert() method and a new document will be inserted into the collection.
+    db.Post.save({Title:"MongoDB-Day11",Tage:["Collection Method"]})  
+
+Document with _id field
+If a document contains a _id field then the save() method is the equivalent of the update method with upsert method set to true. In other words, if the document contains a _id field then there are the following two possibilities.
+
+Case 1: _id already exist.
+If _id already exists then the field of an existing document will replace the new document's field.
+
+ db.Post.save({"_id" : ObjectId("55c5481bacae58b1a7d7dffa"),PostBy:"Nitin Yadav",Title:"MongoDB-Day6",Tage:["Collection Method"]})  
+
+Document after replace.
+    db.Post.find({"_id" : ObjectId("55c5481bacae58b1a7d7dffa")}).pretty()  
+
+Case 2: _id doesn't exist
+If _id does not already exist in the collection, then a new document will be inserted.
+
+First we check that _id already exists.
+   db.Post.find({"_id":ObjectId("123456789abcdef123456789")}).pretty()  
+
+When we execute the preceding query, we did not retrieve a document. In other words this _id does not exist.
+
+Now we insert a new document using the save() method.
+    db.Post.save({"_id" : ObjectId("123456789abcdef123456789"),PostBy:"Pradeep Yadav",Title:"MongoDB-Day7",Tags:["NoSQL","asp.Net"]})  
+
+Now we check this document.
+  db.Post.find({"_id" : ObjectId("123456789abcdef123456789")}).pretty()  
+
+*******************************
+MongoDB - Day12 ( Cursor Methods)
+
+Cursor Method
+
+MongoDB provides a range of cursor methods. As their names indicate, these methods perform actions for a cursor and return the result. This article explains some important and useful cursor methods, the following cursor methods.
+Method Name 	Description
+Count 	Return total number of document in cursor
+Limit 	Limit the record in cursor
+Skip 	Skip a number of document in cursor
+Sort 	Returns results in ordered form
+Next 	Return next document from cursor
+toArray 	Returns an array that contains all documents returned by the cursor.
+Size 	Returns a count of the documents in the cursor.
+hasNext 	hasNext() method is used to find that cursor contain next(more) document or nor
+forEach 	Apply a JavaScript function for every document in a cursor.
+Explain 	Return information about query execution plan for a cursor
+
+db.createCollection("Employee",{capped:false,autoIndexId:false,size:5040320,max:50})
+
+db.Employee.insert( [  {  
+             "_id" : ObjectId("55cc8833211cb7f01f58ce20"),  
+             "Name" : "Pankaj Choudhary",  
+             "City" : "Alwar",  
+             "Salary" : 35000       }  ,
+     {  
+             "_id" : ObjectId("55cc8850211cb7f01f58ce21"),  
+             "Name" : "Sandeep Jangid",  
+             "City" : "Jaipur",  
+             "Salary" : 25000       }  ,
+     {  
+             "_id" : ObjectId("55cc8868211cb7f01f58ce22"),  
+             "Name" : "Rahul Prajapat",  
+             "City" : "Delhi",  
+             "Salary" : 27000       }  ,
+     {  
+             "_id" : ObjectId("55cc887b211cb7f01f58ce23"),  
+             "Name" : "Sanjeev Baldia",  
+             "City" : "Delhi",  
+             "Salary" : 47000       }  ,
+     {  
+             "_id" : ObjectId("55cc8895211cb7f01f58ce24"),  
+             "Name" : "Narendra Sharma",  
+             "City" : "Jaipur",  
+             "Salary" : 35000       }  ,
+     {  
+             "_id" : ObjectId("55cc88b0211cb7f01f58ce25"),  
+             "Name" : "Omi Choudhary",  
+             "City" : "Alwar",  
+             "Salary" : 27000       }  ,
+     {  
+             "_id" : ObjectId("55cc88f5211cb7f01f58ce27"),  
+             "Name" : "Nitin Yadav",  
+             "City" : "Jaipur",  
+             "Salary" : 32000  
+     }  ] )
+
+db.Employee.find()
+
+Count() Method
+
+The Count method returns the numbers of documents present in a cursor or referenced by a cursor. To determine the number of matching documents, Append the count() method to a find() query.
+
+Syntax
+db.Collection_Name.find(<query>).count(<applySkipLimit>)
+
+Parameters
+ 
+Name 		Type 		Description
+Query 		Document 	Define selection criteria
+applySkipLimit 	Boolean 		Optional. Consider the effect of the skip() and limit() method. The value is false by default.
+
+Count All Documents
+To count all the documents of a collection use the count() method without using any query parameter in the find() method.
+
+db.Employee.find().count()
+
+db.Employee.find({Salary:{$gt:30000}}).count()
+
+Use Limit with Count method
+
+Use the limit method with the count method to return a total of specific documents. If use the limit method then we must set the value of the applySkipLimit parameter to true.
+
+db.Employee.find({Salary:{$gt:30000}}).limit(2).count()
+
+The preceding query returns 4 instead of 2 because we don't set the value of the applySkipLimit parameter to true. Now we set the value applySkipLimit parameter to true and get the desired output.
+
+db.Employee.find({Salary:{$gt:30000}}).limit(2).count(true)
+
+Note: the db.collection.find(<query>).count() construct works the same as db.collection.count(<query>).
+
+db.Employee.find().count()
+
+db.Employee.count()
+
+db.Employee.find({Salary:{$gt:30000}}).count()
+
+db.Employee.count({Salary:{$gt:30000}})
+
+Limit() Method
+
+The Limit method specifies the maximum number of documents the cursor will return. The Limit() method in MongoDB is similar to the limit statement of SQL databases. The limit() method accepts an integer type argument that is the number of documents you want to display. We must be use the Limit() method to prevent MongoDB from returning more results than required for processing. Limit(0) (A limit() value of 0) is equivalent to setting no limit.
+
+Syntax: db.Collection_Name.find(<query>).limit(number)
+
+Parameters
+Parameter 	Type 		Description
+Query 		Document 	Specify selection criteria
+Number 		Integer 		Specify number of documents to display
+
+To retrieve the data in a specific amount, pass the value of the <number> parameter in the limit method.
+
+db.Employee.find().limit(3).pretty()
+
+Limit method with query parameter
+
+To retrieve a specific number of documents that match a selection criteria use the <query> parameter in find and <number> parameter in the limit method.
+
+db.Employee.find({City:"Delhi"}).limit(2).pretty() 
+
+Skip() Method
+
+The Skip() method skips the documents from the result returned by the cursor. In other words, the skip() method controls the MongoDB returning results.
+
+Syntax: db.Collection_Name.find(<query>).skip(number>)
+
+Parameters:
+Parameter 	Type 		Description
+Query 		Document 	Specify selection criteria
+Number 		Integer 		Specify number of documents to skip
+
+Start result from a specific Position
+
+We can use the skip() method to start the result from a specific position. If we want to retrieve the result from the third document of the collection then pass 3 as the parameter value in the skip method. The default value of the skip() method is 0. But the skip() method is expensive because it requires the server to start from the beginning of the collection to get the skip position before beginning to return results.
+
+db.Employee.find().skip(3).pretty()
+
+Use the skip() method with a limit
+
+We can also use the skip() method with limit(). This time the skip() method removes the starting documents from the cursor and returns documents depending on the value of the <number> parameter of the limit() method.
+
+db.Employee.find().limit(2).skip(1).pretty()
+
+Sort() Method
+
+The sort() method retrieves the result in a specific order. The sorting may be done either by a single field or multiple fields. We must use the sort() method to the cursor before retrieving any documents from the database. MongoDB does not guarantee the order of query results. MongoDB uses a top-k sort algorithm. This algorithm buffers either the first k results or the last k results, depending on the sort order.
+
+Syntax: db.Collection_Name.find(<query>).sort(<sort>)
+
+Parameters
+ 
+Parameter 	Type 		Description
+Query 		Document 	Specify selection criteria
+Sort 		Document 	Defines the sort order of the result set.
+
+Syntax of sort Parameter
+
+The sort parameter contains field and value pairs as follows.
+Syntax: { field:sorting_order)
+
+Sorting_Order
+Value 	Description
+1 	Sort in ascending order
+-1 	Sort in descending order
+
+When the sort() method compares various types of data, use the following comparison order.
+Type 		Order
+MinKey 		1
+Null 		2
+Numbers(int,double)3
+Symbol , String 	4
+Object 		5
+Array 		6
+BinData 		7
+ObjectId 		8
+Boolean 		9
+Date 		10
+Timestamp 	11
+Regular Expression 12
+MaxKey 		13
+
+Important about sorting order:
+
+    MongoDB treats { } (not exsting) and “null” as the same
+    In ascending order, the sort() method compares the smallest element of arrays
+    In descending order, the sort() method largest element of the arrays.
+    Sorting priority of empty array is less than null or a not existing field.
+
+Sort Result according fields
+To sort the retrieving result according any field pass the name of that field any sorting order.
+
+1. Sort Result according single field
+
+db.Employee.find().sort({"Salary":1}).pretty()
+This query sorts the result by the “Salary” field in ascending order.
+
+2. Sort Result according multiple fields
+
+db.Employee.find().sort({"Salary":1,"City":-1}).pretty()
+This query sort result is first by the “Salary” field in ascending order and within each “Salary” field the sort is by the “City” field in descending order.
+
+Use limit and Projection with Sort() Method
+
+We can use projection (return specific field) and limit with the sort() method.
+
+db.Employee.find({},{_id:0,Name:1,Salary:1}).sort({City:1}).limit(4).pretty()
+
+This query is executed in as in the following procedure:
+    Sort the documents by the “City” field in ascending order.
+    Now select the top 4 results.
+    Return the “Name” and “Salary” fields of the selected documents.
+
+Natural Sort
+MongoDB provides a “$natural” parameter in the sort() method to return items depending on their natural order within the database.
+Here natural order is the insertion order of the documents.
+
+db.Employee.find({},{_id:0,Name:1,Salary:1,City:1}).sort({$natural:1}).pretty()
+This query returns the documents according to their insertion order from the “Oldest” to the “Newest” entered documents.
+
+db.Employee.find({},{_id:0,Name:1,Salary:1,City:1}).sort({$natural:-1}).pretty()
+This query returns the documents by their insertion order from the “Newest” to the “Oldest” entered documents.
+
+Next() Method
+
+The Next() method retrieves the next document from the cursor. The Next() method returns null if the cursor doesn't contain more documents.
+
+Syntax: Cursor_objectName.next()
+
+Note: cursor_objectName is the object containing a reference returned by the “db.collection.find()” method.
+
+Query 1: var Cursor1=db.Employee.find()
+In this query we assign the reference into the Cursor1 object returned by the find() method.
+
+Query 2: Cursor1.next()
+This query returns the first document from the cursor object.
+
+Query 3 Cursor1.next()
+This query returns the next (second) document from the cursor object.
+
+toArray() Method
+
+The toArray() method returns an array containing all the documents from a cursor and iterates the cursor completely. The toArray() method loads all the documents into memory from the cursor and exhausts the cursor.
+
+Syntax: db.Collection_Name.find().toArray()
+
+Retrieve all documents from cursor
+
+To retrieve all documents from a cursor use the toArray() method with the cursor.
+db.Employee.find({},{_id:0,Name:1,Salary:1}).toArray()
+
+Use Array variable
+
+We can store the result into an array variable retrieved from the toArray() method. This approach provides an option to retrieve a specific document from an array variable.
+
+   var Array_=db.Employee.find({},{_id:0,Name:1,Salary:1}).toArray()  
+    if(Array_.length>0)      {         Array_       }  
+
+
+We can also return a specific document from an Array variable.
+   var Array_=db.Employee.find({},{_id:0,Name:1,Salary:1}).limit(3).toArray()  
+   
+    if(Array_.length>0)  
+    {  
+       printjson(Array_[1])  
+    }  
+
+
+Difference b/w db.collection.find() and db.collection.find().toArray() methods
+
+The “DBQuery.shellBatchSize” command specifies the number of documents to be visible at a time. We can use the “it” command to continue to iterate the cursor. By default the value of “DBQuery.shellBatchSize” is 20. That means MongoDb shows 20 records at a time. The number of records that will be shown by the find() method depends upon the value of “DBQuery.shellBatchSize”. In other words, if the value of “DBQuery.shellBatchSize” is equal 10 then find() shows only 10 documents at a time, we must use the “it” command to display the next 10 documents.
+
+But there is no effect on the value of “DBQuery.shellBatchSize” upon the toArray() method, this method shows all the documents in a single batch.
+DBQuery.shellBatchSize =4
+
+In this command we set the value of “DBQuery.shellBatchSize” to 4. This means the cursor shows only 4 documents at a time.
+db.Employee.find({},{_id:0,Name:1})
+
+db.Employee.find({},{_id:0,Name:1}).toArray()
+
+
+Size() method
+
+The Size() method returns the number of documents that match the selection criteria of the find() method after applying any skip() and limit() methods.
+
+Syntax: db.collection_name.find().count()
+
+Count all documents
+
+To count all the documents of a collection use the size() method with the cursor.
+db.Employee.find({},{_id:0,Name:1}).size()
+
+limit Method
+To count a limited number of documents use the size() method with the limit() method.
+db.Employee.find({},{_id:0,Name:1}).limit(4).size()
+
+skip() Method
+db.Employee.find({Salary:{$gt:25000}}).skip(3).size()
+
+size() method with skip() and limit() methods
+db.Employee.find({Salary:{$gt:25000}}).limit(2).skip(1).size()
+
+hasNext() method
+The hasNext() method finds the cursor containing the next (more) documents. The hasNext() method returns “true” if further iteration of the cursor is possible otherwise it returns “false”.
+
+Syntax: db.Collection_Came.find().hasNext()
+
+var nxt=db.Employee.find().limit(2)
+var value=nxt.hasNext()?"Cursor conatin more document":"Cursor doesn't contain more document"
+if(value){ printjson(value) }
+
+var nxt=db.Employee.find().limit(2)
+var value=nxt.hasNext()?nxt.next():null
+if(value){ printjson(value) }
+
+If the cursor doesn't contain another document and often that we use the next() method for a cursor then MongoDB will throw an error
+
+forEach() method
+
+We can use a forEach loop with a cursor variable to iterate the cursor and access the documents. The forEach method iterates the cursor to apply a JavaScript function to each document from the cursor.
+
+Syntax: db.Collection_Name.find(<query>).forEach(<function>)
+
+Parameters
+Parameter 	Type 		Description
+Query 		Document 	Specify selection criteria
+Function 		JavaScript 	A JavaScript function to apply to each document from the cursor
+
+db.Employee.find().forEach(function(Employee){ var detail= "Employee Name="+Employee.Name +" Employee Salary=" +Employee.Salary; print(detail );})
+
+
+Explain() Method
+
+The Explain() method returns the query plan for the db.collection.find() method. The amount of information returned by the explain() method depends on the verbosity mode. The cursor.explain() method returns queryPlanner and executionStats.
+
+Syntax: db.collectin_name.find().explain(verbosity)
+
+Parameter
+Parameter 	Type 	Description
+Verbosity 	String 	Optional. Specifies the verbosity mode for the explain method. This method specifies the verbosity mode for the explain.
+
+Verbosity mode has the following 3 possibilities:
+    queryPlanner
+    executionStats
+    allPlansExecution
+
+The default mode for verbosity is queryPlanner.
+Explain() method with queryPlanner Mode
+
+MongoDB runs the query optimizer to choose a plan and returns the queryPlanner information for the evaluated method.
+db.Employee.find().explain("queryPlanner")
+
+Exaplain() method with executionStatsMode
+MongoDB runs the query optimizer to choose a plan and returns statistics describing the execution of the winning plan.
+db.Employee.find().explain("executionStats")
+
+Exaplain() method with allPlansExecution
+
+MongoDB runs the query optimizer to choose the winning plan and returns statistics describing the execution of the winning plan and also retuns statistics for the other candidate plans captured during plan selection.
+
+db.Employee.find().explain("allPlansExecution")
+
+**********************
+
+MongoDB - Day13 (Indexing)
+
+Introduction
+
+Indexes support the efficient resolution of queries. Indexes execute queries in an efficient way. Without indexing, MongoDB does a collection scan. In a collection scan MongoDB scans each document individually to select those documents that match the selection criteria. This approach takes much time and resources. So MongoDB provides indexes that can provide a reliable and efficient way of scanning documents. If an appropriate index exists for a query then MongoDB can use this index to limit the number of documents it must scan.
+
+Indexes are special data structures that store a small portion of the data set in an easy to traverse form. The index can store the value of a specific field or a set of fields, ordered by the value of the field that is specified in the index. 
+
+Types of Index
+
+MongoDB supports several types of indexes. We can create an index on a single field, multiple fields, an index for an embedded field or an index for embedded documents. We should create an index for fields frequently used in queries, such that we can ensure that MongoDB scans the smallest possible number of documents. The createIndex() method creates indexes.
+
+MongoDB has the following types of indexes.
+
+    Default Index
+    Single Field Index
+    Compound Index
+    MultiKey Index
+    Text Index
+    Geospatial Index
+    Hashed Index
+
+Default _ID
+
+Each MongoDB collection contains a builtin index on the _id field of the collection. This is a default index used by MongoDB. The index of the _id field contains the Unique property. In other words, we can’t insert a duplicate value into the _id field. If we don’t specify the value for the _id field then MongoDb inserts a unique value into the _id field automatically. The index of the _id field stores the data in ascending order.
+
+db.post.find({},{_id:1,Likes:1}).pretty()
+
+Single Field Index
+
+In MongoDB we can create an index for a single field or multiple fields. To create an index on a single field, pass the name of that field with the sorting order option.
+
+Syntax
+db.Collection_Name.createIndex({field:sorting_order})
+Sorting_Order
+
+ for sort in ascending order and -1 for sort in descending order.
+db.post.createIndex({Likes:1})
+
+Index on Embedded Field
+we create an index for the top level field such that we can create an index for the field of the embedded document. Use “dot notation” to create an index on the embedded field.
+
+    {          "_id": ObjectId("55c545e1acae58b1a7d7dff1"),          "PostBY": "Pankaj choudhary",          "Time": ISODate("2015-08-07T23:57:21.041Z"),  
+        "Title": "Introduction of MongoDB",          "Tags": [              "NoSQL",              "MongoDB",              "Database"],          "Likes": 5,  
+        "Comment": {              "CommentBy": "Rahul",              "Text": "Nice Article"          }        
+    }  
+
+create an index on the “CommentBy” field of the embedded document using the following specification.
+db.post.createIndex({"Comment.CommentBy":1})
+
+Index on Embedded Document
+
+we create an index for the embedded field. Now we create an index for the embedded document.
+
+the post collection contains the “Comment” field that is an embedded document.
+db.post.createIndex({"Comment":1})
+
+Compound Indexes
+In MongoDB we can create an index for multiple fields of a collection. MongoDB supports 31 fields in a single compound index.
+create a compound index of two fields with the following sorting order.
+
+db.post.createIndex({"Comment":1,Title:-1})
+The preceding query indexes the sort first by the “Comment” field in ascending order then by the “Title” field in descending order.
+
+The preceding index has the following index prefixes:
+
+    { Comment:1}
+    {Comment:1,Title:-1}
+
+MongoDB uses the preceding index for queries containing the following fields.
+
+    Comment field
+    Comment and Title field
+    Comment and Title and PostBY field
+
+MongoDB never uses the preceding index for queries that contain the following fields.
+
+    Title field
+    PostBY field
+    Title and PostBY field
+MongoDB can use the preceding index for queries that contain “Comment” and “PostBY” fields because the “Comment” field corresponds to a prefix. But this index would not be as efficient as a separate index for the “Comment” and “PostBY” fields.
+
+MultiKey Indexes
+If we create an index on a field that holds the array value then MongoDB creates an index key for each element in the array. Multikey indexes support efficient queries against array fields. Multikey indexes can be created on an array field that contains either scalar values (in other words string or Integer) or nested documents. MongoDB automatically creates a multikey index if an indexed field is an array type. We don’t need to specify the multikey type.
+
+In the preceding document we have two fields that are array types. The first one is “Tags” that contain scalar values and the second is “Comment” that contains nested documents. Now we create an index for both fields.
+
+Index for “Tags” field.
+db.post.createIndex({"Tags":-1})
+
+Index for “Comment” field.
+db.post.createIndex({"Comment":1})
+
+Compound Multikey Indexes
+
+we create two indexes, one for the “Tags” field and another for the “Comment” field. But we can’t create a compound index if more than one field is the “Array” type.
+
+Let us try to create a compound index for the “Tags” and “ Comment” fields.
+db.post.createIndex({"Comment":-1,"Tags":1 })		//error
+
+But we can create a compound index if at most one field is the “Array” type.
+db.post.createIndex({"Comment":-1,"Title":1 })
+
+Text Indexes
+
+MongoDB provides the feature “Text Index” to search the string contents in the documents of a collection. The Text Index can contain any field that has a string or array of strings. A collection can have at most one text index. But we can specify multiple fields for the text index.
+
+To create a Text Index field set the value of the “comments” parameter to “text” in the createIndex() method.
+
+Syntax
+
+db.Collection_Name.createIndex({comments:”text”})
+
+db.post.createIndex({"Title":1 },{comments:"text"})
+
+db.post.createIndex({"Title":1 ,PostBY:1},{comments:"text"})
+
+Wildcard Text Indexes
+
+We know that a MongoDB database consists of unstructured data, so sometimes it is difficult to predict which fields contain text type data. MongoDB provides the wildcard specifier ($**) to allow for a text search on all fields with string content. Using a wildcard index MongoDB indexes all the fields containing string or text type data.
+
+db.post.createIndex( { "$**": "text" } )
+The preceding  creates a text index using wildcard specifier.
+
+We can create a wildcard text index in compound index. 
+db.post.createIndex({"Title":1,"$**":"text"})
+This compound index contains a “Title” field and wildcard text index.
+
+Geospatial Indexes
+
+A Geospatial index is mainly used to store the location data or geospatial information. Before storing any data we must be decide the type of surface. MongoDB supports two types of surfaces.
+
+    Spherical
+    Calculates the geometry over a spherical surface (such as Earth) and stores location data on a spherical surface using 2dsphare.
+
+    Flat
+    Calculates distance over an Euclidean and store location as legacy coordinate pairs using a 2d index.
+
+Hashed Index
+
+In Hashed indexed entries are maintained with hashes of the values of the indexed field. The Hashing function collapses embedded documents and computes the hash for the entire value. A Hashed index supports equality queries but doesn’t support range queries and multi-key index. We can’t create a compound index for a Hashed index. However we can create a non-hashed index (such as a single field or a compound index) and hashed index on the same field.
+Syntax
+
+db.Collection_Name.createIndex({Field:”hashed”})
+db.post.createIndex({"Title":"hashed"})
+
+In the preceding query we create a hashed index on the “Title” field.
+
+Index Properties
+Indexes in MongoDB supports these three properties for indexes.
+    Unique Index
+    TTL Index
+    Sparse Index
+
+Unique Index
+Unique index properties are used to restrict all the documents with a duplicate value for the indexed field or that already exist. To create a unique index, set the value of the “Unique” parameter to “true” in the createIndex method. By default the value of unique is false.
+
+Syntax
+db.Collection_Name.createIndex({fieldname:sorting_order},{unique:true})
+
+Consider the following “Demo” collection. The Id field of the “Demo” collection has the following values.
+db.My_Collection.find({},{_id:0})
+
+we create a Unique index on the “Id” field .
+db.Demo.createIndex({"Id":1},{unique:true})
+
+Now we try to insert a duplicate value into the “Id” field.
+db.Demo.insert({Id:"1"})
+
+This output shows that if we try to insert a duplicate value into the “Unique” field then MongoDB will throw an error.
+
+TTL Indexes
+
+TTL indexes are special types of indexes that MongoDB uses to remove documents automatically from a collection after a certain time period. This approach is very useful for machine generating data, logs, session information or storing the information for a temporary time period. To create a TTL index, use the expireAfterSeconds option with the createIndex method. In the expireAfterSeconds option we provide the time period in seconds. The TTL index does not guarantee that expired data will be deleted immediately upon expiration. There may be a delay between the time a document expires and the time that MongoDB removes the document from the database.
+
+Syntax
+
+db.Collection_Name.createIndex({fieldname:sorting_order},{ expireAfterSeconds:time})
+
+The Demo collection contains the following documents.
+db.Demo.insert( [     {  
+        "Id": 1,  
+        "Name": "Pankaj"  
+    }, {  
+        "Id": 2,  
+        "Name": "Rahul"  
+    }, {  
+        "Id": 3,  
+        "Name": "Sandeep"  
+    }  ] )
+
+Now we create an index on the “Id” field with the expireAfterSeconds option. 
+
+db.Demo.createIndex({Name:1},{expireAfterSeconds:120 })
+
+create an index and set the value of expireAfterSeconds to 120. In other words, MongoDB removes the documnst after 120 seconds.
+
+
+Sparse Index
+
+The Sparse option in an index ensures that the index only contains entries for documents that have the indexed field. It also removes documents containing null values. A non-sparse index contains all documents even if the documents don’t contain the indexed field. The index is “sparse” because it does not include all the documents of the collection.
+
+Syntax
+db.Collection_Name.createIndex({fieldname:sorting_order}, { sparse: true })
+
+The Demo collection has the following documents.
+db.Demo.insert( [     {  
+        "Id": 1,  
+        "Name": "Pankaj"  
+    }, {  
+        "Id": 2,  
+        "Name": "Rahul"  
+    }, {  
+        "Id": 3,  
+        "Name": "Sandeep"  
+    }  ] )
+
+create an index on the “Id” field with the sparse option.
+db.Demo.createIndex({Name:1},{sparse:true })
+we create an index and set the value of the sparse option to true.
+
+Basic Index Methods
+getIndexes() Method
+
+The getIndexes() method retrieves all the existing indexes in a collection.
+Syntax	db.Collection_Name.getIndexes()
+db.Demo.getIndexes()
+
+dropIndex() Method
+The dropIndex() method removes a specific index from a collection.
+
+Syntax
+db.Collection_Name.dropIndex({Field_Name})
+db.Demo.dropIndex({"Id":1})
+
+In the preceding output “nIndexesWas” reflects the number of indexes before removing this index and “ok” execution status of command.
+
+ensureIndex() Method
+The ensureIndex() method creates an index. The ensureIndex() method only creates an index if an index of the same specification does not already exist.
+
+Syntax		db.Collection_Name.ensureIndex({field_name:sorting_order})
+db.Demo.ensureIndex({"Id":1})
+
+reIndex() Method
+The reIndex() method rebuilds the indexes for a collection. The reIndex() method first drops all the indexes, then rebuilds all the indexes.
+
+Syntax		db.Collection_Name.reIndex()
+db.Demo.reIndex()
+
+Indexes.find() Method
+The indexes.find() method returns a list of all indexes on all collections of a database.
+
+Syntax
+db.system.indexes.find()
+db.system.indexes.find()
+
+****************************
+MongoDB - Day 14 (Aggregations)
+
+Introduction
+
+Aggregation functions performs operations on groups of documents and returns the computed result. Aggregation functions mainly group the data of multiple documents and performs various operation on the grouped data and returns a single or multiple results.
+
+Types of aggregate functions
+
+MongoDB performs aggregate operations in one of the following three ways.
+
+    Single-purpose aggregate methods and commands.
+    Pipeline.
+    Map Reduce
+
+db.Demo.insert( [  {  
+        "_id": ObjectId("55dc6c94b32228b6ef8753c0"),  
+        "Name": "Pankaj Choudhary",  
+        "Age": 21,  
+        "Salary": 25000  
+    },   
+    {  
+        "_id": ObjectId("55dc6ca8b32228b6ef8753c1"),  
+        "Name": "Sandeep Jangid",  
+        "Age": 22,  
+        "Salary": 27000  
+    },   
+    {  
+        "_id": ObjectId("55dc6cb9b32228b6ef8753c2"),  
+        "Name": "Rahul Prajapat",  
+        "Age": 23,  
+        "Salary": 37000  
+    },   
+    {  
+        "_id": ObjectId("55dc6ccab32228b6ef8753c3"),  
+        "Name": "Sanjeev Baldia",  
+        "Age": 22,  
+        "Salary": 28000  
+    },   
+    {  
+        "_id": ObjectId("55dc6cdcb32228b6ef8753c4"),  
+        "Name": "Narendra Sharma",  
+        "Age": 25,  
+        "Salary": 25000  
+    } , 
+    {  
+        "_id": ObjectId("55dc6cf5b32228b6ef8753c5"),  
+        "Name": "Nitin Yadav",  
+        "Age": 28,  
+        "Salary": 35000  
+    } ,  
+    {  
+        "_id": ObjectId("55dc6d09b32228b6ef8753c6"),  
+        "Name": "Omveer Choudhary",  
+        "Age": 32,  
+        "Salary": 37000  
+    } ] )
+
+Single-Purpose aggregate methods and commands
+
+According to its name single-purpose aggregate methods are used to do the specific aggregation operations on set of data. Single-purpose aggregate methods are less complex but with limited scope compared to pipeline and map reduce operations. Single-purpose aggregate methods and commands provide straightforward semantics for common data processing options.
+
+The following are some important single-purpose operations.
+
+Count
+
+The Count operation takes a number of documents and depending on the match query returns the count of the documents. In MongoDB the count command and cursor.count() method are used to do the count operations.
+
+   db.Demo.count()
+Demo.count() is a cursor method that returns the count of all the documents present in the Demo collection.
+
+   db.runCommand({count:'Demo',query:{Salary:{$gt:30000}}})  
+the count command takes all the documents in which the value of the Salary field is greater than 30000 and returns the count.
+
+Distinct
+
+The Distinct operation takes a document and depending on the match query returns the unique values for a field. In MongoDB the cursor.distinct() method and the distinct command performs the distinct operations.
+
+  db.Demo.distinct("Salary")
+ the distinct cursor method that return the distinct value for the “Salary” field.
+
+ db.runCommand({distinct:'Demo',key:"Salary",query:{Salary:{$gt:30000}}})
+the distinct command returned the distinct values for the “Salary” field where the value of the “Salary” field is greater than 30000. 
+
+
+Group
+The Group operation takes a number of documents and depending on the match query creates a group of fields grouped by their value and finally returns an array of documents with the computed result for each group. In MongoDB the group command and the cursor.group() methods do the group operations.
+
+  db.Demo.group({key:{Age:1},reduce:function(cur,result){result.Salary+=cur.Salary},initial:{Salary:0}})  
+This method groups the documents on the basis of the value of the “Age” field and computes the sum of Salary for each group.
+
+  db.runCommand({group:{ns:'Demo',key:{Salary:1},cond:{Salary:{$lt:30000}},$reduce:function(cur,result){result.Age+=cur.Age},initial:{Age:10}}})  
+This command groups the documents on the basis of the value of the Salary field and computes the sum of the Age field for each group.
+
+
+Aggregate Pipeline
+
+Pipeline means the possibility to execute an operation on some input and use the output as the input for the next command and so on. An aggregate pipeline is a framework modeled on the concept of data processing pipelines. In aggregate pipelines documents enter a multi-stage pipeline that transforms the documents into an aggregated result. The pipeline operation use the match query to fetch the exact documents and grouping to generate the group of documents. Pipeline operations provide tools for sorting documents by specified fields. A pipeline operation contains many stages, like filters that operate like queries, transformation of documents that modify the form of output. Mainly aggregate commands operate on a single collection and l pass the entire collection into the aggregation pipeline.
+
+Aggregate pipelines are an alternative to map-reduce. It may be an appropriate choice for aggregate operations because map-reduce are unnecessarily complex. But pipelines have some limited behavior on values types and result size.
+
+db.Collection_Name.aggregate({Pipeline expression})
+
+Parameter
+
+Pipeline expression: Pipeline expression specifies the transformation to apply on the input documents. Pipeline expression only operates on the current documents of the pipeline stage.
+
+In an aggregate pipeline, documents pass through many stages and each stage transforms the documents into another form. It is not recommended that each pipeline stage produce a document with respect to each documents. Some stages might reduce some documents and might generate new documents.
+
+A pipeline aggregate contains a number of stages, each stage takes some documents as input and does operations on these documents and generates output. The following are the possible stages in an aggregate pipeline:
+
+Stage
+	
+
+Description
+$project 	Select specific fields from a collection
+$match 	Specifies the selection criteria, to reduce the amount of documents
+$group 	Used to divide the documents into various groups
+$sort 	Sort the documents
+$skip 	Used to skip a number of documents
+$limit 	Defines the number of documents in an output result
+$unwind 	Unwinds the documents using arrays
+$redact 	Reshapes each document by restricting the content for each document
+$out 	It is the last stage of a pipeline that writes the resulting documents of the aggregate pipeline to a collection.
+
+db.Demo.aggregate([{$group:{_id:"$Age",Salary_Is:{$sum:"$Salary"}}}])
+we group the documents by the field “Age” and for each group we calculate the sum of Salary. The following is the equivalent SQL query for this example.
+Select Age,sum(Salary) from Demo group by Age.
+
+    db.Demo.aggregate( [ {  $group: {  _id: "$Age",  
+            Sum_Salary: {  
+                $sum: "$Salary"  
+            },  
+            Avg_Salary: {  
+                $avg: "$Salary"  
+            },  
+            Min_Salary: {  
+                $min: "$Salary"  
+            },  
+            Max_Salary: {  
+                $max: "$Salary"  
+            }  
+        }    } ] )
+
+we group documents by “Age” field and calculate the sum, average, minimum and maximum salary. The following is the equivalent query in SQL.
+Select Age,sum(Salary), avg(Salary), max(Salary) , min(Salary) from Demo group by Age.
+
+ db.Demo.aggregate( [ {  $group :   {  
+            _id: "$Age",  
+            Sum_Salary:   
+            {  
+                $sum: "$Salary"  
+            },  
+            Avg_Salary:   
+            {  
+                $avg: "$Salary"  
+            },  
+            Min_Salary:   
+            {  
+                $min: "$Salary"  
+            },  
+            Max_Salary:   
+            {  
+                $max: "$Salary"  
+            }  
+        }  
+    },   
+       {  
+        $match:  { _id:   
+             {  
+                $gt: 21,  
+                $lt: 27  
+             }  
+        }  } ] )
+
+documents are passed through two stages. The first stage is “group”. In that stage we group documents by the “Age” field and calculate the sum, average, minimum and maximum salary. The second stage is “match”, that stage filters all the documents depending on the value of the Age field.
+The following query also generate the same output
+
+    db.Demo.aggregate ([{   $match:  {   Age:  {  
+                $gt: 21,  
+                $lt: 27  
+            }  
+        }  
+    }, {  
+        $group:   
+        {  
+            _id: "$Age",  
+            Sum_Salary:   
+            {  
+                $sum: "$Salary"  
+            },  
+            Avg_Salary:   
+            {  
+                $avg: "$Salary"  
+            },  
+            Min_Salary:   
+            {  
+                $min: "$Salary"  
+            },  
+            Max_Salary:   
+            {  
+                $max: "$Salary"  
+            }  
+        }  
+    }]) 
+
+The following is the equivalent query in SQL.
+Select Age,sum(Salary), avg(Salary), max(Salary) , min(Salary) from Demo Where Age>21 And Age<27 group by Age 
+
+    db.Demo.aggregate ([{   $limit: 3  }, 
+      {   $group:  {  _id: "$Age",  
+                  Sum_Salary:    {   $sum: "$Salary"  },  
+                  Avg_Salary:      {   $avg: "$Salary "  },  
+                  Min_Salary:       {   $min:"$Salary "},
+                  Max_Salary:      {  $max:"$Salary "}
+            }   }])
+
+documents are passed through two stages. The first stage is “limit” that selects the top 3 documents from the collection and pass these documents to the second stage. The second stage groups the documents by the “Age” field and calculates the sum, average, minimum and maximum salary.
+
+Important Point
+The order of the stages in the aggregate pipeline is very important. Like db.Demo.aggregate($limit,$group) and db.Demo.aggregate($group,$limit) the methods don’t provide the same result.
+
+Now we will execute the previous method but interchange the order of the “limit” and “group” stages.
+
+    db.Demo.aggregate ([{  $group: {   _id: "$Age",  
+            Sum_Salary:          {   $sum: "$Salary"  },  
+            Avg_Salary:           {   $avg: "$Salary"   },  
+            Min_Salary:          {   $min: "$Salary"   },  
+            Max_Salary:          {   $max: "$Salary"  }  }  },
+           {   $limit: 3 } ] )
+
+We can see that the result of this method and previous method is not the same, so the selection of the order of the stages is very important. This selection may change the expected result.
+
+
+    db.Demo.aggregate ([{  $group:  {    _id: "$Age",  
+            Sum_Salary: {     $sum: "$Salary"     },  
+            Avg_Salary: {       $avg: "$Salary"      },  
+            Min_Salary: {       $min: "$Salary"      },  
+            Max_Salary: {      $max: "$Salary"    }  }  }, 
+	{  $project: {   Sum_Salary: 1,  Max_Salary: 1,   _id: 0  }  },
+	 {  $limit: 4  }])
+
+
+documents passed through the following three stages. The first stage is “group”. The second stage is “project”. In that stage we only select the Sum_Salary and Max_Salary fields to display. The third stage is “limit”, in that stage we select the top 4 documents from the result of the previous stage (project).
+
+    db.Demo.aggregate([{     $group: {    _id: "$Age",  
+            Sum_Salary: {   $sum: "$Salary"  },  
+            Avg_Salary: {     $avg: "$Salary"   },  
+            Min_Salary: {     $min: "$Salary"   },  
+            Max_Salary: {    $max: "$Salary"  } } },          {   $project: {   Sum_Salary: 1,  Max_Salary: 1,   _id: 0  }  }, {   $limit: 4  }, { $skip: 2 }]) 
+we add an extra stage, “skip”. So the result of the “limit” stage is passed to the “skip” stage and this stage removes the top 2 documents from the collection and prints the remaining documents.
+
+
+db.Demo.aggregate( [ {  $group: {   _id: "$Age",  
+            Sum_Salary: {   $sum: "$Salary"   },  
+            Avg_Salary: {     $avg: "$Salary"    },  
+            Min_Salary: {      $min: "$Salary"   },  
+            Max_Salary: {    $max: "$Salary"  }  }  },
+	 {   $project: {  Sum_Salary: 1,  Max_Salary: 1,   _id: 0  } }, {  $limit: 4} , { $sort: {  Sum_Salary: 1  } }])
+ we use an extra stage, “sort". That stage retrieves the documents from the output of the “limit” stage and sorts the documents depending on the value of the Sum_Salary field in ascending order.
+
+
+    db.Demo.aggregate([{   $group: {    _id: "$Age",  
+            Sum_Salary: {      $sum: "$Salary"    },  
+            Avg_Salary: {       $avg: "$Salary"      },  
+            Min_Salary: {        $min: "$Salary"      },  
+            Max_Salary: {      $max: "$Salary"     }  }  },
+	 {  $project: {   Sum_Salary: 1,  Max_Salary: 1,   _id: 0  } },
+	 {  $redact: {   $cond: {  if: {  $gt: ["$Sum_Salary", 30000]  },  then: "$$PRUNE",  else: "$$DESCEND"   }   }   }])
+
+This stage restricts the contents of the documents based on information stored in the documents themselves. In the preceding $redact stage we use two system variables. The first variable is ”$$PRUNE”, this variable excludes all the fields present in the current document or embedded at the document level . The second variable is “$$DESCEND” that returns all the fields of the current documents level, excluding embedded level documents. So the preceding query excludes all the documents where the value of “Sum_Salary” is greater than 30000.
+
+Map-Reduce
+
+Map-Reduce is another way to do aggregation. Map-Reduce is a combination of two operations. The first part of Map-Reduce is “Map”, that processes each document and retrieves one or more objects for each input document. The second part of Map-Reduce is “Reduce” that combines the result of the Map operations. Map-Reduce handles large amounts of data into aggregate results.
+
+How Map-Reduce operation Works
+
+For Map-Reduce operations MongoDB provides the mapReduce database command. In a Map-Reduce operation MongoDB first applies the map operation on all the documents that match the query condition. The result of the map operation generates the key-value pairs. For those keys that have more than one value, MongoDB applies reduce operations that collect and condense the aggregate result. Then MongoDB stores the results in a collection. Map-Reduce also contains an optional function, finalize. We can pass the output of the reduce operation to the finalize function to further condense the results of the aggregate operation.
+ 
+
+MongoDB uses a JavaScript function in map-reduce aggregation. Map-Reduce aggregates may return the documents as output or may write the result to a collection. Map-Reduce uses the JavaScript functions that provide high flexibility.
+
+To perform the mapReduce function for any collection, we must perform the following three steps. Now we will understand these procedures using the “Demo” collection.
+
+Step 1
+Define the map function.
+    function()
+    {  
+       emit(this.Age,this.Salary);  
+    } ;  
+
+In the function “this” defines the current collection name. This function maps the Salary to Age for each document and emits the Age and Salary pairs.
+
+Step 2
+
+Define the reduce function.
+    function(key,values)
+    {  
+       return Array.sum(values);  
+    } 
+
+Define the reduce function with the two arguments, key and values. The values parameter is an array type that is emitted by the map function and contains salary values and grouped by Age. This function reduces the values array to a sum of its elements.
+
+Step 3
+Output Collection.
+    { out:"My_Coll"}
+
+This operation stores the result in the “My_Coll” collection. If the collection already exists then the contents of the collection will replace the contents of the mapReduce function.
+
+The combined form of these three steps is:
+
+    db.Demo.mapReduce(function()   {  
+        emit(this.Age, this.Salary);     }, 
+    function(key, values)    {  
+        return Array.sum(values);     }, 
+    {        query: 
+        {      Age:   
+            {    $gt: 20  
+            }  
+        },  
+        out: "My_Coll"  
+    })
+
+So when we execute the preceding query MongoDB returns the following outputs as acknowledgement.
+
+result defines a number of input documents, number of emit documents, number of reduce documents, number of outputs and time to execute the mapReduce command.
+
+The result of the preceding query will be stored in the “My_Coll” collection so we can use the find() method to retrieve the result from the “My_Coll” collection.
+
+    db.My_Coll.find().pretty()
+
+
+Example 2
+
+Step 1
+    var map_func = function()  {    
+        emit(this.Age, this.Salary);    
+    };  
+
+Step 2
+    var reduce_func = function(key, values)  {    
+        return Array.sum(values);    
+    };  
+
+Step 3
+    db.Demo.mapReduce(map_func, reduce_func,   {    
+        query:     {    
+         Age:       {    $gt: 23    } },    
+        out: "My_Coll"    
+    } )  
+
+The following is the data of My_Coll collection:
+    db.My_Coll.find().pretty()
+
+we will define the map and reduce functions in two variables and use both variables in the mapReduce function. We also define the query for collections that define the selection criteria.
+
+
+    db.Demo.mapReduce(  
+    function()   
+    {  
+        emit(this.Age, this.Salary);  
+    },  
+    function(key, values)  
+    {  
+        return Array.avg(values);  
+    }, {  
+        query:   
+        {  
+            Age:   
+            {  
+                $gt: 20  
+            },  
+            Salary:   
+            {  
+                $gte: 24000  
+            }  
+        },  
+        out: "My_Coll",  
+        limit: 4,  
+        sort:   
+        {  
+            Salary: 1  
+        }  
+    })
+
+
+db.My_Coll.find().pretty()
+****************************
+
+MongoDB - Day 15 (Replication)
+
+Data replication is the concept of having data, within a system, be geo-distributed, preferably using a non-interactive, reliable process. In traditional RDBMS databases, implementing any sort of replication is a struggle because these systems were not developed with horizontal scaling in mind. Most NoSQL databases support automatic replication. MongoDB provides automatic replication.
+
+Introduction to Replication
+
+Replication is a process or method to synchronize the data across multiple servers. Replication in MongoDB is done by a replica set. A replica set in MongoDB is a group of MongoDB processes that maintain the same data set. Replica sets provide redundancy and high availability with multiple copies of data on different database servers. Replication removes dependencies from a single server so replication protects a database from the loss of a single server. Replication provides a mechanism to recover from hardware failure and service interruptions. Replication is also used to increase the read capacity. Replication provides choices for the client so he can select a different server for read and write operations. Replication maintains copies in different data centers to increase the locality and availability of data for distributed applications.
+
+Important terms in Replication
+
+Now we consider some terms used in replication.
+
+Primary and Secondary Instance
+
+MongoDB does replication using replica sets. A replica set is a group of mongod instances that host the same data set.
+
+A replica set contains two types of MongoDB instances.
+
+Primary Instance: The primary instance receives all write operations.
+
+Secondary Instance: The secondary instance applies operations from the primary so that they have the same data set.
+
+In a replica set only one primary instance is allowed and all other instances are secondary instances. This primary instance accepts all write operations from clients. A replica set is a group of two or more nodes (generally a minimum of 3 nodes are required).
+
+When a primary instance receives a write operation from a user then it updates its oplog (operation log). The oplog is a special kind of capped collection for storing all the operations that modify the data of the database. MongoDB first applies the operation on the primary instance then records the operation in the primary’s operation log (oplog). Now the secondary instance copies the operations and applies them asynchronously. All secondary replica sets contain a copy of primary instance’s oplog.
+
+Arbiter Instance: All datasets of mongod are present in the primary and secondary instances. But sometimes mongod contains another instance known as the arbiter. The arbiter instance doesn’t contain any replica set but it maintains a quorum in the replica set by presenting to a heartbeat and an election request by other replica sets.
+  
+The arbiter is mainly used in the election of the primary. Sometimes, due to automatic failover or maintenance, the election establishes a primary and a new primary node is elected among all the secondary nodes. If there is an even number of replica sets then an arbiter is added to obtain a majority of votes.
+
+
+Step 1
+
+We create a three-member replica set so we must create the three data directories for each running member. For this run the following command in a command prompt. Before running this command, close all running mongod server instances.
+
+    md d:\srv\mongodb\rs0-0 d:\srv\mongodb\rs0-1 d:\srv\mongodb\rs0-2 
+
+
+Step 2
+Now close this command prompt and open another command prompt and run the following command.
+First Member
+    mongod --port 27017 --dbpath d:/srv/mongodb/rs0-0 --replSet Rpset0 --smallfiles --oplogSize 128  
+
+Second Member
+Open another command prompt and run the following command.
+    mongod --port 27018 --dbpath d:/srv/mongodb/rs0-1 --replSet Rpset0 --smallfiles --oplogSize 128 
+
+Third Member
+Open another command prompt and run the following command.
+    mongod --port 27019 --dbpath d:/srv/mongodb/rs0-2 --replSet Rpset0 --smallfiles --oplogSize 128
+
+In the preceding procedure we start 3 instances and each instance runs on a separate port.
+
+Step 3
+Now we connect a mongod instance using a mongo shell. Open another command prompt and execute the command “mongo –-port Port_Number”. Port_Number specifies the instance to connect to. We can choose any port number among 27017,27018,27019. Here I selected port number 27017.
+The preceding image shows that port number 27017 of localhost is becoming active.
+
+mongo –port 27017
+
+Step 4
+Now execute the “rs.initiate()” command. This command is used to initiate an instance.
+
+Step 5
+Now run the rs.conf() command. This command shows the current replica set configuration object assembly.
+Now we can see that the mongo shell is connected to the primary.
+
+Step 6
+Now we add the remaining two mongod instances in the replica set using the “rs.add()” method.
+Syntax
+rs.add(<hostname>:<PortNumber>)
+rs.add("localhost : 27018")
+rs.add("localhost : 27019")
+
+
+You can find your hostname using “rs.conf()” method.
+
+In the preceding command we add a second mongod instance to the replica set. If I am checking the replica set using the rs.conf() method
+
+We can see that all three mongod instances are present in the replica set and a fully-functional replica set has been created.
+
+Now the replica set elects a new primary and all remaining mongod instances will become the secondary. Now we determine which mongod instance is elected as the “primary”.
+
+Use the rs.status() method to check the status of the replica set. When we execute the rs.status() method we will find the following details about the replica sets.
+
+We can see that “local:27017” is elected as the primary and all the remaining mongod instances are secondary.
+
+Step 7
+Adding a new database and collection
+MongoDB Enterprise Rpset0:PRIMARY> use master
+
+MongoDB Enterprise Rpset0:PRIMARY> db.testdata.insert({name:"Universe"})
+
+
+Step 8
+Connecting to one of the Secondary Nodes
+C:\Users\admin>mongo --27018
+
+MongoDB Enterprise Rpset0:SECONDARY> show dbs	//error
+
+MongoDB Enterprise Rpset0:SECONDARY> use master
+MongoDB Enterprise Rpset0:SECONDARY> db.setSlaveOk()
+MongoDB Enterprise Rpset0:SECONDARY> show dbs
+MongoDB Enterprise Rpset0:SECONDARY> db.testdata.find()
+
+Run isMaster on the secondary to see who has become the new primary
+MongoDB Enterprise Rpset0:SECONDARY> rs.status()
+
+To get a brief summary of the replica set status, run the db.isMaster()
+db.isMaster()
+
+There is one other interesting feature that you should try out: automatic failover. If the
+primary goes down, one of the secondaries will automatically be elected primary
+> ctrl + c OR db.shutdownServer() OR > primaryDB.adminCommand({"shutdown" : 1})
+
+To shutdown the set, run:
+> replicaSet.stopSet()
+The following are advantages of replication:
+
+    Provides support for disaster recovery.
+    Keeps data safe.
+    Removes dependency from a single server.
+    Provides 365*24 data availability.
+    Increases read scaling due to extra copies of data.
+    Downtime doesn’t effect performance and provide services every time.
+
+The following are points to remember:
+    Replicas provide master-slave configuration but has the capability of automatic failover.
+    In a replica set is a minimum of 2 and a maximum of 12 mongod instances.
+    Replica sets contain one primary node and all the remaining nodes are secondary.
+    During automatic failover or maintenance of the primary node, an election is made and the first secondary instance receiving a majority of votes becomes the new primary.
+
+    After recovery of the primary node, it joins the replica set and works as a secondary node.
+    The user does read operations with the primary node but the user can specify a read preference to send and read operations to a secondary.
+
+**************************
+MongoDB - Day 16 (Sharding)
+
+MongoDB has the main advantage that it can automatically spread data across servers without affecting the performance of the application. Any server can be added or removed without application downtime. A well-established and configured database never becomes offline. In other words, it provides 24x365 services.
+
+Introduction
+
+Sharding is the process of storing data records across multiple machines. As the size of the data increases, a single machine can’t store all the data and is unable to provide an acceptable read and write throughput. To overcome this issue, database systems have two basic approaches, vertical scaling and Sharding. 
+
+Vertical Scaling
+
+In vertical scaling the database requires some extra storage device to hold the data, like hard disk, memeory and so on. This technique is known as vertical scaling but this approach increases the load on a single machine and increases the chance of system failover. It is also known as a scaling up approach.
+
+Horizontal Scaling
+
+This is also known as scaling out. In this approach we add a new node (server) to the system such that the entire load is distributed over all the servers. MongoDB uses the Scaling Out approach. MongoDB uses a simple approach to do scaling out. It starts with a single or multiple nodes. If 10,000 new users connect with the application it adds another server.
+
+Sharding or horizontal scaling divides the data set and distributes the data over multiple servers. These multiple server are known as shards. Each shard is an independent database and collectively, the shards make up a single logical database. Sharding distributes data over multiple shards so it reduces the number of operations for each shard. Each shard processes fewer operations since the size of the cluster is increased and as a result the cluster can increase capacity and throughput. In the case of selection of a specific record the application doesn’t access the entire database system, it only accesses the desired shard responsible for that record. Sharding reduces the amount of data that each shard must store. For example, if a database contains 1TB of data and we have 4 shards then each shard will contain approximate 250GB of data . If we have 100 shards then each shard contains approximately 10GB data. 
+
+Sharding In MongoDB
+MongoDB does Sharding using a sharded cluster
+
+A sharded cluster contain 3 components. The following describes these components.
+
+    Shards: Shards are used to store the data. Each shard contain a replica set. Shards provide high data availability and data consistency.
+
+    Config Servers: Config servers are used to store the metadata of clusters. A sharded cluster has exactly 3 config servers. These 3 config servers contain the mapping of the cluster’s data stored in shards. Config servers help the query router to select the desired shards to do the operations.
+
+    Query Routers: Query routers are the Mongo's instance that interfaces with the client applications and does the operations of the appropriate shards. When a query comes to the query router then the query router first uses the metadata (config server) and selects the single or multiple shards and performs the desired operations to shards and then returns the results to the client. A sharded cluster may contain one or multiple query routers depending on the query load. A client can send a request to only one query router. Generally a sharded cluster contains multiple query routers.
+
+Data Partitioning
+
+MongoDB distributes data or shards at the collection level. In other words, the data of a collection may be distributed into several shards. Distribution of a collection’s data is done by a shard key.
+
+Shard Key
+
+A shard key shards a collection and determines the distribution of the collection’s documents among the cluster’s shards. A shard key may be an indexed field or an indexed compound field present in every document of the collection. The shard key is also divided into chunks and these chunks are evenly distributed across the shards. MongoDB uses the following two techniques to divide the shard key into chunks.
+
+    Range Based Partitions
+    Hash Based Partitions
+
+Range Based Sharding
+MongoDB uses range-based partitions for range-based Sharding of the collection’s data. In range-based sharding MongoDB divides the shard key into a number of non-overlapping ranges called chunks. Each chunk contains a range of values from minimum values to maximum values. 
+
+Hash Based Sharding
+MongoDB uses hash-based partitions for hash-based sharding. In a hash-based partition MongoDB computes a hash of the field’s value and then uses this hash to create the chunks in the shard key. A hash-based partition provides a more random distribution of collections in the clusters.
+
+Balanced Data Distribution
+
+In the process of sharding there is a large possibility that the stored data becomes imbalanced in the cluster. Data imbalance may occur due to any of the following reasons.
+
+    Addition/Removing of new data.
+    Addition/Removing of cluster.
+    A specific shard contains more chunks than other chunks.
+    The size of a specific chunk is greater than another chunk's size.
+
+MongoDB always tries to balance the data distribution, for this MongoDB uses the following two approaches.
+
+    Splitting
+    Balancing
+Splitting
+
+Splitting is a background process that restricts the chunks from growing too large. When the size of a chunk crosses the value of a specified chunk size, MongoDB splits the chunks into half. In the split process MongoDB does not modify the shards or migrate any data. The splits provide sufficient meta-data change.
+
+
+
+Balancing
+
+Balancing is a background process. Due to an uneven distribution of sharded collections, the query router runs a balancer process. The balancer process migrates chunks from the shard containing a large number of chunks to the shard that contains the least numbers of chunks. The balancer process can be initiated from any query router. After successful chunk migration the metadata regarding the location of the chunks on the config server is updated
+
+The following are the advantages of sharding:
+
+    Sharding distributes the data over multiple shards so it reduces the number of operations for each shard.
+    Removes the dependency from a single server.
+    Protects against system failover.
+    Increases capacity and throughput.
+
+***********************
+MongoDB - Day 17 (Backup And Restore)
+
+he process of creating and restoring the database using mongodump and mongorestore command. Besides these two methods, MongoDB provides various ways to backup and restore the database, some methods are given below:
+
+    Backup by copying underlying data files.
+    Backup using mongodump tool.
+    MongoDB Cloud manager backup.
+    Ops Manager Backup Software.
+
+
+Mongodump Tool
+
+The mongodump tool reads data from a MongoDB database and creates high fidelity BSON files. The mongorestore tool can populate a MongoDB database with the data from these BSON files. The Mongodump and mongorestore utilities works for BSON data dumps. Mongodump and mongorestore tools provide efficient backup for small MongoDB deployments, but not efficient for backup of large system. Mongodump doesn’t capture content of a database, instead mongodump captures documents of database. During backup process, mongodump reduces the performance of mongod. Not only mongodump create a traffic for running database instance but also force the database to read all data through memory.
+
+During Backup or Restore process consider the following guidelines.
+
+    Make sure that backup and restore contains a consistence data state. Sometimes backup and restore impact the data integrity or consistency if an update process running during the backup process.
+
+    Don’t import or export data if backup or restore process generates an adverse effect on database or production system.
+
+    Use a reliable file name for backup database so that we can easily identity the content of backup at the time of importing backup files.
+
+    Import or export database only when it is required because backup and restore process slow the mongod process.
+
+Basic mongodump Operations
+
+The mongodump utility takes the backup of current running mongod or mongos instance. Using mongodump utility we can take back entire server, database, collection or a specific part of a selected collections. We will discuss each scenario with examples.
+
+The mongodump command without any arguments
+
+When we run mongodump without any arguments, mongodump takes the backup of mongod instance that is connected to the local system(127.0.0.1) and port number 27017. This method stores the database backup in current directory with dump/ named.
+
+Syntax
+mongodump
+
+Step 1: Open a command prompt and run “mongod” command. This command runs a mongod instance on the localhost (127.0.0.1) and port number 27017.
+
+Step 2: Open another command prompt and run “mongodump” command. 
+
+“mongodump” command, this command created the backup of all the databases and stored in “C:\” directory with “dump” named.
+
+Run Mongodump for a Specific Port
+Mongodump –-host localhost --port 12345 
+
+Specify the Output Directory
+The mongodump command by default create a dump directory and store backup files in this directory. But we can change the directory path to store the backup files at a specific location using “out” or “o” parameters.
+    Mongodump -- out \Datad\Backup\ 
+
+create the backup of MongoDB instance and store files in “Datad\Backup”
+
+Backup of Specific Database
+mongodump --db Temp  
+
+Backup of Specific Collection
+mongodump --collection order_details --db Temp
+
+Restore the Backup Data
+
+The mongorestore command is used to restore the backup data. This command restores all the data from backup directory. The mongorestore utility restores data by connecting to a running mongod or mongos instance directly. Using mongorestore command we can restore either complete backup or a partition of backup. 
+
+Restore all Backup
+
+We can restore the backup data by using simple “mongorestore” command without any parameters. But remember that this command restores the backup from default directory “dump”. If dump directory does not exist then it will throw an error.
+
+mongorestore
+
+Drop parameter
+The drop parameter is used to drop all collection from target database before storing the collections from the dumped database.
+
+mongorestore --drop
+Above command first removes all collection from database that are present in backup files and after that stores that collections.
+
+Restore Specific Database
+The mongorestore command restores all the databases that are present in backup files. But we can restore a specific database using “db” parameter.
+
+mongorestore --db Demo dump/Demo 
+
+Restore Specific Collection
+
+In previous method we have shown how to restore a specific database such that we can restore a specific collection using “collection” parameter.
+
+Syntax
+mongorestore --collection Collection_Name --db DataBase_Name Path
+
+Example
+    mongorestore --collection Employee --db Demo dump/Demo/Employee.BSON  
+
+we restored the “Employee” collection of “Demo” database
+
+********************************
+
+MongoDB - Day 18 (Data Models)
+MongoDB contains flexible schema for data storage. Collections don’t enforce document’s structure. MongoDB provides several types of data-modeling. We can choose any data-model for our application that match our application and it’s performance requirement.
+
+Introduction to Data Modeling
+
+In RDBMS we must define the structure(schema) of tables but in MongoDB we don’t require to define the schema of collections. MongoDB contains flexible schema. Collection in MongoDB doesn’t enforce the documents structure. Dynamic schema makes MongoDB development faster. But it is only one side of coin, another side is that dynamic schema required high data balancing of application and performance characteristics of database engine. During designing of data model always consider the application usage of data such as queries, update and processing of data as well as structure of data itself.
+
+Document Structure
+
+Main decision in designing a data model for MongoDB application is that what will be the structure of documents and how application represent the relationship between data. There are two tools in MongoDB that represents the relationship between data.
+
+    Embedded Documents
+    References
+
+Embedded Documents
+
+Embedded documents maintain relationship between data by storing the related data in a single document structure. In MongoDB we can embed a documents structure either in the form of a single field or in the form of array within the document. Main advantage of embedded document is that it allows application to retrieve and manipulate related data within a single query.
+
+Embedded data model allow to store related information in same document in the form of embedded documents. Due to embedded documents MongoDB required fewer query to retrieve or manipulate the data. Embedded data model make it possible to update the related data in a single atomic query. Embedded documents are generally used for one to one and one to many relationship.
+
+
+References
+
+References maintain relationship between data by including links or references from one document to another document. MongoDB or application can use these links or references to retrieve the related data.
+
+Embedded documents contain duplicate data but references doesn’t contain duplicate data. References provide sufficient performance for read operations. References implement many to many relationship.
+
+Data Model Examples and Patterns
+
+MongoDB provides various data modeling patterns and common design considerations. MongoDB provides the following data models.
+
+    Model Relationship Between Documents
+    Model Tree Structure
+
+Each data model provides a specific structure. We can select any data model as per the requirement of applications performance.
+
+Model Relationship Between Documents
+
+Model relationship represent relationship between data using either embedded documents or references. The following are the types of model relationship between documents.
+
+    Model One-to-One Relationship with Embedded Documents
+    Model One-to-Many Relationship with Embedded Documents
+    Model One-to-Many Relationship with Documents References
+
+Model One-to-One Relationship with Embedded Documents: In One-to-One relational model relationship between documents is represented in the form of embedded documents.
+
+We take an example of state and district relationship. With respect to each district one and only state will exist. In this example we make relationship using referencing and embedding model and describe the advantages of embedding over relational in case of One-to-One relational model.
+
+Firstly consider the relational model using references.
+
+
+After observation of both the examples, we can see that embedded model require extra space compared to reference model. But if our application frequently retrieve district with state name then referencing requires some extra query to retrieve data. For One-to-One relational model embedded documents are a better choice because we can retrieve and update complete record in a single query.
+
+Model One-to-Many Relationship with Embedded Documents: In One-to-Many relationship with Embedded Documents relationship between documents is represented in the form of embedded documents. 
+
+We take an example of state and district relationship. A state contains multiple district. In this example we make relationship using referencing and embedding model and describe the advantages of embedding over referencing in case of One-to-Many relational model.
+
+If our application frequently retrieves the district data with state name information and we are using reference model for relationship, then application requires multiple queries to retrieve or update documents. Instead of reference model we can use embedded model, using embedded model application can retrieve complete data in a single query.
+
+Model One-to-Many Relationship with Documents References: Embedded model is not suitable for One-to-Many relationship every time. In some case we use reference model instead of embedded model.
+
+We take an example of book and publisher. A publisher published multiple books. For this example we make relationship using referencing and embedding model and describe the advantages of referencing model over embedded in case of One-to-Many relational model.
+
+If number of books per publisher is small and bounded, then we can store books references into publisher’s document 
+
+If number of books per publisher is larger and unbounded then it will generate a mutable array. So in such type of case we store the reference of publisher into books documents.
+
+If a document contains multiple embedded documents and size of each embedded documents is larger than each document, it will occupy larger space and increase the system cost. So in such type of scenario we should use reference instead of embedded relational model.
+
+Model Tree Structure
+
+In model tree structure, MongoDB store documents in a tree node and allows various ways to use tree data structure to implement large hierarchical or nested data relationship. MongoDB provides the following methods to implement the model tree structure.
+
+    Parent Reference
+    Child Reference
+    Array of Ancestor
+    Materialized Paths
+    Nested Sets
+
+We use above model tree structure models for the following tree structure
+
+Parent Reference
+
+In parent reference pattern approach each node of tree will store in document and each node contain the reference of parent node. The Parent links pattern provides a simple solution to tree storage but requires multiple queries to retrieve sub trees.
+
+We store each node of above tree as a document of “Map_Information” collection using parent reference method. When we create a collection for above tree, it will be like the following:
+
+db.Map_Information.insert( [ { _id : "India", Type : "Country", Parent : null },    
+{ _id : "Rajasthan", Type : "State", Parent : null },    
+{ _id : "Haryana", Type : "State", Parent : "India" },    
+{ _id : "Jaipur", Type : "District", Parent : "Rajasthan" },    
+{ _id : "Alwar", Type : "District", Parent : "Rajasthan" },    
+{ _id : "Chandigarh", Type : "District", Parent : "Haryana" },    
+{ _id : "Rajgarh", Type : "City", Parent : "Alwar" },    
+{ _id : "Bhiwadi", Type : "City", Parent : "Alwar" }
+] )
+
+Find parent of “Haryana”.
+db.Map_Information.findOne({_id:"Haryana"}).Parent
+
+Find children of “Alwar”.
+db.Map_Information.find({Parent:"Alwar"})   
+
+
+Child Reference
+
+In child reference pattern approach each node of tree will store in document and each node contain the reference of child node in form of array. This pattern provides a suitable solution for graph where a node may have multiple parents. In children reference method we don’t require operations on sub trees and provide a suitable solution for tree storage. We store each node of above tree as a document of “Map_Information” collection using child reference method. When we create a collection for above tree, it will be like the following:
+
+db.Map_Information.drop()
+
+db.Map_Information.insert( [
+{ _id : "India", Type : "Country", Children : [ "Haryana", "Rajasthan" ] },    
+{ _id : "Rajasthan", Type : "State", Children : [ "Jaipur", "Alwar" ] },    
+{ _id : "Haryana", Type : "State", Children : [ "Chandigarh" ] },    
+{ _id : "Jaipur", Type : "District", Children : [ ] },    
+{ _id : "Chandigarh", Type : "District", Children : [ ] },    
+{ _id : "Alwar", Type : "District", Children : [ "Rajgarh", "Bhiwadi" ] },    
+{ _id : "Rajgarh", Type : "City", Children : [ ] },    
+{ _id : "Bhiwadi", Type : "City", Children : [ ] } ] )
+
+Find children of “Rajasthan” state.
+db.Map_Information.find({_id:"Rajasthan"})
+
+Find Parent of “Bhiwadi”.
+db.Map_Information.find({Children:"Bhiwadi"},{_id:1})   
+
+create an index on the Children field to enable fast search.
+db.Map_Information.createIndex({Children:-1})  
+
+
+Array of Ancestor
+In array of ancestor method nodes are stored in documents and each node also contain parents id and array that store ancestor. Array of ancestor is most useful pattern for tree storage, because we can find ancestor and descendant of a node. Using index on “Ancestor” field we can retrieve fast result.
+
+The “Map_Information” collections will look as in the following snippet for Array ancestor method.
+
+db.Map_Information.drop()
+
+db.Map_Information.insert( [
+    { _id : "India", Type : "Country", Ancestor : [ ], Parent : null },    
+    { _id : "Rajasthan", Type : "State", Ancestor : [ "India" ], Parent : "India" },
+    { _id : "Haryana", Type : "State", Ancestor : [ "India" ], Parent : "India" },    
+    { _id : "Jaipur", Type : "District", Ancestor : [ "India", "Rajasthan" ], Parent : "Rajasthan" },    
+    { _id : "Alwar", Type : "District", Ancestor : [ "India", "Rajasthan" ], Parent : "Rajasthan" },    
+    { _id : "Chandigarh", Type : "District", Ancestor : [ "India", "Haryana" ], Parent : "Haryana" },    
+    { _id : "Rajgarh", Type : "District", Ancestor : [ "India", "Rajasthan", "Alwar" ], Parent :"Alwar" },    
+    { _id : "Bhiwadi", Type : "District", Ancestor : [ "India", "Rajasthan", "Alwar" ], Parent :"Alwar" }   ] )
+
+Find ancestors of “Alwar”.
+       db.Map_Information.find({_id:"Alwar"},{Ancestor:1})   
+find descendants of “Rajasthan”.
+      db.Map_Information.find({Ancestor:"Rajasthan"},{_id:1})  
+
+Materialized Paths
+
+In materialized paths methods nodes of a tree are stored in documents and each documents also contain a string of ancestors. In array of ancestor method we use an array to store ancestors of a node but in materialized method we use a string. Benefits of string is that we can use regular expression for string that also provides more flexibility in working with the path, such as finding nodes by partial paths. The Array of Ancestors pattern is slightly slower than the Materialized Paths but more straight forward to use.
+
+The “Map_Information” collections will look like the following for materialized method.
+
+db.Map_Information.drop()
+
+db.Map_Information.insert( [
+    { _id : "India", "Path" : null },    
+    { _id : "Rajasthan", "Path" : ",India," },    
+    { _id : "Haryana", "Path" : ",India," },    
+    { _id : "Jaipur", "Path" : ",India,Rajasthan," },    
+    { _id : "Alwar", "Path" : ",India,Rajasthan," },    
+    { _id : "Chandigarh", "Path" : ",India,Haryana," },    
+    { _id : "Rajgarh", "Path" : ",India,Rajasthan,Alwar," },    
+    { _id : "Bhiwadi", "Path" : ",India,Rajasthan,Alwar," } ] )
+
+find descendent of “Rajasthan”.
+    db.Map_Information.find({Path:/,Rajasthan,/})  
+
+Find descendent of India where India is at the top most element of hierarchy.
+    db.Map_Information.find({Path:/^,India,/}) 
+
+create index on Path field to retrieve faster result.
+    db.Map_Information.createIndex({Path:-1}) 
+
+Nested Sets
+
+In Nested Sets pattern we perform a round trip traversal of the tree and each node is treated as a stop in this traversal. Each node travels two times during traversal. First time during initial trip and second time return trip. Value of initial stop is mentioned on the left side and value of return stop is mentioned on the right side of node.
+
+In Nested Sets pattern each node is stored in document, these documents also contain id of parent node, value of initial stop and value of return stop.
+
+
+db.Map_Information.drop()
+
+db.Map_Information.insert( [
+{ _id : "India", Parent : 0, "Left" : 1, "Right" : 16 },    
+{ _id : "Rajasthan", Parent : "India", "Left" : 2, "Right" : 11 },     
+{ _id : "Haryana", Parent : "India", "Left" : 12, "Right" : 15 },     
+{ _id : "Jaipur", Parent : "Rajasthan", "Left" : 3, "Right" : 4 },    
+{ _id : "Alwar", Parent : "Rajasthan", "Left" : 5, "Right" : 10 },     
+{ _id : "Chandigarh", Parent : "Haryana", "Left" : 13, "Right" : 14 },    
+{ _id : "Rajgarh", Parent : "Alwar", "Left" : 6, "Right" : 7 },    
+{ _id : "Bhiwadi", Parent : "Alwar", "Left" : 8, "Right" : 9 } ])
+ 
+
+Find descendent of “India”,
+    var ParentNode=db.Map_Information.findOne({_id:"India"})    
+    db.Map_Information.find({Left:{$gt:ParentNode.Left},Right:{$lt:ParentNode.Right}},{_id:1})
+
+find ascendant of “Bhiwadi”.
+    var ParentNode=db.Map_Information.findOne({_id:"Bhiwadi"})    
+    db.Map_Information.find({Left:{$lt:ParentNode.Left},Right:{$gt:ParentNode.Right}},{_id:1, Type:1})
+
+***********************
+
+MongoDB - Day 19 (MongoDB Monitoring)
+
+Monitoring is a administer level work and a critical component of database administration. But I think we should have a basic knowledge of monitoring. Monitoring allow us to diagnose problems before they escalate to failures. Today I will give a brief introduction to monitoring and explain how we can monitor and maintain our database.
+
+What is Monitoring
+
+Monitoring helps us to understand how our production system will hold up before deploying and determine where we will need to add capacity. A firm grasp of MongoDB’s reporting allows us to assess the state of our database and maintain our deployment without crisis and failures.
+
+How MongoDB perform monitoring
+
+MongoDB provides the following three methods for monitoring and collecting information about the state of currently running MongoDB instance.
+
+    Utilities
+    Database Commands
+    Monitoring Tools
+
+Each method monitor the system and provide an overview about system performance and MongoDB instance. Each method is suitable for some specific condition. In this article I will explain several monitoring methods and also explain which method should be used in what condition.
+
+Utilities
+
+Utilities are most important and useful for diagnosing the issues and assess the state of current MongoDB instance and database. MongoDB provides number of utilities that return statistics about MongoDB instance and current activity.
+
+MongoDB contains the following utilities.
+
+mongostat
+
+mongostat  first checks the status of all running mongod instance and returns the counter of database operations. These counter contains information about insert, update, delete, queries and cursors. The mongostat  returns information about load distribution over server. The mongostat also shows when we are hitting a page fault.
+
+Use mongostat  when we want to understand load distribution or distribution of operation types.
+
+Command
+
+mongostat
+
+First open a command prompt and run one or more mongod instance using “mongod” command. Now open another command prompt and run “mongostat” utility.
+
+we can see that the output contains information about insert, query, update and delete operation. Value 0 indicate that the operation is not performed and 1 indicate that the operation has been performed. In above example all values of insert, update, delete, query is 0 because till now we did not performed any operation.
+
+Now we delete some data from a collection. After that again run the “mongostat” 
+
+In above image we can see that delete field contains value 1. Value 1  indicate that some data has been deleted from the database.
+
+mongotop
+
+The mongotop  tracks and generate reports of current read and write activity for current MongoDB instance. The mongotop  generate the report on the collection basis. The mongotop  track and report the read and write activity for all the collections.
+
+We can use mongotop to check the database activity and match our expectation. It means we can check that database performing the read and write operation as frequently as we expect or not. We can also check that the read and write activity matching our application intention or not.
+
+Command
+mongotop
+
+The mongotop command generate report each second. If we want to provide some delay then we can pass number of seconds as parameter. If we use 10 after mongotop command, then MongoDB will generate report in every 10 seconds.
+
+
+HTTP Console
+
+MongoDB provide a simple web interface that exposes the monitoring and diagnostics information in a simple web page. The web interface is accessible at http://localhost:<Port_Number>. Port_Number is 1000 more than the port number on which current mongod instance in running.
+
+Example
+
+First run a mongod instance using “--rest” option. The rest option is used to enable the REST API. REST API enables http interface, even if HTTP interface option is disabled.
+
+First open a command prompt and run the following command:
+
+mongod  --rest.
+
+Now open a browser and access HTTP console at ” http://localhost:28017/”
+
+When we access the HTTP console, it will look like the following.
+
+Commands
+
+MongoDB supports a number of command that return information about the state of database. Commands provide finer level granularity compared to utilities. MongoDB provides the followingscommands for monitoring.
+
+serverStatus
+
+The serverStatus command provide a general information about the database, memory use, disk use, cursor, network, index access and connection. This command run directly and output of this command is an account of state of current MongoDB instance. Main advantage of serverStatus command is that it doesn’t effect MongoDB performance and executes quickly.
+
+Command
+db.serverStatus()
+
+dbStats
+
+The dbStats command is used to monitor the state and storage capacity of a specific database. The dbStats command return a document that contain information about storage used and data volume in a database . This document also provide information about collection, object and index counters. To retrieve information about a database use “db.stats()” command.
+
+Command
+db.stats()
+
+collStats
+
+The collStats command return information about a collection. The collStats command resemble the information provided by dbStats command at collection level and adds some extra information such as size of collection, include a count of object in collection, disk space used by collection and information about indexes of collection.
+
+Command
+db.Collection_Name.stats()
+
+Monitoring Tools
+
+MongoDB supports number of monitoring tools either directly or through their own plugins. MongoDB uses the following two types of monitoring tools.
+
+Self Hosted Monitoring Tools
+
+Self hosted monitoring tools are mostly open source. We should install these tools on our own servers. Some important and useful tools are the following.
+
+Tool				Description
+Motop 			Real time tool and shows current operations ordered by durations every second.
+Gangila 			Generate a python script that contain operations per second, memory usage, btree 				statistics, master-slave status and current connections.
+Munin 			Retrieves server statistics.
+
+Hosted Monitoring Tools
+
+These monitoring tools are not installed on own server, instead of this yje monitoring tools are provided as a hosted service using a paid subscription. Some important and useful tools are the following:
+
+Tool				Description
+MongoDB Cloud Manager 		This is a cloud based monitoring tool and provide monitoring , backup and 				automation functionality.
+Application Performance Management 	This tools is provided by IBM that supports monitor of MongoDB and other 				application and middleware.
+Scout 				This tools support several plugins likes MongoDB Slow Queries and MongoDB Monitoring.
+
+Today we learned different types of methods and commands, through which we can monitor our MongoDB system and increase the performance of MongoDB.
+
+This is the last article of MongoDB series. Now this series has been completed. This series covered all the basic topics of MongoDB with their brief introduction. From the next article, I will explain some advanced topics in MongoDB.
+
+

@@ -1,0 +1,77 @@
+
+MongoDB Schema Less behavior and this is the key behavior for which MongoD
+> db.Employee.insert({Name:"Vijay",Age:30,Email:"VijayRana1091@gmail.com"})
+> db.Employee.insert({Name:"Vijay",Age:30,Email:"VijayRana1091@gmail.com",Address:"Delhi"})
+
+Now just think about RDMS. In case of RDMS, we had to Alter the table first to add a new column but in case of MongoDB, we don't need to add a new column because all the documents can have different schema in MongoDB.
+> db.Employee.insert ({  Name:"Vijay",Age:30,Email:"VijayRana1091@gmail.com",Address:"Delhi",Interest:["Cricket","Music"] })
+
+we can insert Array as well in a document in MongoDB. Actually, there are two basic structures inside JSON:
+
+1.    Array: List of things are represented in List of Items [……..]
+2.    Dictionaries: Associate Maps {key:Value}
+
+
+
+you want to find out all the documents in a collection where Address column exists.
+> db.Employee.find()
+
+I want to retrieve all the records where Address exists.
+> db.Employee.find( { Address : {$exists.: true } } )
+
+Adding a new document
+> db.Employee.insert ({  Name:111,Age:30,Email:"VijayRana1091@gmail.com",Address:"Delhi" })
+
+This time, I inserted an integer value in Name column. Yes, we can do this as well. This is Schema less nature. I can insert value of any type in any column.
+
+find out all the documents where name is in string, how we will find out?
+
+$type
+we have the below records in my employee collection. I have 3 documents where I have name as a string and 1 document where name is in number.
+> db.Employee.find({Name : {$type : 2 } } )
+
+In mongodb, we use 2 for string, 1 for number
+
+Data Types in MongoDB
+Data Type		Number		Meaning	
+Double			1		For float values	
+String			2		String is most commonly used DataType. In mongodb, string must be UTF-8 valid.	
+Object			3		For embedded documents	
+Array			4		For list or multiple values into one key	
+Binary Data		5		To store binary data	
+Undefined		6		 	
+Object Id			7		To store the document’s ID	
+Boolean			8		To store a boolean (true/false) value	
+Date			9		To store date and Time	
+Null			10		To store a Null value	
+Regular Expression		11		To store regular expression	
+32-bit integer		16		To store 32 bit Integer	
+Timestamp		17		To store date and Time	
+64-bit integer		18		To store 64 bit Integer
+
+insert some more records
+
+> db.Employee.insert({ Name:"Preeti",Age:26,Email:"Preeti@gmail.com",Address:"Delhi",Interest:["cooking","Music"]})
+> db.Employee.insert({ Name:"Ajay",Age:26,Email:"Preeti@gmail.com",Address:"Delhi",Interest:["Driving","Music"]})
+
+find out all the documents where interest is Music, i.e., this time we want to search inside an array.
+> db.Employee.find({Interest : "Music"})
+
+$in, $all and $nin
+ find out all the documents where we have both cooking and Music as an interest, then we can use $all:
+> db.Employee.find({Interest : {$all:["cooking","Music"]}})
+
+find out all the documents where Interest contains either music or driving, then we will use $in operator:
+> db.Employee.find({Interest : {$in:["Driving","Music"]}})
+
+ find out all the records where interest is not cooking, then we will use $nin as below:
+> db.Employee.find({Interest : {$nin:["cooking"]}})
+The above query will return all the documents where Interest is not cooking.
+
+Embedded Document and Dot Notation
+> db.Employee.insert({ Name:{firstName:"Preeti",LastName:"Rana"},Age:26,Email:"Preeti@gmail.com",Address:"Delhi",Interest:["cooking","Music"]})
+> db.Employee.insert({ Name:{firstName:"Vijay",LastName:"Rana"},Age:30,Email:"Vijay@gmail.com",Address:"Delhi",Interest:["cooking","Music"]})
+
+To specify a condition inside Embedded document, we can use dot notation as below:
+> db.Employee.find({"Name.firstName":"Vijay"})
+The above query will search all the documents where we have firstName as Vijay inside Name.

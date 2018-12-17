@@ -1,0 +1,73 @@
+file:///H:/MongoDB/MongoDB%20Basics%20%E2%80%93%20Aggregation%20and%20Group%20Examples%20Tutorial.html
+
+> db.employee.insert( [ 
+{"first_name":"John", "last_name":"Smith", "pay_rate":57000, "active":1},
+{"first_name":"Jack", "last_name":"Walder", "pay_rate":36000, "active":1},
+{"first_name":"Robert", "last_name":"Valle", "pay_rate":72000, "active":1},
+{"first_name":"Michael", "last_name":"Jones", "pay_rate":72000, "active":0},
+{"first_name":"John", "last_name":"Holden", "pay_rate":94500, "active":1},
+{"first_name":"Olivia", "last_name":"Wilde", "pay_rate":124500, "active":1},
+{"first_name":"Amaury", "last_name":"Valdes", "pay_rate":59800, "active":1},
+{"first_name":"John", "last_name":"Fitzgerald", "pay_rate":79750, "active":1},
+{"first_name":"John", "last_name":"Henry", "pay_rate":43850, "active":1},
+{"first_name":"David", "last_name":"LaSalle", "pay_rate":58500, "active":1},
+{"first_name":"Halle", "last_name":"Gululi", "pay_rate":85000, "active":1},
+{"first_name":"Julie", "last_name":"Mehaul", "pay_rate":73200, "active":1},
+{"first_name":"Jennifer", "last_name":"Stevens", "pay_rate":84000, "active":1},
+{"first_name":"David", "last_name":"Jackson", "pay_rate":87000, "active":1},
+{"first_name":"Jennifer", "last_name":"Shields", "pay_rate":43000, "active":1},
+{"first_name":"Jennifer", "last_name":"Roberts", "pay_rate":94000, "active":1} ] )
+
+> db.employee.find({}, {_id:0})
+
+Collection Aggregation using Group by and Calculating a Total Sum
+db.collection.aggregate(pipeline, options)
+
+> db.employee.aggregate(  [ {$match: { active: 1 } },
+    {$group: { _id: "$first_name", total: {$sum: "$pay_rate"}}},
+    {$sort: { total: -1 } }   ])
+
+
+Collection Aggregation using Group by and Calculating a Count
+> db.employee.aggregate(
+	  [ { $match: { active: 1 } },
+	    { $group: { _id: "$first_name", 
+	                total: { $sum: "$pay_rate" } , 
+	                count: { $sum: 1 } } },
+	    { $sort: { total: -1 } }
+	  ])
+
+
+**************
+Using Distinct for a Specific Field
+> db.employee.distinct("first_name")
+
+Using Distinct with a Query
+> db.employee.distinct("last_name", {pay_rate: {$gte:50000}})
+
+Counting the Number of Elements Returned in Distinct Method
+> db.employee.distinct("first_name").length
+
+Using Sort() in Ascending Order
+> db.employee.find({}, {_id:0,active:0}).sort({last_name: 1})
+
+Using Sort() in Descending Order
+> db.employee.find({}, {_id:0,active:0}).sort({last_name: -1})
+
+Using Sort() with Multiple Fields
+> db.employee.find({}, {_id:0,active:0}).sort({first_name: 1, last_name: 1})
+
+Using Sort() Method with Distinct
+> db.employee.distinct("first_name").sort()
+
+*Using Sort() Method with Distinct* for Descending Order
+> db.employee.distinct("first_name").sort({first_name:-1})
+
+Finding the Number of Documents in a Collection
+> db.employee.find().count()
+
+Finding the Number of Documents in a Cursor
+> db.employee.find({pay_rate: {$gte:50000}}, {_id:0, active:0})
+> db.employee.find({pay_rate: {$gte:50000}}, {_id:0, active:0}).count()
+
+

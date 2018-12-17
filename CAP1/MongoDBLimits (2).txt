@@ -1,0 +1,21 @@
+What are the limitations of MongoDB?
+MongoDB has some limitations which are listed below.
+
+    Max document size is 16 MB.
+    Max document nesting level: 100 (documents inside documents inside documents).
+    Indexed field can’t contain more than 1024 bytes.
+    Max 64 indexes per collection.
+    Max 31 fields can be used to create a compound index.
+    Full-text search and geo indexes are mutually exclusive.
+    Limit of documents in a capped collection can’t be more than 2**32. Otherwise, number of documents is unlimited.
+    On windows, mongodb can’t store more than 4 TB of data (8 TB without journal)
+    Max 12 nodes in a replica set.
+    Max 7 voting nodes in a replica set.
+    To rollback more than 300 MB of data manual intervention is needed.
+    Group command doesn’t work in sharded cluster.
+    $isolated, $snapshot, geoSearch don’t work in a sharded cluster.
+    You can’t refer to db object in $where
+    For sharding a collection it must be less than 256 GB.
+    Individual (not multi) updates/removes in a sharded cluster must include shard key. Multi versions of these commands may not include shard key.
+    Max 512 bytes for shard key values.
+    Shard key values of a collection cannot be changed once sharding is done.

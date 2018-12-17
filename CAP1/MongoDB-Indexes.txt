@@ -1,0 +1,55 @@
+Indexing with MongoDB
+
+> for(var i=0;i<100;i++){
+     db.employee.insert({"empId": "emp_" + i ,"employeeName": "employee_" + i});
+};
+
+> db.employee.find({}, {_id: 0}).limit(5);
+
+
+ Searching Employee having empId is “emp_99”;
+Query is
+
+> db.employee.find({"empId": "emp_99"}).explain();
+
+Adding Index
+Very basic syntax is:
+>db.COLLECTION_NAME.ensureIndex({KEY:1});
+
+KEY is field on which index being created.
+And 1 means Ascending index. If you want descending than use -1.
+
+In our case we are adding index on empId field.
+> db.employee.ensureIndex({"empId": 1});
+
+Operation after Index:
+    Searching Employee having empId is “emp_99”;
+Query is
+> db.employee.find({"empId": "emp_99"}).explain();
+
+List all Indexes on a Collection
+Query is
+> db.employee.getIndexes();
+
+Remove Indexes
+
+Remove particular index
+> db.employee.dropIndex( { "empId": 1 } );
+
+Remove All Index
+> db.collection.dropIndexes();
+
+Default Index on _id
+MongoDB collections have default index on _id field, this index is works like unique index.
+
+Compound Index
+You can also create index on multiple field.
+Syntax is
+> db.collection.ensureIndex( { a: 1, b: 1, c: 1 } )
+
+Index Statistics
+To view statistics about index like size of index, average size of each object and etc.. .
+Command is
+
+ > db.employee.stats();
+

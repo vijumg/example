@@ -1,0 +1,140 @@
+db.Student.insert({StudentName : "Vijay",Section : "A",Marks:70,Subject:["Hindi","English","Math"]})
+db.Student.insert({StudentName : "Gaurav",Section : "A",Marks:90,Subject:["English"]})
+db.Student.insert({StudentName : "Ajay",Section : "A",Marks:70,Subject:["Math"]})
+db.Student.insert({StudentName : "Ankur",Section : "B",Marks:10,Subject:["Hindi"]})
+db.Student.insert({StudentName : "Sunil",Section : "B",Marks:70,Subject:["Math"]})
+db.Student.insert({StudentName : "Preeti",Section : "C",Marks:80,Subject:["Hindi","English"]})
+db.Student.insert({StudentName : "Anuj",Section : "C",Marks:50,Subject:["English"]})
+db.Student.insert({StudentName : "Palka",Section : "D",Marks:40,Subject:["Math"]})
+db.Student.insert({StudentName : "Soniya",Section : "D",Marks:20,Subject:["English","Math"]})
+
+Aggregation Pipeline Stages
+In SQL 		In MongoDB		Description	
+Select		$project		Passes the fields to next stage with existing Fields or with New fields.We 					can add new Fields dynamically
+Where		$match		This will filter the documents and will pass only matching documents to next 				pipeline stage.
+Limit		$limit		limit the first x unmodified documents and pass them to next stage of 				pipeline. x is the number of the documents which will pass through the next 				stage of pipeline.
+GroupBy		$group		This will group the documents and pass them to the next stage of 				Aggregation pipeline.
+OrderBy		$sort		It will change the order of documents either in ascending or descending.
+Sum		$sum		To calculate the sum of all the numeric values.
+Join		$lookup		It will perform the left outer join with another collection in same database.
+
+$match
+we want to filter data based on Section A in Student Collection then we will use $match as below
+db.Student.aggregate ( [  {     $match:     {        "Section":"A"     }  } ])
+
+want to find out all the records where Section is A and Marks is greater then 80
+db.Student.aggregate ([   {       $match:       {           $and:[{Section:'A'},{Marks: {"$gt" :80}}]       }    } ])
+
+$project
+we want only StudentName,Section and Marks from student collection then we will use the below query
+db.Student.aggregate ( [  {       "$project":{StudentName : 1,Section:1,Marks:1}  } ])
+
+we want to find out StudentName,Section and Marks from Student Collection where Section is 'A' than we will use $project and $match both
+db.Student.aggregate ( [  {     "$match":     {        "Section":"A"     }  },  {       "$project":     {         StudentName : 1,Section:1,Marks:1     }  } ])
+
+$unwind 
+$unwind works on the the array field inside the documents. $unwind creates a new document for each array element in an array.$unwind output is a new document of each entry of an array inside a document.we use $unwind to flattens the data.
+
+we want to apply $unwind on a document where name is Vijay.In this document we have an array field named Subject which contains three subjects named Hindi,English and Math.
+db.Student.aggregate ( [  {     "$match":     {        "StudentName":"Vijay"     }  },  {       "$unwind":"$Subject"  } ])
+
+we want to select only StudentName,Section,Marks,Subject then we can use $project along with $match and $unwind 
+db.Student.aggregate ( [  {$match: { StudentName:"Vijay" }  },  {$unwind:"$Subject"  },  {$project: { StudentName : 1, Section:1 ,Marks:1,Subject:1
+        }  } ])
+
+add two documents as below in our Student Collection, In first document we have an empty array and in second document we don't have any array field.
+db.Student.insert({StudentName : "Tarun",Section : "A",Marks:95,Subject:[]})
+db.Student.insert({StudentName : "Saurabh",Section : "A",Marks:95})
+
+db.Student.aggregate ( [  {     "$match":     {        "StudentName":{$in:["Saurabh","Tarun"]}     }  },  {       "$unwind":"$Subject"  } ])
+So above query will not generate any output document because  array is missing or empty.
+
+In $unwind we can pass second parameter named includeArrayIndex which we can pass in $unwind if want to include ArrayIndex in result.
+db.Student.aggregate ( [  {     "$match":     {        "StudentName":"Vijay"     }  },  {       "$unwind":{ path: "$Subject", includeArrayIndex: "arrayIndex" }  } ] )
+
+$group 
+MongoDB use $group to group the documents by some specified expression.$group is similar to Group clause in SQL. Group in SQL is not possible without any Aggregate Function and the same is here. We can not group in MongoDB without Aggregate Functions.
+
+we want to find out Total Marks group by Section then we will use $group as below
+db.Student.aggregate ([   { $group:  {  "_id":  {   Section : "$Section"  },  "TotalMarks":    { $sum: "$Marks"         }     }   }])
+
+we want to fetch Total Marks for only Section 'A' then we can pass a $match also. 
+db.Student.aggregate ([   {  "$match":{Section :'A'} }, { "$group":  { "_id":  { "Section" : "$Section" },  "TotalMarks":  { "$sum": "$Marks"  }      }   }])
+
+we want to fetch the count of students in each section and Total marks and average marks as well 
+db.Student.aggregate ([ { "$group":  {  "_id":  { "Section" : "$Section"}, "TotalMarks":  {  "$sum": "$Marks" },"Count":{ "$sum" : 1},"Average" : {"$avg" : "$Marks"}      }   }])
+
+we want to rename the column Names in above query(Section to SectionName and TotalMarls to Total)  then we can use $project along with $group 
+db.Student.aggregate ([  { "$group":  {  "_id":  { "Section" : "$Section"  }, "TotalMarks":  {  "$sum": "$Marks" }, "Count":{ "$sum" : 1}, "Average" : {"$avg" : "$Marks"}  }  },   {  "$project" :   {  "SectionName" : "$_id.Section", "Total" : "$TotalMarks"       }   }])
+
+$sort 
+$sort is similar to  orderby clause in SQL server. In MongoDB we have $sort for this. $sort will sort the documents in either ascending or descending order as below. MongoDB uses 1 for ascending and -1 for descending
+
+ we want to  sort the result in descending order by SectionName then we can use $sort 
+db.Student.aggregate ([ {"$group": {  "_id": { "Section" : "$Section" },"TotalMarks": { "$sum": "$Marks" }, "Count":{ "$sum" : 1}, "Average" : {"$avg" : "$Marks"} } },   { "$project" :  { "SectionName" : "$_id.Section", "Total" : "$TotalMarks"  } },   {  "$sort":{"SectionName":-1}  }])
+
+$limit 
+$limit operator use to pass n documents to next pipe line stage where n is the limit.n is the number of documents
+ we want to sort the documents as in above query and we need to pass only 2 documents to the next stage of pipeline then we use $limit .
+db.Student.aggregate ([  {  "$group":  {  "_id":  { "Section" : "$Section" }, "TotalMarks":  { "$sum": "$Marks" }, "Count":{ "$sum" : 1}, "Average" : {"$avg" : "$Marks"} } },   { "$project" :  {  "SectionName" : "$_id.Section", "Total" : "$TotalMarks" } }, {"$sort":{"SectionName":-1}   },   { "$limit" : 2   }])
+
+
+$skip 
+
+$skip is use to skip first n documents and remaining will be passed in next pipeline.n is the number of documents which we want to skip
+
+we want to skip first 1 document and then we want to pass the next 2 documents to the next stage of pipeline then we  will use the below query
+db.Student.aggregate ([  { "$group":  {  "_id":  { "Section" : "$Section" }, "TotalMarks":  {  "$sum": "$Marks" }, "Count":{ "$sum" : 1}, "Average" : {"$avg" : "$Marks"}  }  }, { "$project" : { "SectionName" : "$_id.Section", "Total" : "$TotalMarks" } }, { "$sort":{"SectionName":-1}   },  { "$skip" : 1 }, { "$limit" : 2 }])
+
+
+$lookup 
+This is the most awaited feature in MongoDB. $lookup is equal to joins in SQL.$lookup comes with MongoDB release 3.2. Before Version MongoDB version 3.2 there were no concept of joins 
+
+db.Country.insert({"_id":1,"Name":"India"})
+db.Country.insert({"_id":2,"Name":"US"})
+db.Country.insert({"_id":3,"Name":"UK"})
+db.Country.insert({"_id":4,"Name":"Australia"})
+
+db.City.insert({"_id":1,"Name":"Delhi","CountryID":1})
+db.City.insert({"_id":2,"Name":"Noida","CountryID":1})
+db.City.insert({"_id":3,"Name":"Chicago","CountryID":2})
+db.City.insert({"_id":4,"Name":"London","CountryID":3})
+db.City.insert({"_id":5,"Name":"Bristol","CountryID":3})
+db.City.insert({"_id":6,"Name":"Sydney","CountryID":4})
+
+we want to fetch all the cities associated with countries then we will use $lookup as below
+db.City.aggregate([    {      $lookup:        {          from: "Country",          localField: "CountryID",          foreignField: "_id",          as: "Country"        }   }])
+
+$redact
+MongoDB uses the $redact to restrict the content of the documents based on the information stored in the document itself.
+
+$cond :-
+$cond checks a boolean expression and return expressions according to result. This is not a Stage in pipeline but good to know how $cond works { $cond: { if: (boolean-expression), then: (true-case), else: (false-case) } }
+
+In our Student Collection If we want to display Good in result if marks is greater then 70 and Poor if marks is less then 70 then we can use $cond as 
+db.Student.aggregate([ {  $project: {  StudentName: 1, Result:  { $cond: { if: { $gte: [ "$Marks", 70 ] }, then: "Good", else: "Poor"  } } } } ] )
+
+
+$setIntersection :-
+$setIntersection Takes 2 arrays as a Input and returns an array with the common element in both the array.
+
+i have two arrays in a document in my Test collection as below
+db.Test.insert({"Array1":["1","2","3"],"Array2":["1","2","3","4","5"]})
+
+we want to find out the common elements between two arrays then we will use $setIntersection as below
+db.Test.aggregate(   [     { $project: { "Array1": 1, "Array2": 1, commonToBoth: { $setIntersection: [ "$Array1", "$Array2" ] }, _id: 0 } }   ])
+
+$size 
+$size counts and returns the total the number of items in an array.In the below query we are counting the element of Array1 and Array2 
+
+db.Test.aggregate(   [      {         $project: {            Array1count: { $size: "$Array1" },            Array2count: { $size: "$Array2" }         }      }   ])
+
+$redant with an example but remove records where array is null or missing otherwise $redant will throw an exception.
+
+db.Student.remove({Marks:95})
+
+var SubjectAccess=["Math","Hindi"];
+db.Student.aggregate([{ "$match": {"Section":"A"}},{ $redact:{   $cond: { if: { $gt: [ { $size: { $setIntersection: [ "$Subject", SubjectAccess ]{} }, 0 ] }, then: "$$DESCEND",    else: "$$PRUNE" } }}])
+
+
+

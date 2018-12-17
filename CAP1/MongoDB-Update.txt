@@ -1,0 +1,106 @@
+MongoDB update
+MongoDB update
+
+MongoDB update, mongodb update document
+
+MongoDB shell client update syntax is:
+
+db.collection.update(
+   <query>,
+   <update>,
+   {
+     upsert: <boolean>,
+     multi: <boolean>,
+     writeConcern: <document>
+   }
+)
+
+First parameter in MongoDB update is query that gives us the target rows – for example {country:"USA"} to get all documents where country is USA and {country:{$ne:"USA"}} to get all the documents where country is not USA.
+
+Second parameter in MongoDB update is used to define the list of fields to update, for example we can use {name:"Pankaj Updated"} to update the name.
+
+Other options in MongoDB update are optional but important too;
+
+    if upsert is specified as true then update query will insert a document if there are no matches to the query, default value is false.
+    if multi is specified as true then all the documents that matches the query criteria will be updated, default value is false.
+    writeConcern can be used to specify write concern, if not provided default write concern will be used.
+
+MongoDB Update Document Operators
+
+We have many mongo update parameter operators available – most widely used are $set, $inc, $currentDate.
+Name	Description
+$inc	Increments the value of the field by the specified amount.
+$mul	Multiplies the value of the field by the specified amount.
+$rename	Renames a field.
+$setOnInsert	Sets the value of a field upon document creation during an upsert.
+Has no effect on update operations that modify existing documents.
+$set	Sets the value of a field in a document.
+$unset	Removes the specified field from a document.
+$min	Only updates the field if the specified value is less than the existing field value.
+$max	Only updates the field if the specified value is greater than the existing field value.
+$currentDate	Sets the value of a field to current date, either as a Date or a Timestamp.
+
+We will look into some of these in next sections.
+
+Few important points to note with MongoDB update operations are:
+
+    If <update> document contains update operators then it must contain only update operator expressions and only corresponding fields will be updated.
+    If the <update> document contains only field:value expressions then it will replace the query matching document (except _id) and we can’t update multiple documents with this (make sense, it will have duplicate data).
+    If upsert is true and no document matches the query criteria, update() inserts a single document. The update creates the new document with either:
+
+    The fields and values of the <update> parameter or the fields and values of both <query> and <update> parameters if the <update> parameter contains only update operator expressions. The update creates a base document from the equality clauses in the <query> parameter, and then applies the update expressions from the <update> parameter.
+
+> db.Persons.insert([
+ {_id:123,name:"Pankaj",country:"USA"},
+ {_id:456,name:"David",country:"USA"},
+ {_id:789,name:"Lisa",country:"India"}]
+ )
+
+> db.Persons.update({name:"Pankaj"},{$set: {country:"India"}})
+
+Notice that I am using $set operator to update a field value, if we don’t use that it will replace the whole document, as shown below. We can use it to replace all the fields in a particular document.
+
+> db.Persons.find()
+
+> db.Persons.update({name:"Pankaj"},{country:"India"})
+
+MongoDB Update multiple fields
+Notice that $set is used with JSON data, so if you want multiple fields to set then we can pass them as JSON.
+
+> db.Persons.update({name:"David"},{$set: {country:"India",name:"David New"}})
+
+MongoDB Update – Add a new field
+We can use $set operator to add a new field to the document too, as shown below.
+
+> db.Persons.drop()
+> db.Persons.insert([ {_id:123,name:"Pankaj",country:"USA"}, {_id:456,name:"David",country:"USA"}, {_id:789,name:"Lisa",country:"India"}])
+
+> db.Persons.update({_id:123},{$set: {city: "San Jose"}})
+
+> db.Persons.find({_id:123})
+
+MongoDB Update subdocument
+
+We can use mongo update dot operator to update values in a MongoDB subdocument, it’s very similar to java syntax to access methods and variables.
+
+> db.Persons.insert({_id:100,name:"Pankaj",address:{city:"San Jose",country:"USA"}})
+
+> db.Persons.update({_id:100},{$set: {"address.city": "Santa Clara"}})
+
+> db.Persons.find({_id:100})
+
+MongoDB Update – Remove a field
+We can use MongoDB update $unset operator to remove a field from the document.
+
+> db.Persons.find({_id:123})
+> db.Persons.update({_id:123},{$unset: {city: ""}})
+> db.Persons.find({_id:123})
+
+MongoDB Update – Insert a new document if no match found
+> db.Persons.update({name:"Pankaj"},{$set: {country:"India"}},{upsert: true})
+
+MongoDB Update multiple documents
+> db.Persons.insert([{name:"Pankaj",salary:5000}, {name:"David",salary:10000}, {name:"Lisa",salary:8000}] )
+
+> db.Persons.update({salary: {$lt:9000}},{$inc: {salary: 1000}},{multi:true})
+

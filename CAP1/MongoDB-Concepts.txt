@@ -1,0 +1,230 @@
+MongoDB is cross-platform and represents its documents in a binary-encoded JSON format called BSON (Binary JSON). The lightweight binary format adds speed to the flexibility of the JSON format, along with more data types. Fields inside MongoDB documents can be indexed.
+
+In MongoDB, data is stored in documents using the BSON format.
+
+MongoDB ensures high availability thanks to its replication mechanisms, horizontal scalability allowed by sharding, and is currently the most widely adopted document store. It is used by companies such as Facebook, eBay, Foursquare, Squarespace, Expedia, and Electronic Arts.
+
+Key MongoDB performance metrics to monitor
+    Throughput metrics
+    Database performance
+    Resource utilization
+    Resource saturation
+    Errors (asserts)
+
+
+Advantages of MongoDB over RDBMS
+
+    MongoDB is record database in which one gathering holds diverse archives. Number of fields, substance and size of the record might be contrast starting with one archive then onto the next.
+    Structure of a solitary item is clear
+    No intricate joins
+    Profound inquiry capacity. MongDB  helps dynamic inquiries on records utilizing a record based inquiry dialect that is almost as capable as SQL
+    Tuning
+    Simplicity of scale-out: MongoDB  is not difficult to scale
+    Transformation/ mapping of use articles to database protests not required
+    Utilizes inward memory for putting away the (windowed) working set, empowering quicker get to of data
+
+Why should use MongoDB
+
+    Report Oriented Storage : Data is put away as JSON style reports
+    File on any quality
+    Replication & High Availability
+    Auto-Sharding
+    Rich Queries
+    Quick In-Place Updates
+    Expert Support By MongoDB
+
+Where should use MongoDB?
+
+    Enormous Data
+    Content Management and Delivery
+    Portable and Social Infrastructure
+    Client Data Management
+    Data Hub
+
+MongoDB has five core security areas:
+
+    Authentication. LDAP Authentication centralizes items in your company directory.
+    Authorization. Authorization defines what role-based access controls the database provides.
+    Encryption. Encryption can be broken into At-Rest and In-Transit. Encryption is critical to securing MongoDB.
+    Auditing. Auditing refers to the ability to see who did what in the database.
+    Governance. Governance refers to document validation and checking for sensitive data (such as an account number, password, Social Security number, or birth date). This refers to both knowing where sensitive data is stored and preventing sensitive data from being introduced into the system.
+
+CRUD
+>db.mycol.insert({
+_id: Objectid(7df78ad8902c),
+title: 'MongoDB Overview',
+depiction: 'MongoDB is no sql database',
+by: 'Master',
+url: 'http://www.Master.com',
+labels: ['MongoDB', 'database', 'Nosql'],
+likes: 100
+})
+
+_id: Objectid(8 bytes timestamp, 4 bytes machine id,4 bytes process id, 6 bytes incrementer)
+
+To insert different documents in single query
+>db.post.insert([
+ 
+{
+title: 'MongoDB Introduction',
+portrayal: 'MongoDB is no sql database',
+by: ' Master ',
+url: 'http://www.Master.com',
+labels: ['MongoDB', 'database', 'Nosql'],
+likes: 100
+},
+ 
+{
+title: 'Nosql Database',
+depiction: 'Nosql database doesn't have tables',
+by: 'Master',
+url: 'http://www.Master.com',
+labels: ['MongoDB', 'database', 'Nosql'],
+likes: 20,
+ 
+remarks: [
+{
+user:'user1',
+message: 'My first education',
+datecreated: new Date(2014,12,11,3,33),
+like: 0
+}
+]
+}
+])
+
+>db.collection_name.remove(deletion_area)
+>db.mycol.remove({'title':'mongodb Overview'})
+
+>db.collection_name.remove(deletion_criteria,1)
+
+
+db.collection_name.update(selectioin_criteria,Updated_data)
+
+Projection in Mongodb refers to the  showing all the select data rather than the whole data. In Mongodb when you execute find() method, then it shows all fields of a document
+>db.collection_name.find({},{key:1})
+
+MongoDB actually stores data in BSON, binary JSON format. MondoDB drivers sends/receives data as BSON. The drivers map BSON to language appropriate data types. BSON is lightweight, traversable (writing, reading, indexing), and efficient (encoding/decoding quickly).
+
+BSON supports more data types:
+
+    number (byte, int32, int64, double)
+    date
+    binary
+    supports images
+
+
+ MongoDB features : 
+
+    MongoDB has got support from almost all programming languages like Java, Python, Ruby etc. In this tutorial we will use Python. 
+    Hadoop Integration.
+    Aggregation framework and native Map-Reduce.
+    Rich secondary indexes, including geospatial and TTL (Time To Live) index.
+    Built-in replication for high availability.
+    Auto sharding for horizontal scaling.
+    JSON data model with Dynamic/Flexible schema.
+
+
+Terminology and Concepts
+SQL Server 	MongoDB
+Database 	Database
+Table 		Collection
+Index 		Index
+Row 		Document
+Column 		Field
+Joining 		Linking & Embedding
+Partition 		Sharding (Range Partition)
+Replication 	ReplSet
+
+
+The following table presents the various SQL terminology and concepts and the corresponding MongoDB terminology and concepts:
+
+SQL to MongoDB mapping chart
+
+SQL Term/Concept 		MongoDB Term/Concept
+database 			database
+table 			collection
+row 			document
+column 			field
+index 			index
+table joins 		embedded documents and linking
+primary key 		primary key
+aggregation (e.g. group by) 	aggregation pipeline
+
+Choice of database is always a decision based pros and cons.
+
+Pros:
+
+    Document oriented
+    High performance
+    High availability -Replication
+    High scalability – Sharding
+    Dynamic- No Rigid Schema.
+    Flexible – field addition/deletion have less or no impact on the application
+    Heterogeneous Data
+    No Joins
+    Distributed
+    Data Representation in JSON or BSON
+    Geospatial support
+    Easy Integration with BigData Hadoop
+    Document-based query language that’s nearly as powerful as SQL
+    Cloud distributions such as AWS, Microsoft, RedHat,dotCloud and SoftLayer etc:-. In fact, MongoDB is built for the cloud. Its native scale-out architecture, enabled by ‘sharding,’ aligns well with the horizontal scaling and agility afforded by cloud computing.
+
+Cons:
+
+    A downside of NoSQL is that most solutions are not as strong in ACID (Atomic, Consistency, Isolation, Durability) as in the more well-established RDBMS systems.
+    Complex transaction
+    No function or Stored Procedure exists where you can bind the logic
+
+ 
+
+Good for:
+
+    Ecommerce product catalog
+    Blogs and Content Management
+    Real-time analytics and high-speed logging, caching and high scalability
+    Configuration Management
+    Maintain location based data – Geospatial data
+    Mobile and Social networking sites
+    Evolving data requirements
+    Loosely coupled objectives – the design may change by over time
+
+Not good for:
+
+    Highly transactional system and data model is designed upfront
+    Tightly coupled systems
+
+***********************
+
+Basic concept mapping among Logical, RDBMS and NoSQL Data Models
+
+Conceptual / Logical		RDBMS			NoSQL
+Entity				Table			Collection / Column Family
+Entity instance			Row			Document / Row
+Property				Column			Key / Column
+Property of an entity instance		Cell Value		Field Value
+Domain				Data type			Data type (Some NoSQL database no data type, all of value is plain text.)
+Relationship			Constraint	Reference, Embedded, Additional table, row across multiple column families.
+Key				Index		Index, Additional table, Reference
+Unique identification			Primary Key	Row Key
+
+
+Notation of Document physical model in Unified Modelset
+
+In a document database, such as MongoDB or Couchbase, everything related to a database object is encapsulated together as a Document.
+    Collection identified as Entity
+    Nested-document identified as Entity
+    Nested document identified as Relationship between nested and parent document
+    Array identified as One-to-Many Relationship
+    Reference identified as Relationship
+
+A column family is a NoSQL database that contains columns of related data. It is a tuple (pair) that consists of a key-value pair, where the key is mapped to a value that is a set of columns.
+
+Typical column family databases: HBase, Cassandra
+    CF (Column Family) identified as Entity
+    Table identified as Entity, it set a relationship with entity identified from parent CF.
+    Column Qualifier identified as Property or Index (Tag)
+    One row across multiple CFs identified as Relationship between crossed Entities.
+
+
+

@@ -1,0 +1,38 @@
+MongoDB Update Commands
+
+
+db.stores.update( conditions, object, upsert, multiple )
+
+condtions 	Query condition
+object 		New object value
+upsert 		If the record does not exist, insert it
+multiple 		Update all matched documents. Without it, only the first matched documents will be changed
+
+MongoDB Modifier
+
+Increment the age field by 1 using the $inc modifier
+
+db.stores.update( { name:"Dave Jones" }, { $inc: { age : 1 } } );
+
+MongoDB Modifier example
+
+db.stores.update({ name:"Dave Jones" }, { $set : { gender : "M" }, $inc : { y : 1 } })
+
+MongoDB Modifiers 	Description
+$inc 			Increment a field
+$set 			Set a field value
+$unset 			Delete a field
+$push 			Append a value to an array field
+$pushAll 			Append all values
+$addToSet 		Add value to array (A set) if the value is not present
+$pop 			Pop from an array
+$pull 			Remove all occurrence of a value from an array
+$pullAll 			Remove all occurrence of multi values
+$rename 			Rename a field name
+$bit 			Bitwise update of an integer field
+
+Position Operator
+
+$ will set to the position of the first matched array item in the query
+db.stores( {'notes.title':'reminder'}, {$inc:{'notes.$.reads':1}}, false, true )
+

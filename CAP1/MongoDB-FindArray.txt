@@ -1,0 +1,52 @@
+####Arrays You can also find elements in an array:
+db.animals.save({_id: 1, name: "cat", tags: ["cute", "land"], info: {type: 'carnivore'}})
+db.animals.save({_id: 2, name: "rabbit", tags: ["cute", "land"], info: {type: 'herbivore'}})
+db.animals.save({_id: 3, name: "shark", tags: ["ocean"], info: {type: 'carnivore', color: null}})
+db.animals.save({_id: 4, name: "dolphin", tags: ["cute", "ocean"], info: {type: 'carnivore', color: 'grey'}})
+db.animals.save({_id: 5, name: "rat", tags: ["land"], info: {type: 'omnivore'}})
+
+To find any documents that have a tag or either 'ocean' or 'cute' use the $in operator:
+db.animals.find({tags: {$in: ['cute', 'ocean']}}, {name: 1})
+
+To find documents that have tags of both 'cute' and 'ocean' use the $all operator:
+db.animals.find({tags: {$all: ['cute', 'ocean']}}, {name: 1})
+
+To check for documents not in 'cute' or 'ocean' you can use $nin.
+db.animals.find({tags: {$nin: ['cute', 'ocean']}}, {name: 1})
+
+####Dot Notation You can access field in a subdocument using dot notation as follows:
+
+db.animals.find({'info.type': 'omnivore'})
+//Same as db.animals.find({info: {type: 'omnivore'}})
+
+Note that Mongo is loosely typed so there is no problem if the particular field does not exist on the document, it is just skipped if it is not there.
+####Null fields A field value can be null if either it is set to the value or ```null`` or it does not exist.
+
+db.animals.find({'info.color': 'grey'}, {name: 1, info: 1})
+
+
+Searching for null gives us:
+db.animals.find({'info.color': null}, {name: 1, info: 1})
+
+This returns where the field is null ie for the shark and where the field does not exist at all.
+
+####Check for field existence To check if field exists you can use the $exists operator.
+db.animals.find({'info.color': {$exists: true}}, {name: 1, info: 1})
+This returns the documents which have the field, even if the value is null. the opposite of this is:
+
+db.animals.find({'info.color': {$exists: false}}, {name: 1, info: 1})
+
+Note: the existence of a field can be a useful indicator of the version of the document. So v1 of the api has one field, v2 of the api has a different field etc.
+###Sorting You can sort the results (1 is ascending, -1 is descending) of a find using:
+db.animals.find({}, {name: 1}).sort({name: 1})
+
+You can also sort on multiple fields using:
+db.animals.find({}, {name: 1}).sort({name: 1, 'info.type': 1})
+
+###Limit You can limit the number of documents returned. This can be useful for paging or finding the top 10 results etc.
+db.animals.find({}).limit(2)
+
+##Skip Skip is useful for paging.
+db.animals.find({}).skip(2).limit(2)
+
+

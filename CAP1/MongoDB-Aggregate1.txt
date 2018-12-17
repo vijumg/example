@@ -1,0 +1,12 @@
+Aggregation Expressions
+
+Of course there is a whole bunch of operations that can be used in the “$group”-stage during aggregation. The following table gives a quick overview on those:
+Expression	Description						Example
+$sum	Sums up the defined value from all documents in the collection	db.ships.aggregate([{$group : {_id : “$operator”, num_ships : {$sum : “$crew”}}}])
+$avg	Calculates the average of all given values from all documents in the collection.	db.ships.aggregate([{$group : {_id : “$operator”, num_ships : {$avg : “$crew”}}}])
+$min	Gets the minimum of the corresponding values from all documents in the collection.	db.ships.aggregate([{$group : {_id : “$operator”, num_ships : {$min : “$crew”}}}])
+$max	Gets the maximum of the corresponding values from all documents in the collection.	db.ships.aggregate([{$group : {_id : “$operator”, num_ships : {$max : “$crew”}}}])
+$push	Pushes the value to an array in the resulting document.	db.ships.aggregate([{$group : {_id : “$operator”, classes : {$push: “$class”}}}])
+$addToSet	Pushes the value to an array in the resulting document but does not create duplicates.	db.ships.aggregate([{$group : {_id : “$operator”, classes : {$addToSet : “$class”}}}])
+$first	Gets the first document from the source documents according to the grouping. Typically this makes only sense together with some previously applied “$sort”-stage.	db.ships.aggregate([{$group : {_id : “$operator”, first_class : {$first : “$class”}}}])
+$last	Gets the last document from the source documents according to the grouping. Typically this makes only sense together with some previously applied “$sort”-stage.	db.ships.aggregate([{$group : {_id : “$operator”, last_class : {$last : “$class”}}}])

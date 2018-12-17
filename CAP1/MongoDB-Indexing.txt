@@ -1,0 +1,25 @@
+MongoDB Indexing Limitations
+Additional Overhead:
+
+Each index involves some space and reasons and overhead on each one supplement, overhaul and erase. So if you seldom utilize your gathering for read operations, it bodes well not to utilize indexes.
+RAM Usage:
+
+Since indexes are put away in RAM, you ought to verify that the aggregate size of the index does not surpass as far as possible. If the aggregate size builds the RAM size, it will begin erasing a few indexes and henceforth bringing on execution misfortune.
+Query Limitations:
+
+    Indexing can’t be utilized within inquiries which utilization:
+    Normal representations or refutation administrators like $nin, $not, and so on.
+    Math administrators like $mod, and so on.
+    $where condition
+
+Henceforth, it is constantly fitting to check the index utilization for your inquiries.
+Index Key Limits:
+
+Beginning from adaptation 2.6, MongoDB won’t make an index if the benefit of existing index field surpasses the index key cutoff.
+
+MongoDB won’t embed any archive into an indexed accumulation if the indexed field estimation of this record surpasses the index key breaking point. Same is the situation with Mongorestore and Mongoimport utilities.
+Maximum Ranges:
+
+    A collection can’t have more than 64 indexes.
+    The length of the index name can’t be longer than 125 characters
+    A compound index can have most extreme 31 fields indexed

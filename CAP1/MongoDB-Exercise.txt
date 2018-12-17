@@ -1,0 +1,19 @@
+Exercise
+
+use petshop
+db.pets.insert({name: "Mikey", species: "Gerbil"})
+db.pets.insert({name: "Davey Bungooligan", species: "Piranha"})
+db.pets.insert({name: "Suzy B", species: "Cat"})
+db.pets.insert({name: "Mikey", species: "Hotdog"})
+db.pets.insert({name: "Terrence", species: "Sausagedog"})
+db.pets.insert({name: "Philomena Jones", species: "Cat"})
+
+    Add another piranha, and a naked mole rat called Henry.
+    Use find to list all the pets. Find the ID of Mikey the Gerbil.
+    Use find to find Mikey by id.
+    Use find to find all the gerbils.
+    Find all the creatures named Mikey.
+    Find all the creatures named Mikey who are gerbils.
+    Find all the creatures with the string "dog" in their species.
+
+

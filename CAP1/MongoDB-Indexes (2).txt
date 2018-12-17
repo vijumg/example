@@ -1,0 +1,161 @@
+file:///H:/MongoDB/MongoWebPages/Indexes%20in%20MongoDB%20-%20Training%20Material.html
+
+Indexes and Query Optimization
+
+    database index works like index in a book
+    indexes in MongoDB works almost identical to relational databases
+    because of indexes reads are faster but writes slower
+    64 indexes per collection
+
+Collection Without Indexes
+
+for (var i=1; i<=1000000; i++) {
+  db.visitors.insert({
+    "i" : i,
+    "visitor" : "visitor_"+i,
+    "score" : Math.floor(Math.random()*10+1),
+    "date" : new Date()
+  })
+}
+
+
+One Field Indexes
+
+db.visitors.explain().find({"visitor" : "visitor_330"})
+db.visitors.explain().find({"visitor" : "visitor_330"}).limit(1)
+db.visitors.explain().find({"visitor" : "visitor_99999"}).limit(1)
+
+db.visitors.createIndex({"visitor" : 1})
+db.visitors.explain().find({"visitor" : "visitor_99999"})
+
+
+Compound Indexes
+
+db.visitors.find().sort({"score" : 1, "visitor" : 1})
+db.visitors.createIndex({"visitor" : 1})
+
+db.visitors.createIndex({"score" : 1, "visitor" : 1})
+db.visitors.explain(true).find({"score" : 10}).sort({"visitor" : -1})
+db.visitors.explain(true).find({"score" : {"$gte" : 10, "$lte" : 20}})
+db.visitors.explain(true).find({"score" : {"$gte" : 10, "$lte" : 20}}).sort({"visitor" : 1})
+
+db.visitors.createIndex({"visitor" : 1, "score" : 1})
+db.visitors.explain(true).find({"score" : {"$gte" : 10, "$lte" : 20}}).sort({"visitor" : 1}).hint({"visitor" : 1, "score" : 1})
+
+db.visitors.dropIndex("visitor_1")
+
+Indexes in Details
+
+    low and high cardinality fields
+    understanding .explain()
+    using .hint()
+    query optimizer (100 results, 1000 queries, index creation)
+    fields in index must be smaller than 1kB
+    options: unique, dropDups, sparse
+
+db.visitors.createIndex({"visitor" : 1}, {"unique" : 1, "dropDups" : 1})
+
+Sparse Index
+
+    only contain entries for documents that have the indexed field (even if the index field contains a null value)
+    useful with unique constraint
+
+db.sparse_index.insert([{y:1, x:1}, {y:1, x:2}, {y:1, x:3}, {y:1}])
+db.sparse_index.createIndex({x:1}, {unique:1})
+db.sparse_index.insert({y:1})
+
+db.sparse_index.dropIndexes()
+db.sparse_index.createIndex({x:1}, {unique:1, sparse:1})
+db.sparse_index.insert({y:1})
+
+db.sparse_index.find({"x" : {"$ne" : 2}}).hint({"x" : 1})
+db.sparse_index.find({"x" : {"$ne" : 2}}).hint({"$natural" : 1})
+
+
+Index Administration
+
+    system.indexes - read only collection that stores info about indexes
+    .createIndex()
+    .dropIndex(), .dropIndexes()
+    .getIndexes()
+    options: background, name
+
+
+Capped Collections
+
+    it has to be created before first insert occurs
+    fixed size or size and number of documents (circular queue)
+    forbidden operations on documents: removing, updating (if it will increase the size)
+    can not be sharded or changed
+    sorting: $natural : 1 (or -1)
+
+db.createCollection("capped_collection", {"capped" : true, "size" : 100000})
+db.createCollection("capped_collection", {"capped" : true, "size" : 100000, "max" : 20})
+
+db.people.copyTo("capped_collection")
+db.runCommand({"convertToCapped" : "capped_collection", "size" : 100000})
+
+
+Tailable Cursors
+
+    inspired by the tail -f command
+    not closed when their results are exhausted
+    can be used only on capped collection
+    will die after 10 minutes
+
+
+Collections Without _id
+
+    can speed-up inserts
+    disables replication of all databases
+    most drivers will automatically populate _id
+
+db.createCollection("no_id_collection", {"autoIndexId" : false})
+db.no_id_collection.createIndex({"_id" : 1}, {"unique" : true})
+
+
+TTL Indexes (time-to-live)
+
+    TTL index allows you to set a timeout for each document
+    removing is performed every 60 secons
+    can be created only on single field (date field)
+
+db.ttl_collection.insert({"User" : "user1", "LastUpdated" : new Date()})
+db.ttl_collection.createIndex({"LastUpdated" : 1}, {"expireAfterSeconds" : 30})
+db.ttl_collection.find()
+
+
+Full-Text Indexes
+
+    quick text search with built-in multi-language support
+    very expensive, especially on busy collections
+
+db.people.createIndex({"Name" : "text"})
+db.people.createIndex({"Name" : "text", "Bio" : "text"}, {"weights" : {"Name": 2}})
+db.people.createIndex({"$**" : "text"})
+db.people.createIndex({"whatever" : "text"}, {"weights" : {"Name" : 5, "Movie.Name" : 2, "$**" : 1}})
+
+db.runCommand({"text" : "people", "search" : "emma thompson"})
+db.people.find({$text : {$search : "emma thompson"}})
+db.people.find({$text : {$search : "\"emma thompson\""}})
+db.people.find({$text : {$search : "-emma thompson"}})
+db.people.find({$text : {$search : "emma thompson"}}, {score : {$meta : "textScore"}})
+db.people.find({$text : {$search : "emma thompson"}}, {score : {$meta : "textScore"}}).sort({ score: { $meta: "textScore" } })
+
+
+Geospatial Indexes
+2d index
+
+    for data stored as points on a two-dimensional plane
+
+db.dots.insert([{Name:"A", location:[10, 5]}, {Name:"B", location:[17, -5]}, {Name:"C", location:[0, 2]}, {Name:"D", location:[-3, -3]}])
+db.dots.createIndex({location:"2d", type:1})
+db.dots.find({location:{$near:[0,0]}})
+
+
+2dsphere index
+
+    supports queries that calculate geometries on an earth-like sphere
+    data stored as GeoJSON objects
+    operators: 
+    calculating distance:

@@ -1,0 +1,40 @@
+MongoDB Collection
+
+A collection in MongoDB is a group of MongoDB documents. A collection is similar to a table in RDBMS. Typically it contains a group of documents that have a similar or related purpose. In a relational database all rows in a table have the same set of fields. There is no such limitation in MongoDB. Each document in a collection can have different fields.
+
+The following is an example of a movie collection:
+ {
+  title: "Gravity",
+  releaseYear: 2013,
+  language: "English",
+  director:"Alfonso Cuarón",
+  cast: ["Sandra Bullock","George Clooney","Ed Harris", "Paul Sharma"],
+  awards: [{ award: "Academy Award",
+ 	   category: "Best Director",
+ 	   year: 2014,
+ 	   person: "Alfonso Cuarón"
+ 	}]
+  	 
+ }
+ 
+ {
+  title: "The Book Thief",
+  releaseYear: 2013,
+  language:"English",
+  director:"Brian Percival",
+  cast:["Sophie Nólisse","Geoffrey Rush","Emily Watson"] 	 
+ }
+ 
+ {
+  cinemaName: "Showcase Cinema de Lux",
+  address: "Foresters Park, Osmaston Park Rd, Derby DE23 8AG",
+  phoneNo: "0871 220 1000 "
+}
+
+The above movie collection example contains three documents; the first document contains information about movie the Gravity, second document contains information about the movie The Book Thief and the third document contains information about a cinema that might be playing these movies.
+
+All three documents in this collection have different set of fields. The second document for example does not have an Awards field. The fields in the third document are completely different to the fields in the first and second document.
+
+Even though the documents are different they are related. In this case a movie could be related to one or more cinemas in which it is playing.
+
+How to establish this relationship between documents will be explained later.

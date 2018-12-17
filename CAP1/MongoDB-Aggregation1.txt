@@ -1,0 +1,48 @@
+Aggregation
+
+Introduction
+ Aggregations are operations that process data records and return computed results. MongoDB provides a rich set of aggregation operations that examine and perform calculations on the data sets.
+ Like queries, aggregation operations in MongoDB use collection of documents as input, and return results in the form of one or more documents.
+ MongoDB provides two Aggregation Modalities:
+ Aggregation Pipeline
+ Map Reduce
+
+Aggregation Pipeline
+The aggregation pipeline is a new framework for data aggregation modeled on the concept of data processing pipelines. Documents enter a multi-stage pipeline that transforms the documents into an aggregated results.
+ The aggregation pipeline provides an alternative to map-reduce and may be the preferred solution for many aggregation tasks where the complexity of map-reduce may be unwarranted.
+
+ There are two main phases in order to do the aggregation:
+db.orders.aggregate([
+{ $match: { status: "A"}},
+{ $group: { _id: "$cust_id", total: { $sum: "$amount"}}}
+])
+
+aggregate function which retrieves all the documents in the orders collection whose status field value is equal to A; the selected documents are then grouped by _id and total is computedsumming all the amount fields of the documents having the same _id
+
+
+ The aggregation pipeline starts processing the documents of the collection and pass the result to the next Pipeline Operator in order to get the final result.
+
+ The operators can filter out documents (e.g. $match) generate new documents (e.g. $group) computing the result from the given ones.
+
+ The same operator can be used more than once in the pipeline.
+
+ Each operator takes as input a pipeline expression that is a document itself containing:
+ Fields
+ Values
+ Operators
+ The aggregate command operates on a single collection.
+ Hint: use match operator at the beginning of the pipeline.
+
+
+Aggregation Expressions
+
+Of course there is a whole bunch of operations that can be used in the “$group”-stage during aggregation. The following table gives a quick overview on those:
+Expression	Description						Example
+$sum	Sums up the defined value from all documents in the collection	db.ships.aggregate([{$group : {_id : “$operator”, num_ships : {$sum : “$crew”}}}])
+$avg	Calculates the average of all given values from all documents in the collection.	db.ships.aggregate([{$group : {_id : “$operator”, num_ships : {$avg : “$crew”}}}])
+$min	Gets the minimum of the corresponding values from all documents in the collection.	db.ships.aggregate([{$group : {_id : “$operator”, num_ships : {$min : “$crew”}}}])
+$max	Gets the maximum of the corresponding values from all documents in the collection.	db.ships.aggregate([{$group : {_id : “$operator”, num_ships : {$max : “$crew”}}}])
+$push	Pushes the value to an array in the resulting document.	db.ships.aggregate([{$group : {_id : “$operator”, classes : {$push: “$class”}}}])
+$addToSet	Pushes the value to an array in the resulting document but does not create duplicates.	db.ships.aggregate([{$group : {_id : “$operator”, classes : {$addToSet : “$class”}}}])
+$first	Gets the first document from the source documents according to the grouping. Typically this makes only sense together with some previously applied “$sort”-stage.	db.ships.aggregate([{$group : {_id : “$operator”, first_class : {$first : “$class”}}}])
+$last	Gets the last document from the source documents according to the grouping. Typically this makes only sense together with some previously applied “$sort”-stage.	db.ships.aggregate([{$group : {_id : “$operator”, last_class : {$last : “$class”}}}])

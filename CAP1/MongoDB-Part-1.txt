@@ -1,0 +1,281 @@
+
+What is NoSQL?
+
+NoSQL i.e. Not Only SQL is a Non-relational based database , provides a mechanism for storage and retrieval of data that is modelled in means other than the tabular relations used in relational databases.
+
+No-SQL : No-SQL stands for Not Only SQL.No-SQL is a not relational based database.No-SQL databases does not follow the rules of RDMS and No-SQL databases does not use SQL to query the data
+
+No-SQL databases can be divided in to four categories
+
+1. Document Store  2. Graph Store 3. Column Value Store 5. Key-Value Store
+
+    Key-Value stores : DynamoDB, MemCacheDB, Redis
+    Graph Stores : Allegro, InfiniteGraph
+    Column Stores : Accumulo,Cassandra
+    Document Stores : MongoDB, Azure DocumentDB, Lotus Notes, CouchDB
+
+Document Store Databases : In Document Store Database, Data stored in form of documents. it extends the Key value Store Database Concept.
+Mongo DB and Couch DB are two main Document Store Databases .Mongo DB stores data in form of Documents
+
+What is MongoDB?
+
+MongoDB is an open source document oriented database. MongoDB falls in the category of the NoSQL – Database which means it doesn’t follow fixed schema structure like in relational databases.
+
+The MongoDB database consists of a set of databases in which each database contains multiple collections. MongoDB is schema-less what it means is that every collection can contain different types of object. Every object is also called document which is represented as a JSON (JavaScript Object Notation) structure: a list of key-value pairs. The value can be of three types: a primitive value, an array of documents or again a list of key-value pairs.
+
+we have collections and documents instead of rows/records where document is stored in BSON format which is slightly different from JSON.
+
+A typical document in MongoDB looks something like this:
+
+{
+	_id: ObjectID('4bd9e8e17cefd644108961bb'),
+	name:'Vivek',
+	class : '12th',
+	subjects: [ 'physics', 'chemistry', 'math', 'english', 'computer'],
+	address: {
+					house_no: '12B',
+					block: 'B',
+					sector: 12,
+					city : 'noida',
+					},
+	grade: [
+					{
+					exam: 'unit test 1',
+					score: '60%'
+					},
+					{
+					exam: 'unit test 2',
+					score: '70%'
+					}
+					
+				]				
+}
+
+Above document contains information of a student in the key-value pair. 
+It contains unique _id for the record, name and its value, class and its value, 
+subjects and its value is in the form of array,
+address contains its value in form of another in-document and 
+grade contains its value in form  of arrays of documents.
+
+If we have to represent the same record in Relational world then we would require at least three tables. 
+One to store basic information like _id, name, class, address and another to store subjects and another one to store grades etc.
+But here we stored the whole relational information in one complete document this is how we managed the deficiency of joins and constraints in MongoDB.
+
+MongoDB Terminology
+
+Before going foreword we should know the terminology of MongoDB
+Operation		In SQL		In MongoDB	
+Create		Insert		Insert	
+Read		Select		Find	
+Update		Update		Update	
+Delete		Delete		Remove	
+Table		Table		Collection	
+Row		Row		Document
+
+Key points of MongoDB
+
+1. MongoDB Stores Data in Json Format(We call it BSON(Binary JSON))
+2. JSON stands for JavaScript Object Notations and looks like {“Name”:”Vijay”}
+3. JSON documents store data in Key Value Pair like {“X”:1,”Y”:2,”Z”:3}
+4. There are two basic structure inside JSON is
+      a. Array : List of things is represented in List of Items [……..]
+      b. Dictionaries : Associate Maps {key:Value}
+
+For example {Name : ‘Vijay’,City : ‘Shamli’,interest : ["Sports" ,"Music"  ]}
+
+Name and city is dictionary and Interest is an Array.
+
+
+ Mongo Db is Schema less , Schema Less means two documents don’t need to be same schema.
+   First Document in a collection can be :  {Name:"Vijay",Email:"VijayRana1091@gmail.com"}
+   Second Document in same collection can be : {Name:"Vijay",Email:"VijayRana1091@gmail.com",Address : "Delhi"}
+
+ MongoDB does not support Joins.
+
+ Mongo DB does not support Transactions.
+
+
+Insert Record
+insert () Method – Inserting the documents
+
+Syntax:
+db.COLLECTION_NAME.insert(document)  
+
+SQL Example -	Insert into Student Values(1,'Vijay','VijayRana1091@gmail.com','9711965544','Delhi')
+MongoDB Example - db.Student.insert( {"_id":1,"Name":"Vijay","Email":"VijayRana1091@gmail.com","PhoneNo":"9711965544","Address":"Delhi" } )
+
+
+Select Record(s)
+The basic syntax of find() method is as follows –
+Syntax:
+db.COLLECTION_NAME.find()
+db.COLLECTION.find({QUERY}, {PROJECTION})
+
+Select all Columns :
+SQL Example -	select * from student;
+MongoDB Example -	db.Student.find()
+
+Select few Column :
+SQL Example -	select ID,Name from Student
+MongoDB Example -	db.Student.find({},{"Name":true})
+
+We use find() Method to pull all the records from the table.
+ 
+Where Clause		
+SQL Example -	select * from student where Name='Vijay'
+MongoDB Example -	db.Student.find({Name:"Vijay"})
+
+
+Greater Than and Less Than		
+SQL Example -	select * from student where ID>2
+		select * from student where ID>=2
+		select * from student where ID<2
+		select * from student where ID<=2
+
+MongoDB Example -	db.Student.find({_id:{$gt:2}})
+			db.Student.find({_id:{$gte:2}})
+			db.Student.find({_id:{$lt:2}})
+			db.Student.find({_id:{$lte:2}})
+We use $gt / $gte for Greater Than/Greater Than Equal and $lt / $lte for Less Than/Less Than Equal 
+
+
+Like		
+Find all the records where letter P exist somewhere in Name Column
+SQL Example -	select * from student where Name like '%P%'
+MongoDB Example -	db.Student.find({Name:{$regex:"P"}})
+
+Find all the records where Name ends with letter 'a'
+SQL Example -	select * from student where Name like '%a'
+MongoDB Example -	db.Student.find({Name:{$regex:"a$"}})
+
+Fetch all the records where Name starts with Letter 'P'
+SQL Example -	select * from student where Name like 'p%'
+MongoDB Example -	db.Student.find({Name:{$regex:"^P"}})
+
+
+And / Or		
+AND
+SQL Example -		 select * from Student where Name ='Vijay' and phoneNo='9711965544'
+MongoDB Example -	db.Student.find({$and :[{Name :'Vijay'},{PhoneNo : '9711965544'}]})
+
+
+OR
+SQL Example -	 	select * from Student where Name ='Vijay' or phoneNo='9711997119'
+MongoDB Example -	db.Student.find({$or:[{Name :'Vijay'},{PhoneNo : '9711997119'}]})
+
+
+Count / Sort		
+Count all the records :
+SQL Example -		select count(*) from Student 
+MongoDB Example -	db.Student.find().count()
+
+Sort Records in ascending order:
+SQL Example -		select * from student order by Name
+MongoDB Example -	db.Student.find().sort({Name:1})
+
+Sort in descending order :
+SQL Example -		select * from student order by Name desc
+MongoDB Example -	db.Student.find().sort({Name:-1})
+
+
+Update
+Syntax:
+db.COLLECTION.update({QUERY}, {UPDATE}, {OPTIONS})
+
+SQL Example -		update student set phoneNo='2222222222', Address='USA'  where ID=4		
+MongoDB Example -	db.Student.update({_id:4},{$set:{PhoneNo:'2222222222',Address:'USA'}})
+
+Upsert :
+MongoDB Example -	db.Student.update({_id:9},{$set:{PhoneNo:'2222222222',Address:'USA'}},{upsert:true})
+above query will search a document where _id is 9. it there will be a _id with 9 it will update phoneNo and Address otherwise it will insert a new document where _id is 9.
+
+Multi : 
+Suppose we execute below query 
+MongoDB Example -	db.Student.update({Name:"Vijay"},{$set:{PhoneNo:'2222222222',Address:'USA'}})
+
+It will update only one record(remember only first Match where name is "Vijay"). But if we want to update all the records where Name is "Vijay" then we will pass multi argument also
+
+MongoDB Example -	db.Student.update({Name:"Vijay"},{$set:{PhoneNo:'2222222222',Address:'USA'}},{multi:true})
+
+ 
+Delete/Remove/Drop		
+Syntax:
+db.COLLECTION.remove({QUERY})
+
+Delete with Condition :
+SQL Example -		Delete from student where ID=5
+MongoDB Example -	db.Student.remove({_id:5})
+
+Delete all the records :
+SQL Example -		Delete from Student
+MongoDB Example -	db.Student.remove({})
+
+Drop :
+SQL Example -		drop table Student
+MongoDB Example -	db.Student.drop()	
+
+
+Top		
+SQL Example -		select Top 2* from Student
+	
+MongoDB Example -
+Limit:
+db.Student.find().limit(2)
+
+Skip :
+db.Student.find().skip(2).limit(2)
+
+As name suggest skip will skip the number of documents and limit will limit the number of records.
+ 	
+distinct		
+SQL Example -		select distinct Name from Student		
+MongoDB Example -	db.Student.distinct("Name")	
+ 	
+Backup		
+
+SQL Example -	BACKUP DATABASE Test TO DISK = 'C:\Vijay\Test.Bak'   WITH FORMAT,     MEDIANAME = 'Z_SQLServerBackups',  NAME = 		Full Backup of Test Database';
+MongoDB Example -	C:\Program Files\MongoDB\Server\3.0\bin\mongodump --db Test 
+
+
+MongoDB Functions
+
+In MongoDB databases we can create functions like in Sql Server. MongoDB provides us a collection named as System.js for this.
+
+System.js collection contains two keys
+
+1. _id : _id is the function name.
+
+2. value :  value contains actual function defination.
+
+For example, suppose we want to create a function which will accept two parameters named  firstname and lastname and will return full name.
+> db.system.js.save(   { _id: "FullName", value : function(FirstName,LastName) { return FirstName + ' ' + LastName; }   })
+
+In order to call this function we need to load server scripts first, and than we can call this function
+>db.loadServerScripts();FullName('Vijay','Rana')
+
+
+**Auto Increment ID( Identity in Sql Server) in MongoDB
+
+In MongoDB _id works as a primary key. if we don't insert any value in _id field then MongoDB automatically insert a unique hexadecimal value in this column.But if we want to enter auto increment integer value (Like Identity in Sql Server or Sequence in Oracle) in this field then there is no direct way to do so. For this we need to follow below steps
+
+Step 1: Create a collection( Identity in my case) which will hold the counter
+> db.createCollection("Identity") // Identity is my collection Name
+
+Step 2: Insert a document in this collection with intial counter value
+> db.Identity.insert({_id:"incrementID",sequence_value:0}) 
+
+Step 3: Create a function which will increment this sequence_value and add that function in system.js as below
+> db.system.js.save(   {  _id: "getNextIdentity",  value : function getNextIdentity(sequenceName)   {
+        var sequenceDocument = db.Identity.findAndModify   ({
+                query:{_id: sequenceName },
+                update: {$inc:{sequence_value:1}},
+                new:true
+            });
+        return sequenceDocument.sequence_value;
+     }   } )
+
+Step 4: While inserting a document we can call this function, which will return a incremented value as below
+
+> db.EmployeeA.insert({   "_id":getNextIdentity("incrementID"),   "EmpName":"Vijay",   "Age":"30"})
+
+	

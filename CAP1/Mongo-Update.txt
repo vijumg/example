@@ -1,0 +1,28 @@
+db.user.insert({"userid":"ranjeet","city":"new delhi", "age":30})
+db.user.insert({"userid":"rk","city":"new delhi", "age":25})
+db.user.insert([{"userid":"anushka","city":"mumbai", "age":27},{"userid":"dan","city":"chennai", "age":35}])
+
+db.user.find()
+Update Document by _id 
+db.user.update({"_id": ObjectId("58399c5f682514efb3474297")}, {city:"New Delhi"});
+
+ How to update using multi:true options
+db.book.update( { city : "new delhi" }, { "state": "Delhi"}, { $multi: true } )
+
+How to use $set in update function
+The $set use to add additional fields in the document.
+db.user.update ( { "userid" : "ranjeet" }, { "$set": { "sal":2000, sessionCounter:1 }})
+
+How to use $inc in update
+The $inc modifier can be used to increment the value of an existing field
+db.user.update ( { "userid" : "ranjeet" }, {"$inc" : {"sessionCounter":1 }})
+
+How to add fields in all the documents
+db.user.update ( {}, {"$set" : {"state":"Delhi" }})
+
+*How to add fields in all the documents using forEach
+forEach can be used to manipulate the document of mongoDB. you can go another article: How to How to user forEach loop in mongoDB to manipulate document
+db.user.find().forEach(function(doc){
+   var updatedSal = doc.sal + (doc.sal * 10/100);
+    db.user.update({_id: doc._id},{$set:{"sal": updatedSal}});
+

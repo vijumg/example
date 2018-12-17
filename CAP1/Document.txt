@@ -1,0 +1,54 @@
+MongoDB Document
+
+MongoDB is a document oriented database and all data is stored in documents. A document is similar to a row in RDBMS. Documents consist of JSON-style (JavaScript Object Notation) field-value pairs and they are stored on the disk in BSON (Binary JSON) serialization format.
+
+The structure of a document is as shown below:
+
+{
+	fieldname1: value1,
+	fieldname2: value2,
+	fieldname3: value3,
+	....
+	....
+	fieldnameN: valueN
+}
+
+    The structure of the document is written inside curly brackets
+    Field names are strings and can contain any Unicode character except the . (Dot) character
+    Field names cannot start with the $ character
+    The string _id is a reserved name used to denote a primary key and hence cannot be used as field name
+    The : (colon) character separates the field name from its value
+    Values can be number, string, boolean, array or any other BSON type
+    The field value pairs are separated by comma
+
+Every document in MongoDB has a _id field which is the first field in the document. The _id field is unique to a document collection and contain any BSON data type value except an array. If a document is created without an _id field then MongoDB will automatically add the _id field as the first element of the document and assign its ObjectId value to this field.
+
+MongoDB has a size limitation of 16MB for each documents. This is to ensure that a document does not use excessive amount of RAM or bandwidth.
+
+Here is an example of a document
+
+{
+ _id: 200
+ title: "Gravity",
+ releaseYear: 2013,
+ language: "English",
+ director:"Alfonso Cuarón",
+ cast: ["Sandra Bullock","George Clooney","Ed Harris", "Paul Sharma"],
+ awards: [{ award: "Academy Award",
+	   category: "Best Director",
+	   year: 2014,
+	   person: "Alfonso Cuarón"
+	}]
+ }
+
+The first field in the above document is the _id field with a value 200.
+
+The fields title, language and director have string values and are enclosed in double quotes.
+
+releaseYear field contains number
+
+cast field is an array of strings. Arrays are enclosed in square brackets.
+
+Awards field is an array of objects containing fields awards, category, year and person.
+
+

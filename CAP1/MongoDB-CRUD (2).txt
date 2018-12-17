@@ -1,0 +1,161 @@
+MongoDB Basics - CRUD Operations
+
+MongoDB 3.4 provides the following methods to insert Documents into a Collection:
+
+    db.collection.insert(document or array of documents,writeConcern, ordered)
+    db.collection.insertOne(document, writeConcern)
+    db.collection.insertMany(array of documents,writeConcern, ordered)
+    some types of updates, which we will cover under Update Operations
+
+ Update Operations
+Update operations modify existing Documents in a Collection. MongoDB provides the following methods to do this:
+
+    db.collection.update(query document,update document,options)
+    db.collection.updateOne(query document,update document,options)
+    db.collection.updateMany(query document,update document,options)
+    db.collection.replaceOne(query document,update document,options)
+    db.collection.findAndModify(query document,update document,sort,options)
+    db.collection.findOneAndReplace(query document,update document,options)
+    db.collection.findOneAndUpdate(query document,update document,options)
+    db.collection.save(document,writeConcern)
+
+
+You can specify query criteria, or filters, that identify the documents to update. These filters use the same syntax as read operations.
+
+There are also various options that may be applied:
+Option	Type		Description
+upsert	boolean		true: will create a new Document if no existing Documents match the filter
+			false: will only update existing Documents [default]
+multi	boolean		true: will update any Document that matches the filter
+			false: will update only one Document [default]
+writeConcern document	control the level of acknowledgement of the write
+collation	document		language specific rules for the operation
+
+And various operators can be applied in the update document:
+Name	Description
+$inc	increments the value of the field by the given value
+$mul	multiplies the value of the field by the given value
+$rename	 renames the field
+$setOnInsert	 sets the field to the given value only if a new Document is inserted
+$set	 sets the field to the given value
+$unset	 removes the specified field
+$min	 updates the field only if the given value is less than the current field value
+$max	 updates the field only if the given value is greater than the current field value
+$currentDate	 sets the field's value to current Date or Timestamp
+$	 placeholder to refer to the first element in an array that matches the query
+$addToSet	 adds elements to an array if they do not exist
+$pop	 removes the first or last element in an array
+$pullAll	 removes all matching values from an array
+$pull	removes all elements from an array that match the query
+$pushAll	 adds multiple elements to an array. Deprecated
+$push	 adds an element to an array
+$each	 modifies $push and $addToSet to append multiple elements to an array
+$slice	 modifies $push to limit the size of the updated array
+$sort	 modifies $push to reorder documents stored in an array
+$position	 modifies $push to specify the position in the array to add elements
+$bit	 performs bitwise AND, OR and XOR integer updates
+$isolated	When True prevents other clients from reading or writing changed Documents before the update operation is fully 	completed. Default False allows concurrent access to changed Documents
+
+Delete Operations
+Delete operations remove documents from a collection. MongoDB provides the following methods to do this
+
+    db.collection.remove(query, justOne, writeConcern, collation)
+    db.collection.deleteOne(query, writeConcern, collation)
+    db.collection.deleteMany(query, writeConcern, collation)
+    db.collection.findOneAndDelete(query document,options)
+
+
+Query Method		Description
+db.collection.find() 		Performs a query on a collection and returns a cursor object.
+db.collection.findAndModify() 	Atomically modifies and returns a single document.
+db.collection.findOne() 	Performs a query and returns a single document ... the first one found by natural search order.
+db.collection.findOneAndDelete() 	Finds a single document and deletes it.
+db.collection.findOneAndReplace() 	Finds a single document and replaces it.
+db.collection.findOneAndUpdate() 	Finds a single document and updates it. 
+
+Various operators can be used. ':' means equality, but we can also use $eq
+
+Name		Description
+$eq		Matches values that are equal to a specified value.
+$gt		Matches values that are greater than a specified value.
+$gte		Matches values that are greater than or equal to a specified value.
+$lt		Matches values that are less than a specified value.
+$lte		Matches values that are less than or equal to a specified value.
+$ne		Matches all values that are not equal to a specified value.
+$in		Matches any of the values specified in an array.
+$nin		Matches none of the values specified in an array.
+$or		Joins query clauses with a logical OR returns all documents that match the conditions of either clause.
+$and		Joins query clauses with a logical AND returns all documents that match the conditions of both clauses.
+$not		Inverts the effect of a query expression and returns documents that do not match the query expression.
+$nor		Joins query clauses with a logical NOR returns all documents that fail to match both clauses.
+$exists		Matches documents that have the specified field.
+$type		Selects documents if a field is of the specified type.
+$mod		Performs a modulo operation on the value of a field and selects documents with a specified result.
+$regex		Selects documents where values match a specified regular expression.
+$text		Performs text search.
+$where		Matches documents that satisfy a JavaScript expression.
+$geoWithin	Selects geometries within a bounding GeoJSON geometry. The 2dsphere and 2d indexes support $geoWithin.
+$geoIntersects	Selects geometries that intersect with a GeoJSON geometry. The 2dsphere index supports $geoIntersects.
+$near	Returns geospatial objects in proximity to a point. Requires a geospatial index. The 2dsphere and 2d indexes support $near.
+$nearSphere	Returns geospatial objects in proximity to a point on a sphere. Requires a geospatial index. The 2dsphere and 2d indexes support $nearSphere.
+$all		Matches arrays that contain all elements specified in the query.
+$elemMatch	Selects documents if element in the array field matches all the specified $elemMatch conditions.
+$size		Selects documents if the array field is a specified size.
+$bitsAllSet	Matches numeric or binary values in which a set of bit positions all have a value of 1.
+$bitsAnySet	Matches numeric or binary values in which any bit from a set of bit positions has a value of 1.
+$bitsAllClear	Matches numeric or binary values in which a set of bit positions all have a value of 0.
+$bitsAnyClear	Matches numeric or binary values in which any bit from a set of bit positions has a value of 0.
+$comment	Adds a comment to a query predicate.
+$		Projects the first element in an array that matches the query condition.
+$elemMatch	Projects the first element in an array that matches the specified $elemMatch condition.
+$meta		Projects the document’s score assigned during $text operation.
+$slice		Limits the number of elements projected from an array. Supports skip and limit slices.
+
+
+ MongoDB version 3.4 the data types are as follows
+
+Type		Number	Alias		Notes
+Double		1	“double”		stores floating point values
+String		2	“string”		stores UTF8 text
+Object		3	“object”		stores embedded documents
+Array		4	“array”		can store multiple values of multiple data types
+Binary data	5	“binData”	stores 	binary data
+Undefined	6	“undefined”	Deprecated. Works like Null
+ObjectId		7	“objectId”		stores the document's ID. 12 bytes, system generated
+Boolean		8	“bool”		true or false
+Date		9	“date”		64-bit integer representing milliseconds since 01.01.1970
+Null		10	“null”	
+Regular Expression	11	“regex”	
+DBPointer	12	“dbPointer”	Deprecated.
+JavaScript	13	“javascript”	stores JavaScript data without Scope
+Symbol	14	“symbol”	Deprecated.
+JavaScript (with scope)	15	“javascriptWithScope”	stores JavaScript data with Scope
+32-bit integer	16	“int”	
+Timestamp	17	“timestamp”	64-bit integer. 32 bits representing seconds since 01.01.1970 + 32 bits incrementing. Unique per Mongo instance
+64-bit integer	18	“long”	
+Decimal128	19	“decimal”	New in version 3.4
+ Wikipedia:Decimal128	_floating-point_format
+Min key		-1	“minKey”		always the lowest result in a sort
+Max key		127	“maxKey”		always highest result in a sort
+
+Create Collection
+
+db.createCollection() method is use to explicitly create a collection. Collections do not need a schema.
+
+db.createCollection() method takes following arguments.
+Fields 		Type 	Description
+capped 		boolean 	Optional. To create a capped collection. If used must set maximum size in size field.
+autoIndexId 	boolean 	Used for automatic creation of an index on the _id field. Deprecated from version 3.2.
+size 		number 	Optional. Specify a maximum size in bytes for a capped collection.
+max 		number 	Optional. The maximum number of documents allowed in the capped collection.
+usePowerOf2Sizes 	boolean 	Optional
+noPadding 	boolean 	Optional
+storageEngine 	document 	Optional
+validator 		document 	Optional. Allows users to specify validation rules or expressions for the collection.
+validationLevel 	string 	Optional. Determines how strictly MongoDB applies the validation rules to existing documents during an update.
+validationAction 	string 	Optional. Determines whether to error on invalid documents or just warn about the violations but allow invalid documents to be inserted.
+indexOtionDefaults 	document 	Optional. Allows users to specify a default configuration for indexes when creating a collection.
+viewOn 		string 	The name of the source collection or view from which to create the view.
+pipeline 		array 	An array that consists of the aggregation pipeline stage. db.createView creates the view by applying the specified pipeline to the viewOn collection or view.
+collation 		document 	Specifies the default collation for the collection.
+

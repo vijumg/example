@@ -1,0 +1,90 @@
+MongoDB insert
+> db.Persons.insert({name:"Pankaj",country:"India"})
+
+MongoDB insert with primary key
+MongoDB insert single document with id
+> db.Persons.insert({_id:123,name:"Pankaj",country:"India"})
+
+MongoDB insert document duplicate key error
+> db.Persons.insert({_id:123,name:"David",country:"India"})
+
+MongoDB bulk insert
+insert multiple documents with a single command.
+> db.Persons.insert([{name:"David"},{name:"Kumar"}])
+
+insert array of documents with id also.
+> db.Persons.insert([{_id:100,name:"David"},{_id:101,name:"Kumar"}])
+
+there is an error in inserting one of the documents in the array.
+
+> db.Persons.insert( [ {_id:102,name:"PK"},
+ {_id:101,name:"Kumar"},
+ {_id:103,name:"PK"} ] )
+
+It’s clear that operation is terminated when any of the document insertion fails, any further records are not inserted and we get error message clearly showing which of the record caused the issue.
+
+MongoDB bulk insert ordered and writeConcern parameters
+What if we are executing a bulk operation and want to process error documents later on, we can use ordered parameter to tell MongoDB to skip the error document.
+> db.Persons.insert( [{_id:102,name:"PK"}, {_id:101,name:"Kumar"}, {_id:103,name:"PK"}] ,{ordered:false})
+
+> db.Persons.find()
+
+*****************
+MongoDB Bulk Insert – MongoDB insertMany
+
+MongoDB bulk insert
+
+MongoDB bulk insert performs ordered insert by default. If an error occurs during the insertion at a certain point, the insertion does not happen for the remaining documents.
+
+> db.car.insert(  [
+ { _id:1,name:"Audi",color:"Red",cno:"H101",mfdcountry:"Germany",speed:75 },
+ { _id:2,name:"Swift",color:"Black",cno:"H102",mfdcountry:"Italy",speed:60 },
+ { _id:3,name:"Maruthi800",color:"Blue",cno:"H103",mfdcountry:"India",speed:70 },
+ { _id:4,name:"Polo",color:"White",cno:"H104",mfdcountry:"Japan",speed:65 },
+ { _id:5,name:"Volkswagen",color:"JetBlue",cno:"H105",mfdcountry:"Rome",speed:80 }       
+  ]  )
+
+> db.car.find()
+
+MongoDB Bulk Insert documents specifying some of the fields
+> db.car.insert(  [
+ { _id:6,name:"HondaCity",color:"Grey",cno:"H106",mfdcountry:"Sweden",speed:45 },
+ {name:"Santro",color:"Pale Blue",cno:"H107",mfdcountry:"Denmark",speed:55 },
+ { _id:8,name:"Zen",speed:54 }
+ ]  )
+
+
+Inserting an unordered documents
+While performing unordered insertion, if an error occurs at a certain point the mongodb continues to insert the remaining documents in an array.
+> db.car.insert( [
+ { _id:9,name:"SwiftDezire",color:"Maroon",cno:"H108",mfdcountry:"New York",speed:40 },
+ { name:"Punto",color:"Wine Red",cno:"H109",mfdcountry:"Paris",speed:45 },
+  ], { ordered: false } )
+
+The ordered false is specified in the insert query indicating that it is an unordered collection.
+
+Inserting duplicate id value
+> db.car.insert({_id:6,name:"Innova"})
+
+The error indicates that we are inserting a document for id 6 which already contains a document and hence throws duplicate key error for id of value 6.
+
+MongoDB Bulk.insert() method
+This method performs an insert operation in bulk numbers. It is introduced from version 2.6 onwards.
+The syntax is Bulk.insert(<document>).
+document: specifies the document to be inserted.
+
+Bulk Unordered insert
+> var carbulk = db.car.initializeUnorderedBulkOp();
+> carbulk.insert({ name:"Ritz", color:"Grey",cno:"H109",mfdcountry:"Mexico",speed:62});
+> carbulk.insert({ name:"Versa", color:"Magenta",cno:"H110",mfdcountry:"France",speed:68});
+> carbulk.insert({ name:"Innova", color:"JetRed",cno:"H111",mfdcountry:"Dubai",speed:72});
+> carbulk.execute();
+
+MongoDB Bulk Ordered Insert
+This is similar to unordered bulk insert but we use initializeOrderedBulkOp call.
+>var car1bulk = db.car.initializeOrderedBulkOp();
+>car1bulk.insert({ name:"Ertiga", color:"Red",cno:"H112",mfdcountry:"America",speed:65});
+>car1bulk.insert({ name:"Quanta", color:"Maroon",cno:"H113",mfdcountry:"Rome",speed:78});
+>car1bulk.execute();
+
+******************

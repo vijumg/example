@@ -1,0 +1,217 @@
+Introduction
+What is MongoDB?
+
+MongoDB is an open source document oriented database. MongoDB falls in the category of the NoSQL – Database which means it doesn’t follow fixed schema structure like in relational databases.
+
+MongoDB cannot replace Relational databases but it should be viewed as an alternative to it. MongoDB can be installed on Windows, Linux and MAC so it is a cross platform database. It doesn’t support joins but it can represent rich, hierarchical data structures. And of the best feature the like the most is that it is easily scalable and can give high performance.
+
+The MongoDB database consists of a set of databases in which each database contains multiple collections. MongoDB is schema-less what it means is that every collection can contain different types of object. Every object is also called document which is represented as a JSON (JavaScript Object Notation) structure: a list of key-value pairs. The value can be of three types: a primitive value, an array of documents or again a list of key-value pairs.
+
+A typical document in MongoDB looks something like this:
+
+{
+	_id: ObjectID('4bd9e8e17cefd644108961bb'),
+	name:'Vivek',
+	class : '12th',
+	subjects: [ 'physics', 'chemistry', 'math', 'english', 'computer'],
+	address: {
+					house_no: '12B',
+					block: 'B',
+					sector: 12,
+					city : 'noida',
+					},
+	grade: [
+					{
+					exam: 'unit test 1',
+					score: '60%'
+					},
+					{
+					exam: 'unit test 2',
+					score: '70%'
+					}
+					
+				]				
+}
+
+Above document contains information of a student in the key-value pair. It contains unique _id for the record, name and its value, class and its value, subjects and its value is in the form of array, address contains its value in form of another in-document and grade contains its value in form of arrays of documents.
+
+If we have to represent the same record in Relational world then we would require at least three tables. One to store basic information like _id, name, class, address and another to store subjects and another one to store grades etc. But here we stored the whole relational information in one complete document this is how we managed the deficiency of joins and constraints in MongoDB. In MongoDB we do not have joins but it’s up to us the developers how we are designing our schema to manage relations.
+
+
+    show dbs : will show the databases in your system.
+    show collections : will show the collections in a db.
+    db.help() : will show the help on db methods.
+    db.mycoll.help() : will show the help on collections methods.
+
+
+The _id field in a document is a primary key which means it requires that the value of _id field should be unique. _id field is immutable which means you cannot change it. ObjectId is a type to generate unique keys which takes current time, identifier for the machine that constructing the ObjectId, the process id of the process that constructing the ObjectId and the counter that is global to object that constructing the ObjectId, 
+
+> for(i=0;i<100;i++) { subjects=['chemistry','physics','maths','english','computer'];
+	for(j=0;j<5;j++){ 
+		db.marks.insert({name:"student"+ i,subject:subjects[j],marks:Math.round(Math.random()*100) });
+		}
+	}
+
+> db.marks.find().pretty()
+
+Passing parameter in find() method:
+> db.marks.find({name:'student0'})
+
+Find record of student0 in subject computer:
+> db.marks.find({name:'student0',subject:'computer'}).pretty()
+
+Find records of all students whose marks in computer is greater than 50:
+> db.marks.find({subject:'computer',marks:{$gt:50}}).pretty()
+
+Find records of all students whose marks in computer is greater than 50 and less than equal to 90:
+> db.marks.find({subject:'computer',marks:{$gt:50,$lte:90}}).pretty()
+
+Find records of all students whose marks in computer or physics is greater than 90:
+> db.marks.find({$or:[{subject:'computer'},{subject:'physics'}],marks:{$gt:90}})
+
+another collection named additionalsubject:
+> db.additionalsubject.insert({name:'student1',subject:['arts','music']})
+> db.additionalsubject.insert({name:'student2',subject:['sports','arts']})
+> db.additionalsubject.insert({name:'student3',subject:['sports','cooking','music']})
+> db.additionalsubject.insert({name:'student4',subject:['arts','craft','music']})
+
+> db.additionalsubject.find({subject:{$all:['arts','music']}})
+The important thing to notice here is that $all will look for all the values passed in the array irrespective of the sequence they are present in collection.
+
+$in to look for either of the values passed in it. Let’s say we want to find the records of students who are either enrolled in sports or arts. 
+>  db.additionalsubject.find({subject:{$in:['sports','arts']}})
+
+Update()
+
+Update command takes two parameter first one is matching criteria and second one is updated value. Syntax: db.[collectionName].update({matching criteria},{updated value});
+
+> db.additionalsubject.update({name:'student1'},{subject:['craft']})
+It will not only change the subject field but will replace the whole document.
+
+Modifying only the desired field, if we want to just modify some values of field then we have $set operator for this.
+> db.additionalsubject.update({name:'student2'},{$set:{name:'xyz'}})
+
+Removing undesirable field, means we can remove a field from a document when we don’t require it for this we have $unset opearator.
+> db.additionalsubject.update({name:'xyz'},{$unset:{subject:1}})
+
+Update command searches for the record that matches the criteria specified in the parameter and if finds the record then it updates it otherwise nothing is updated. We have a special operator upsert that creates the new record and then update it.
+>  db.additionalsubject.update({name:'student5'},{$set:{subject:['music']}},{upsert:true})
+
+If we want to update arrays in a document then we can easily do this in MongoDB. We also have some special operators in MongoDB to update arrays in a document. 
+Change subject of student3 from sports to arts:
+> db.additionalsubject.update({name:'student3'},{$set:{'subject.0':'arts'}});
+
+Add one more subject to student3 record. For this we have $push:
+> db.additionalsubject.update({name:'student3'},{$push:{'subject':'sports'}})
+It will add one more subject ‘sports’ at the end of the subject field.
+
+Similarly, we have $pop to remove a value from the array. But it will remove the rightmost value from the array.
+$pop : 1 (remove rightmost value)
+$pop : -1 (remove leftmost value)
+> db.additionalsubject.update({name:'student3'},{$pop:{'subject':1}});
+
+We have $pushAll to add one or more value to array. Similarly we $pull to remove one specified value from array, and $pullAll to remove one or more values from the array. 
+> db.additionalsubject.update({name:'student3'},{$pushAll:{'subject':['sports','craft']}})
+> db.additionalsubject.update({name:'student3'},{$pullAll:{'subject':['sports','craft']}})
+
+MongoDB updates only one document that fulfills the matching criteria but if you want to update all document at a time then we have to pass one additional parameter mult:true.
+
+want one more additional field to all document of additionalsubject collection:
+> db.additionalsubject.update({},{$set:{"class" : "12th"}},{multi:true})
+It will add a new field class to every document in the collection.
+
+Remove()
+
+Remove command is used to remove records from collection it works same as find command it requires one parameter which is the matching criteria for the document.
+want remove the record of student named student3 then we will write:
+> db.additionalsubject.remove({name:'student3'})
+
+want to remove all documents of a collection then we have to pass an empty document as a parameter to the remove command.
+> db.additionalsubject.remove({})
+
+    It will remove all the documents of collection.
+
+
+
+*******
+MongoDB is Schema less
+We always talk about that MongoDB Schema Less behavior and this is the key behavior for which MongoDB is so popular now a days. So let's understand the meaning of Schema less.
+Insert a document in Employee Collection:
+> db.Employee.insert({Name:"Vijay",Age:30,Email:"VijayRana1091@gmail.com"})
+
+insert one more document and this time I will add one more column named address.
+> db.Employee.insert({Name:"Vijay",Age:30,Email:"VijayRana1091@gmail.com",Address:"Delhi"})
+
+Now just think about RDMS. In case of RDMS, we had to Alter the table first to add a new column but in case of MongoDB, we don't need to add a new column because all the documents can have different schema in MongoDB.
+
+> db.Employee.insert ({ Name:"Vijay",Age:30,Email:"VijayRana1091@gmail.com",Address:"Delhi",Interest:["Cricket","Music"] } )
+
+Wow, we can insert Array as well in a document in MongoDB. Actually, there are two basic structures inside JSON:
+
+    Array: List of things are represented in List of Items [……..]
+    Dictionaries: Associate Maps {key:Value}
+
+find out all the documents in a collection where Address column exists. In MongoDB, we have $exist for such queries.
+$exists
+
+> db.Employee.find()
+
+> db.Employee.find( { Address : {$exists.: rue } } )
+
+insert one more document in Employee Collection as below:
+> db.Employee.insert({  Name:111,Age:30,Email:"VijayRana1091@gmail.com",Address:"Delhi"})
+
+This time, I inserted an integer value in Name column. Yes, we can do this as well. This is Schema less nature. I can insert value of any type in any column.
+
+find out all the documents where name is in string, how we will find out?
+
+$type
+we have the below records in my employee collection. I have 3 documents where I have name as a string and 1 document where name is in number.
+> db.Employee.find({Name : {$type : 2 } } )
+
+In mongodb, we use 2 for string, 1 for number
+
+Data Types in MongoDB
+Data Type		Number		Meaning	
+Double			1		For float values	
+String			2		String is most commonly used DataType. In mongodb, string must be UTF-8 valid.	
+Object			3		For embedded documents	
+Array			4		For list or multiple values into one key	
+Binary Data		5		To store binary data	
+Undefined		6		 	
+Object Id			7		To store the document’s ID	
+Boolean			8		To store a boolean (true/false) value	
+Date			9		To store date and Time	
+Null			10		To store a Null value	
+Regular Expression		11		To store regular expression	
+32-bit integer		16		To store 32 bit Integer	
+Timestamp		17		To store date and Time	
+64-bit integer		18		To store 64 bit Integer
+
+ insert some more records
+
+> db.Employee.insert({ Name:"Preeti",Age:26,Email:"Preeti@gmail.com",Address:"Delhi",Interest:["cooking","Music"]})
+> db.Employee.insert({ Name:"Ajay",Age:26,Email:"Preeti@gmail.com",Address:"Delhi",Interest:["Driving","Music"]})
+
+find out all the documents where interest is Music, i.e., this time we want to search inside an array.
+> db.Employee.find({Interest : "Music"})
+
+$in, $all and $nin
+ find out all the documents where we have both cooking and Music as an interest, then we can use $all:
+> db.Employee.find({Interest : {$all:["cooking","Music"]}})
+
+find out all the documents where Interest contains either music or driving, then we will use $in operator:
+> db.Employee.find({Interest : {$in:["Driving","Music"]}})
+
+ find out all the records where interest is not cooking, then we will use $nin as below:
+> db.Employee.find({Interest : {$nin:["cooking"]}})
+The above query will return all the documents where Interest is not cooking.
+
+Embedded Document and Dot Notation
+> db.Employee.insert({ Name:{firstName:"Preeti",LastName:"Rana"},Age:26,Email:"Preeti@gmail.com",Address:"Delhi",Interest:["cooking","Music"]})
+> db.Employee.insert({ Name:{firstName:"Vijay",LastName:"Rana"},Age:30,Email:"Vijay@gmail.com",Address:"Delhi",Interest:["cooking","Music"]})
+
+To specify a condition inside Embedded document, we can use dot notation as below:
+> db.Employee.find({"Name.firstName":"Vijay"})
+The above query will search all the documents where we have firstName as Vijay inside Name.
+

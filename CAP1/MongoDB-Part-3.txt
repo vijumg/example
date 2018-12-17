@@ -1,0 +1,217 @@
+What I will cover
+
+1. Indexes in MongoDB
+2. How to created a Index in MongoDB
+3. Different Types of Index in MongoDB
+4. Index Properties
+5. Limitations
+
+Indexes
+Performance is always a Important part of any database. In any database whether a RDBMS or No-SQL database We always think how we can increase the query response time because the performance of your database is always a vital part  the overall performance of your application.Whenever we talk about the performance, Indexes comes on Priority.
+
+If we don't have indexes then mongodb will do a complete collection scan to select the document that match the query statement.If document count is high in collection than it will be a death of performance.
+
+> db.Names.insert({"Name":"Ajay"})
+> db.Names.insert({"Name":"Manoj"})
+> db.Names.insert({"Name":"Preeti"})
+> db.Names.insert({"Name":"Anuj"})
+> db.Names.insert({"Name":"Tony"})
+> db.Names.insert({"Name":"Steve"})
+> db.Names.insert({"Name":"Smith"})
+> db.Names.insert({"Name":"David"})
+> db.Names.insert({"Name":"William"})
+
+> 
+db.Names.find({"Name":"Smith"})
+
+> 
+db.Names.find({"Name":"Smith"}).explain()
+
+
+Default Index 
+
+When we create a collection in MongoDB then MongoDB creates a unique Index on _id Field automatically.Becuase its a unique index that's why it prevents us to enter duplicate values in _id field.We can not drop this index in MongoDB.
+
+Create Index 
+To create an index in MongoDB we have two methods 
+
+1. createIndex() : Syntax of createIndex() method is 
+> db.CollectionName.createIndex({"Key":1 or -1})
+1 is for ascending and -1 is for descending order.
+
+ create a Index on Name key in Names collection then we will create a index as 
+>db.Names.createIndex({"Name":1})
+
+2. ensureIndex() : Syntax of ensureIndex() method is 
+db.COLLECTION.ensureIndex({FIELD: 1})
+
+> db.CollectionName.ensureIndex({"key": 1 or -1})
+
+ensureIndex() method is deprecated since version 3.0.0.This method is an alias of createIndex().
+
+Different Types of Indexes in MongoDB
+
+1. Single Field Index :
+Apart from the default Index on _id field created by MongoDB users can create ascending or descending index on a single field.
+> db.Names.createIndex({"Name":1})
+
+> db.Names.find({"Name" : "Smith" }). explain()
+
+> db.Users.insert({"Name":"Ajay","Age":30})
+> db.Users.insert({"Name":"Manoj","Age":60})
+> db.Users.insert({"Name":"Preeti","Age":20})
+> db.Users.insert({"Name":"Anuj","Age":70})
+> db.Users.insert({"Name":"Tony","Age":25})
+> db.Users.insert({"Name":"Steve","Age":18})
+> db.Users.insert({"Name":"Smith","Age":33})
+> db.Users.insert({"Name":"David","Age":53})
+> db.Users.insert({"Name":"William","Age":65})
+
+> db.Users.find( {"Age" : { $gte : 30, $lte: 60 } } ) . explain()
+
+So we have BasicCursor so it will be a complete table scan and total documents scanned by the query is 9. Now I am defining a index on Age 
+
+> db.Users.createIndex({"Age":1})
+
+> db.Users.find( {"Age" : { $gte : 30, $lte: 60 } } ) . explain()
+
+2. Compound Index :
+
+Sometimes we want to search based on Name and Age both. In that case we will have to apply index on Name and Age both and this will called Compound Index
+Syntax : db.CollectionName({"Key1":1 or -1,"Key2": 1 or -1,"KeyN":1 or -1})
+
+We will create an Index on Name and Age both in Users collection as below
+> db.Users.createIndex({"Name":1,"Age":-1})
+
+Note : Compound Index will work only if we will search on Name or Name and Age. If we will search through Age only than Compound Index will not work. 
+
+Suppose we are searching through Name then we can see that Compound Index is in use
+> db.Users.find( {$and: [{"Name" : "Smith"},  {"Age" : 30 }] } ).explain()
+
+> db.Users.find(  {"Age" : 30 } ).explain()
+But if search only on Age then we can see that Compound Index is not in use So no Index is using in that case.
+
+
+3. Multikey Index :
+Remove Existing documents from Users collection and insert some documents with interest in Users collection
+> db.Users.remove({})
+> db.Users.insert({"Name":"Ajay","Age":30,Interest : ["cricket","music"] })
+> db.Users.insert({"Name":"Manoj","Age":60,Interest : ["cricket","driving"]})
+> db.Users.insert({"Name":"Preeti","Age":20,Interest : ["music","driving"]})
+> db.Users.insert({"Name":"Anuj","Age":70,Interest : ["cooking","music"]})
+> db.Users.insert({"Name":"Tony","Age":25,Interest : ["swimming","cooking"]})
+> db.Users.insert({"Name":"Steve","Age":18,Interest : ["dancing","music"]})
+> db.Users.insert({"Name":"Smith","Age":33,Interest : ["tennis","tv"]})
+> db.Users.insert({"Name":"David","Age":53,Interest : ["music","swimming"]})
+> db.Users.insert({"Name":"William","Age":65,Interest : ["dancing","swimming"]})
+
+Now if we want to Index the content of an array (Interest in my case) then we will use the Multikey Index.
+Syntax : db.CollectionName.createIndex({"Array": 1 or -1})
+
+We will create a MultiKey Index in Interest 
+> db.Users.createIndex({Interest : 1})
+
+4. Text Index :
+
+If we are performing a text search then for better performance we can apply the Text Index on string content.
+We can create a text index only on string fields.
+
+Syntax : db.CollectionName.createIndex({Field Name:"text"}) 
+ create an Index on Name field then we will create a text index as below
+> db.Users.createIndex({Name : "text"})
+
+Note : A collection can have at most one text index.
+
+Apart from these Indexes MongoDB supports some more indexes which includes Geospatial and Hashed Index.
+
+Geospatial  Index is for better queries on geospatial coordinate data and Hashed Index Indexes the hash of the value of a field MongoDB Index Properties
+
+
+MongoDB Index Properties
+1. Unique 
+
+unique property on a index field allows MongoDB to not accept a duplicate value for index field.In other words unique property will restrict t insert duplicate value for Index field.
+
+Add an another column named "SSN" in Users collection and Add a index on "SSN" Field with Unique Property 
+
+> db.Users.drop()
+> db.Users.createIndex({SSN:1},{unique:true})
+> db.Users.insert({"Name":"Ajay","Age":30,Interest : ["cricket","music"] ,"SSN" : "12345"})
+> db.Users.insert({"Name":"Manoj","Age":60,Interest : ["cricket","driving"],"SSN" : "54321"})
+
+Removed all the records from Users collection and create a index on SSN Filed with unique property. 
+So if i will try to insert duplicate values in SSN  then i will get the error. 
+> db.Users.insert({"Name":"Preeti","Age":20,Interest : ["music","driving"],"SSN" : "54321"})
+
+So we can't insert duplicate values in a field on which we have a index with unique property.
+
+2. Sparse
+
+Drop the Users collection and will insert some document
+
+> db.Users.drop()
+> db.Users.insert({"Name":"Ajay","Age":30,Interest : ["cricket","music"] ,"SSN" : "12345"})
+> db.Users.insert({"Name":"Manoj","Age":60,Interest : ["cricket","driving"],"SSN" : "54321"})
+> db.Users.insert({"Name":"Preeti","Age":20,Interest : ["music","driving"]})
+> db.Users.insert({"Name":"Anuj","Age":70,Interest : ["cooking","music"]})
+
+try to create a Index on SSN Field with unique Property. If i will try to create a index with unique property as below then i will get an error because SSN contains null for last two documents and so SSN is not unique.
+> db.Users.createIndex({SSN:1},{unique:true})
+
+
+So what will be the solution?  we have sparse property for such scenarios.
+
+Sparse will tell the database that those documents should not be included in index where SSN is missing. 
+Its time to create a index with sparse with unique property.
+> db.Users.createIndex({SSN:1},{unique:true,sparse:true})
+ no error while creating index with unique property because sparse is there.
+
+3. Partial Index
+
+This is a new born concept which comes with MongoDB 3.2.Sometimes we want to create index with some specific condition. If we are creating index with some condition than it is a partial Index.
+
+create an Index on Name field only when Age is greater than 30. We need to specify a condition while creating an Index
+> db.Users.createIndex({ Name: 1}, { partialFilterExpression: { Age: { $gt: 30 } } })
+
+To apply a condition we use partialFilterExpression.
+
+
+4. TTL Index
+
+MongoDB has a special type of single Field Index named TTL Index.MongoDB uses this type of Index to remove document automatically after a certain period of Time. We use expireAfterSeconds option to provide the expiration Time.
+
+create a TTL Index on Age with 60 second expiring time 
+> db.Users.createIndex( { "Age": 1 }, { expireAfterSeconds: 60 } ) 
+
+It will delete this document after 60 seconds automatically. A background task runs in every 60 seconds that removes all the expire documents.so it might take some extra time to remove this document from collection. It depends also on workload of mongod instance so expired documents can be in collection beyond the specified amount of time.
+
+Some Key Points
+1. getIndexes() 
+If we want to see all the created indexes on a collection we use getIndexes() method.
+Syntax : db.CollectionName.getIndexes()
+
+2. dropIndex() 
+To drop a Index we use dropIndex() method.
+Syntax : db.CollectionName.dropIndex({"Key":1 or -1})
+Pass the key with 1 or -1 which we passed while creating index.
+
+3. dropIndexes() 
+To remove all the Indexes from a collection we use dropIndexes() method.
+db.CollectionName.dropIndexes() 
+
+4. To Get all Indexes from a collection
+db.getCollectionNames().forEach(function(collection) {
+   index = db[collection].getIndexes();
+   print("Indexes for " + collection + ":");
+   printjson(index);
+});
+
+5. Rebuild a Index
+To Rebuild a Index we use reIndex() method 
+db.CollectioName.reIndex()
+
+Limitations
+1. A single collection can not have more than 64 indexes.
+2. In Compound Index can not have more than 31 Fields.
+
+

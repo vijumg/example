@@ -1,0 +1,76 @@
+$text performs a text search on the content of the fields indexed with a text index. A $text expression has the following syntax:
+{
+  $text:
+    {
+      $search: <string>,
+      $language: <string>,
+      $caseSensitive: <boolean>,
+      $diacriticSensitive: <boolean>
+    }
+}
+
+
+db.articles.insert(
+   [
+     { _id: 1, subject: "coffee", author: "xyz", views: 50 },
+     { _id: 2, subject: "Coffee Shopping", author: "efg", views: 5 },
+     { _id: 3, subject: "Baking a cake", author: "abc", views: 90  },
+     { _id: 4, subject: "baking", author: "xyz", views: 100 },
+     { _id: 5, subject: "Café Con Leche", author: "abc", views: 200 },
+     { _id: 6, subject: "???????", author: "jkl", views: 80 },
+     { _id: 7, subject: "coffee and cream", author: "efg", views: 10 },
+     { _id: 8, subject: "Cafe con Leche", author: "xyz", views: 10 }
+   ]
+)
+
+db.articles.createIndex( { subject: "text" } )
+
+The following query specifies a $search string of coffee:
+Search for a Single Word
+db.articles.find( { $text: { $search: "coffee" } } )
+
+Match Any of the Search Terms
+The following query specifies a $search string of three terms delimited by space, "bake coffee cake":
+db.articles.find( { $text: { $search: "bake coffee cake" } } )
+
+Search for a Phrase
+The following query searches for the phrase coffee shop:
+db.articles.find( { $text: { $search: "\"coffee shop\"" } } )
+
+Exclude Documents That Contain a Term
+The following example searches for documents that contain the words coffee but do not contain the term shop, or more precisely the stemmed version of the words:
+db.articles.find( { $text: { $search: "coffee -shop" } } )
+
+Search a Different Language
+The following query specifies es, i.e. Spanish, as the language that determines the tokenization, stemming, and stop words:
+db.articles.find(
+   { $text: { $search: "leche", $language: "es" } }
+)
+
+Case and Diacritic Insensitive Search
+The following query performs a case and diacritic insensitive text search for the terms ??´????? or CAFÉS:
+db.articles.find( { $text: { $search: "??´????? CAFÉS" } } )
+
+Case Sensitive Search for a Term
+The following query performs a case sensitive search for the term Coffee:
+db.articles.find( { $text: { $search: "Coffee", $caseSensitive: true } } )
+
+
+
+Restrictions
+    A query can specify, at most, one $text expression.
+    The $text query can not appear in $nor expressions.
+    To use a $text query in an $or expression, all clauses in the $or array must be indexed.
+    You cannot use hint() if the query includes a $text query expression.
+    You cannot specify $natural sort order if the query includes a $text expression.
+    You cannot combine the $text expression, which requires a special text index, with a query operator that requires a different type of special index. For example you cannot combine $text expression with the $near operator.
+
+If using the $text operator in aggregation, the following restrictions also apply.
+
+    The $match stage that includes a $text must be the first stage in the pipeline.
+    A text operator can only occur once in the stage.
+    The text operator expression cannot appear in $or or $not expressions.
+    The text search, by default, does not return the matching documents in order of matching scores. Use the $meta aggregation expression in the $sort stage.
+
+
+

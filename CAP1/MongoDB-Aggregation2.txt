@@ -1,0 +1,65 @@
+Aggregation
+
+Aggregations are operations that process data records and return computed results. Unlike queries, aggregation operations in MongoDB use collections of documents as an input and return results in the form of one or more documents. MapReduce is a tool used for aggregating data
+What is an Aggregation Pipeline?
+
+An aggregation pipeline is a series of document transformations which are executed in stages. The original input is a collection whereas the output can be a document,cursor or a collection .
+
+The most basic pipeline stages provide filters that operate like queries and document transformations that modify the form of the output document.
+
+Other pipeline operations provide tools for grouping and sorting documents by specific field or fields as well as tools for aggregating the contents of arrays, including arrays of documents. In addition, pipeline stages can use operators for tasks such as calculating the average or concatenating a string.
+
+aggregation in mongo db
+
+Aggregation Expressions
+
+Expression	Description								Example
+$sum		Sums up the defined value from all documents in the collection			db.ships.aggregate([{$group : {_id : “$operator”, num_ships : {$sum : “$crew”}}}])
+$avg		Calculates the average of all given values from all documents in the collection.		db.ships.aggregate([{$group : {_id : “$operator”, num_ships : {$avg : “$crew”}}}])
+$min		Gets the minimum of the corresponding values from all documents in the collection.	db.ships.aggregate([{$group : {_id : “$operator”, num_ships : {$min : “$crew”}}}])
+$max		Gets the maximum of the corresponding values from all documents in the collection.	db.ships.aggregate([{$group : {_id : “$operator”, num_ships : {$max : “$crew”}}}])
+$push		Pushes the value to an array in the resulting document.				db.ships.aggregate([{$group : {_id : “$operator”, classes : {$push: “$class”}}}])
+$addToSet	Pushes the value to an array in the resulting document but does not create duplicates.	db.ships.aggregate([{$group : {_id : “$operator”, classes : {$addToSet : “$class”}}}])
+$first		Gets the first document from the source documents according to the grouping. Typically this makes only sense together with some previously applied “$sort”-stage.		db.ships.aggregate([{$group : {_id : “$operator”, first_class : {$first : “$class”}}}])
+$last		Gets the last document from the source documents according to the grouping. Typically this makes only sense together with some previously applied “$sort”-stage.		db.ships.aggregate([{$group : {_id : “$operator”, last_class : {$last : “$class”}}}])
+
+
+Operator	Description			Sample-Query
+$gt	greater than			db.ships.find({class:{$gt:’P’}})
+$gte	greater than or equal		db.ships.find({class:{$gte:’P’}})
+$lt	less than				db.ships.find({class:{$lt:’P’}})
+$lte	less than or equal			db.ships.find({class:{$lte:’P’}})
+$exists	does an attribute exists or not		db.ships.find({type:{$exists:true}})
+$regex	Perl-style pattern matching		db.ships.find({name : {$regex:’^USS\\sE’}})
+$type	search by the type of a certain element in the document	db.ships.find({name : {$type:2}})
+
+
+The following table gives an overview on how operations are mapped from SQL to MongoDB.
+SQL		MongoDB
+WHERE		$match
+GROUP BY	$group
+HAVING		$match
+SELECT		$project
+ORDER BY	$sort
+LIMIT		$limit
+SUM		$sum
+COUNT()		$sum
+JOIN		This cannot be directly matched as the whole concpet of joining does not exist as such in MongoDB. The “$unwind” operator is maybe the closest match here, because in MongoDB the data is usually pre-joined and this will create individual documents again (from an array).
+
+This is not a relational database, thus the terminology is slightly different ;-):
+Create	=>	Insert
+Read	=>	Find
+Update	=>	Update
+Delete	=>	Remove
+
+
+Aggregate in MongoDB
+    $project: reshape each document
+    $match: filter the stream
+    $limit: return only the first n documents
+    $unwind: deconstruct a list in each document into separate documents
+    $group: group documents by a given identifier
+    $sample: take a random sample
+    $out: write the results to a new collection. If used, this should be the last step of the pipeline.
+
+

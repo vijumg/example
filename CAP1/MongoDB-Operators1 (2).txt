@@ -1,0 +1,113 @@
+MongoDB operators with examples
+
+Comparison Query Selectors
+$eq  Equal to a specified value.
+$gt  Greater than a specified value.
+$gte  Greater than or equal to a specified value.
+$lt  Less than a specified value.
+$lte  Less than or equal to a specified value.
+$ne  Not equal to a specified value.
+$in  Matches any of the values specified in an array.
+$nin  Matches none of the values specified in an array.
+
+db.mycollectiontest.find('{"likes": {$gt:10}"likes"}'); 
+
+Logical Query Selectors
+$or  Joins query clauses with a logical OR Operator.
+$and  Joins query clauses with a logical AND Operator.
+$not  Inverts the effect of a query expression.
+$nor  Joins query clauses with a logical NOR returns.
+
+db.mycollectiontest.find({"likes": {$gt:10}, $or: [{"by": "tutorials point"})
+
+Element Query Selectors
+$exists  Matches documents that have the specified field.
+$type  Selects documents if a field is of the specified type.
+
+Evalution Query Selector
+$mod  Performs a modulo operation.
+$regex  Specified regular expression.
+$text  Performs text search.
+$where  Matches documents that satisfy a JavaScript expression.
+
+Array Query Selector
+
+$all        Matches arrays that contain all elements specified in the query.
+$elemMatch Selects documents if element in the array field matches all the specified $elemMatch conditions.
+$size       Selects documents if the array field is a specified size.
+
+Field Update Operators
+
+$inc        Increments the value.
+$mul        Multiplies the value.
+$rename     Renames a field.
+$setOnInsert Sets the value of a field if an update results in an insert of a document.
+$set  		Sets the value of a field in a document.
+$unset  		Removes the specified field from a document.
+$min  		Only updates the field if the specified value is less than the existing field value.
+$max  		Only updates the field if the specified value is greater than the existing field value.
+$currentDate  	Sets the value of a field to current date, either as a Date or a Timestamp.
+
+
+The update command supports variety of operators to control the modification semantics which are listed in the table below 
+Operator	Description
+$inc	Increments the value of the field by the specified amount.
+$mul	Multiplies the value of the field by the specified amount.
+$rename	Renames a field.
+$setOnInsert	Sets the value of a field upon document creation during an upsert. Has no effect on update operations that modify existing documents.
+$set	Sets the value of a field in an existing document.
+$unset	Removes the specified field from an existing document.
+$min	Only updates if the existing field value is less than the specified value.
+$max	Only updates if the existing field value is greater than the specified value.
+$currentDate	Sets the value of a field to current date, either as a Date or a Timestamp.
+$	Acts as a placeholder to update the first element that matches the query condition in an update.
+$addToSet	Adds elements to an existing array only if they do not already exist in the set.
+$pop	Removes the first or last item of an array.
+$pullAll	Removes all matching values from an array.
+$pull	Removes all array elements that match a specified query.
+$push	Adds an item to an array.
+$each	Modifies the $push and $addToSet operators to append multiple items for array updates.
+$slice	Modifies the $push operator to limit the size of updated arrays.
+$sort	Modifies the $push operator to reorder documents stored in an array.
+$position	Modifies the $push operator to specify the position in the array to add elements.
+$bit	Performs bitwise AND, OR, and XOR updates of integer values.
+$isolated	Modifies behavior of multi-updates to improve the isolation of the operation.
+
+MongoDB supports a rich set of query operators (for more details please refer to official documentation):
+
+    $gt
+    $gte
+    $in
+    $lt
+    $lte
+    $ne
+    $nin
+    $or
+    $and
+    $not
+    $nor
+    $exists
+    $type
+    $mod
+    $regex
+    $text
+    $where
+    $geoWithin
+    $geoIntersects
+    $near
+    $nearSphere
+    $all
+    $elemMatch
+    $size
+    $elemMatch
+    $meta
+    $slice
+
+With latest release MongoDB allows to limit the query processing time using maxTimeMS option (milliseconds). Please notice that maxTimeMS only accounts for CPU time and does not include network latency or idle time.
+
+db.books.find( { “title”: { “$regex”: “MongoDB” } } ).maxTimeMS( 500 )
+
+db.runCommand( {	    "geoSearch": "stores",    "near": [ 10, 14 ],    "maxDistance": 6,   "search": { "name": "BestBuy" }	} ) 
+
+
+

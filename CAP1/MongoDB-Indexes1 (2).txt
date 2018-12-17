@@ -1,0 +1,35 @@
+Indexes
+Introduction
+ Indexes are used by MongoDB to answer more efficiently queries.
+ 
+Without indexes MongoDB have to scan the whole collection.
+ 
+The idea is very similar to indexes in RDB: indexes are B-trees at the
+collection level.
+
+Default _id:
+ All MongoDB collections have an index on the _id field that exists by default. If
+applications do not specify a value for _id MongoDB will create an _id field with an
+ObjectId value.
+
+ The _id index is unique, and prevents clients from inserting two documents with the
+same value for the _id field.
+
+ Single Field:
+ User defined index on a single field of a document.
+
+ Compound Index:
+ User defined index on multiple fields.
+
+      Multikey Index:
+ Used to index the content stored in an array. Allow you to make queries matching
+      the elements of an array.
+ 
+     Geospatial Index:
+ Support queries of geospatial coordinate data.
+
+     Text Indexes:
+ Support queries of string skipping language specific stop-words.
+
+      Hashed Indexes:
+ Index the hash of the value of a field to increase randomity of distribution.

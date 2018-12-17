@@ -1,0 +1,123 @@
+Mongo DB Aggregation(Part 1) – Single purpose aggregation operations 
+aggregation operations in MongoDB use collections of documents as an input and return results in the form of one or more documents.
+
+There are 3 main aggregation operators :
+
+    Single purpose aggregation operations
+    Aggregation Framework
+    Map Reduce
+
+Single purpose aggregation operators
+
+> db.employees.insert( [
+{ "_id": 1, "emp_dept": "Sales", joining_date: "01-10-2014", "job_roles": [ "Manager", "Regional Head" ], salary : { "base": 2100, "variable": 800 }},
+{ "_id": 2, "emp_dept": "Sales", joining_date: "03-01-2014", "job_roles": [ "Analyst", "Sales Officer"], salary : { "base": 2000, "variable": 500 }},
+{ "_id": 3, "emp_dept": "Finance", joining_date: "31-01-2015", "job_roles": "Manager" , salary : { "base": 1000, "variable": 500 }},
+{ "_id": 4, "emp_dept": "Sales", joining_date: "03-03-2015", "job_roles": [ "Analyst"], salary : { "base": 1500, "variable": 500 } },
+{ "_id": 5, "emp_dept": "Finance", joining_date: "28-05-2015", "job_roles": [ "Analyst" , "Regional Head"], salary : { "base": 3000, "variable": 500 } } ] )
+
+> db.employees.find()
+
+1. COUNT – counts all documents or the ones that match a query (if specified)
+
+Syntax:
+db.<collection.count(query)
+or
+db.runCommand({ count: , query: , limit: , skip: , hint: })
+
+> db.employees.count({ joining_date: { $gte: new Date("2014","12","31") }})
+or
+> db.runCommand( { count:'employees',query: { joining_date: { $gte: new Date("2014","12","31") } }} )
+
+2. DISTINCT – returns distinct values for a key in collection. In case the key is an array field, it considers each value in the array as different value.
+
+Syntax:
+db..distinct(field, query)
+or
+db.runCommand({ distinct: "", key: "", query: })
+
+> db.runCommand({ distinct: "employees", key: "emp_dept"})
+or
+> db.employees.distinct("emp_dept")
+
+> db.runCommand ( { distinct: "employees", key: "job_roles", query: { emp_dept: "Sales"} } )
+
+
+3. GROUP – groups the documents in a collection by given key and allows to perform simple aggreation functions like sum/count on fields.
+
+Syntax:
+db.collection.group({ key, reduce, initial [, keyf] [, cond] [, finalize] })
+
+or
+
+db.runCommand({ group: { ns: ,key: ,$reduce: ,initial:,$keyf: ,cond: ,finalize:} }) 
+
+
+> db.runCommand({ group:{
+    ns: "employees",
+    key:{emp_dept:1},
+    initial: { basesalary : 0, variablesalary: 0, empcount:0 },
+    $reduce: function ( curr, result ) {
+    result.emp_dept = curr.emp_dept,
+    result.basesalary += curr.salary.base;
+    result.variablesalary += curr.salary.variable;
+    result.empcount++;
+    },
+    $finalize:function(result){
+    result.avgsalary = (result.basesalary+result.variablesalary)/result.empcount;
+    }}})
+
+or 
+
+db.employees.group({key:{emp_dept:1},
+    initial: { basesalary : 0, variablesalary: 0,empcount:0 }, reduce:function ( curr, result ) {
+    result.emp_dept = curr.emp_dept,
+    result.basesalary += curr.salary.base;
+    result.variablesalary += curr.salary.variable;
+    result.empcount++;
+},finalize:function(result){
+result.avgsalary = (result.basesalary+result.variablesalary)/result.empcount;
+}})
+
+The Aggregation Framework 
+The Mongo DB aggregation framework or aggregation pipeline lets you define a data processing pipeline. It takes multiple documents in a collection, puts them through the multiple Stages we define and transforms them into an aggregated result. It allows us to do much more complex aggregation than the “single purpose aggregation operators”,
+
+
+>db.empdept.insert( [
+{ "_id": 1, "emp_dept": "Sales", joining_date: ISODate("2014-10-01T00:00:00.000Z"), "job_roles":[ "Manager", "Region Head" ], salary :{ "base": 2100, "variable": "800" }},
+{ "_id": 2, "emp_dept": "Sales", joining_date: ISODate("2014-01-03T00:00:00.000Z"), "job_roles": [ "Analyst", "Sales Officer"], salary : { "base": 2000, "variable": 500 }},
+{ "_id": 3, "emp_dept": "Finance", joining_date: ISODate("2015-01-31T00:00:00.000Z"), "job_roles": "Manager" , salary : { "base": 1000, "variable": 500 }},
+{ "_id": 4, "emp_dept": "Sales", joining_date: ISODate("2015-03-03T00:00:00.000Z"), "job_roles": [ "Analyst"], salary : { "base": 1500, "variable": 500 }},
+{ "_id": 5, "emp_dept": "Finance", joining_date: ISODate("2015-05-28T00:00:00.000Z"), "job_roles": [ "Analyst" , "Region Head"], salary : { "base": 3000, "variable": 500 }},
+{ "_id": 6, "emp_dept": "Engineering", joining_date: ISODate("2015-01-29T18:30:00.000Z"), "job_roles": "Manager" , salary : { "base": 10000, "variable": 1500 }},
+{ "_id": 7, "emp_dept": "Engineering", joining_date: ISODate("2014-05-02T18:30:00.000Z"), "job_roles": [ "Superintendent"], salary : { "base": 5000, "variable": 500 } },
+{ "_id": 8, "emp_dept": "Engineering", joining_date: ISODate("2015-05-26T18:30:00.000Z"), "job_roles": [ "Superintendent" , "Region Head"], salary : { "base": 15000, "variable": 2000 } } ] )
+
+db.empdept.aggregate( [
+   { $match: { joining_date: { $gte: new Date("2015","00","00") }}},
+   { $group: { _id: "$emp_dept", 
+               basesalary: { $sum: "$salary.base" }, 
+               variablesalary: {$sum: "$salary.variable"},
+               empcount :{$sum:1}
+              }},
+   { $project: { 
+               basesalary : "$basesalary",
+               variablesalary: "$variablesalary",
+               empcount :"$empcount",
+               avgsalary: {$divide:[{ $add: [ "$basesalary", "$variablesalary" ] }, "$empcount" ] }
+               }},
+   { $match: { avgsalary: { $gte: 2500 } } }
+] )
+
+$match :
+
+This is typically a filter expression. The matching documents are passed to the next stage with no modifications. In our example, it acts as a WHERE as well as HAVING clause, as per the position of the $match stage in the pipeline. Firstly, it was used to filter the whole collection to only retrieve employees with joining date greater than ‘2015-01-01’. Later, it was used to filter only the groups (departments) whose average salary exceeded 2500.
+
+$group :
+
+This the group by clause which allows us to group the documents using a given key and define aggregated fields. In our example, we group the records on “employee department” and then calculate aggregated “basesalary”, “variablesalary” and also the “count of employees” in the group.
+
+$project:
+
+This is the SELECT clause, wherein we define the fields that we would like to see in the resultset.In our example, we have copied some fields from the previous stage results (basesalary, variablesalary,empcount) and added a new field “avgsalary” which uses arithmetic functions like add & divide.
+

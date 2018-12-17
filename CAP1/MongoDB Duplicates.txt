@@ -1,0 +1,15 @@
+
+MongoDB: find duplicates in a field
+This little script helps find duplicated data in a MongoDB field.
+
+m = function () {
+    emit(this.my_field, 1);
+}
+r = function (k, vals) {
+   return Array.sum(vals);
+}
+res = db.MyCollection.mapReduce(m,r, { out : "my_output" });
+db[res.result].find({value: {$gt: 1}});
+
+
+

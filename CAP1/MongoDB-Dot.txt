@@ -1,0 +1,12 @@
+Embedded Document and Dot Notation
+
+db.Employee.insert ({
+    Name:{firstName:"A",LastName:"B"},Age:26,Email:"Preeti@gmail.com",
+	Address:"Delhi",Interest:["cooking","Music"] })
+
+db.Employee.insert ({
+    Name:{firstName:"C",LastName:"B"},Age:30,Email:"Vijay@gmail.com",
+	Address:"Delhi",Interest:["cooking","Music"] })
+
+To specify a condition inside Embedded document, we can use dot notation as below:
+db.Employee.find({"Name.firstName":"Vijay"})
